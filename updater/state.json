@@ -1,8 +1,8 @@
 {
   "_about": "Updater memory. Edited only by the updater run (see UPDATER_RULES.md). Times: ISO 8601. Nexon CMS liveDate strings are US Pacific wall-clock despite the trailing Z.",
   "baselineDate": "2026-10-02",
-  "lastRun": "2026-10-02T04:25:00-05:00",
-  "lastRunResult": "Baseline seeded during Phase 5 setup (no updater run yet).",
+  "lastRun": "2026-10-02T12:16:00-05:00",
+  "lastRunResult": "no changes",
   "cms": {
     "seen": {
       "45226": "v.271 Known Issues",
@@ -72,5 +72,13 @@
   },
   "osms": { "lastCommitSeen": "2026-09-30" },
   "pressCheckedOn": "2026-10-02",
-  "runs": []
+  "runs": [
+    {
+      "at": "2026-10-02T12:16:00-05:00",
+      "result": "no changes",
+      "fetched": ["nexon_cms_list", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory"],
+      "newIds": [],
+      "notes": "Press search skipped (already checked 2026-10-02). meowdb sitemap max lastmod 2026-09-30; changelog unchanged. Zendesk count 1, no new articles. RUN_TIME taken from scheduler lastRunAt (no clock command allowed)."
+    }
+  ]
 }

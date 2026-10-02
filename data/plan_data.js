@@ -1,7 +1,7 @@
 window.PLAN_DATA = {
   "meta": {
     "version": "0.4.0",
-    "lastChecked": "2026-10-02T04:25:00-05:00",
+    "lastChecked": "2026-10-02T12:16:00-05:00",
     "lastUpdated": "2026-10-02T04:25:00-05:00",
     "timezone": "America/Chicago",
     "foundersAccess": "2026-10-06T11:00:00-07:00",
