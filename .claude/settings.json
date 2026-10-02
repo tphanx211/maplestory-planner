@@ -78,12 +78,10 @@
       "PowerShell(Get-Date -Format o)"
     ],
     "deny": [
-      "Edit(/index.html)",
       "Edit(/updater/UPDATER_RULES.md)",
       "Edit(/updater/validate_plan_data.py)",
       "Edit(/tools/**)",
       "Edit(/.claude/**)",
-      "Edit(index.html)",
       "Edit(updater/UPDATER_RULES.md)",
       "Edit(updater/validate_plan_data.py)",
       "Edit(tools/**)",

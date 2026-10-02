@@ -1,7 +1,7 @@
 {
   "_about": "Updater memory. Edited only by the updater run (see UPDATER_RULES.md). Times: ISO 8601. Nexon CMS liveDate strings are US Pacific wall-clock despite the trailing Z.",
   "baselineDate": "2026-10-02",
-  "lastRun": "2026-10-02T12:16:00-05:00",
+  "lastRun": "2026-10-02T14:39:58-05:00",
   "lastRunResult": "no changes",
   "cms": {
     "seen": {
@@ -79,6 +79,13 @@
       "fetched": ["nexon_cms_list", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory"],
       "newIds": [],
       "notes": "Press search skipped (already checked 2026-10-02). meowdb sitemap max lastmod 2026-09-30; changelog unchanged. Zendesk count 1, no new articles. RUN_TIME taken from scheduler lastRunAt (no clock command allowed)."
+    },
+    {
+      "at": "2026-10-02T14:39:58-05:00",
+      "result": "no changes",
+      "fetched": ["nexon_cms_list", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory"],
+      "newIds": [],
+      "notes": "CMS top 25 all seen, no name edits. Zendesk count 1, article 53268989017620 updated_at still 2026-10-01. meowdb sitemap max lastmod 2026-09-30. YouTube no new Classic titles. Press search skipped (already checked 2026-10-02)."
     }
   ]
 }
