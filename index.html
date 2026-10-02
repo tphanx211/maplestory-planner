@@ -50,7 +50,7 @@
   .chip b { color: var(--text); }
   nav.tabs {
     display: flex; gap: 4px; overflow-x: auto; padding: 8px var(--gutter) 0;
-    border-bottom: 1px solid var(--line); scrollbar-width: thin; position: sticky; top: 0; z-index: 5;
+    border-bottom: 1px solid var(--line); scrollbar-width: thin; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
     background: rgba(13,16,22,0.94); backdrop-filter: blur(6px);
   }
   nav.tabs button {
@@ -236,7 +236,81 @@
     weekly: load("weekly", {}),
     tab: load("tab", "updates")
   };
-  function persist(k) { save(k, S[k]); }
+  var STATE_KEYS = ["checks", "notes", "levels", "reviewAck", "weekly", "lastVisit", "routeChar"];
+  function persist(k) {
+    save(k, S[k]);
+    if (STATE_KEYS.indexOf(k) >= 0) remoteStateSoon();
+  }
+
+  /* ---------- optional sync: only inside the published claude.ai copy (owner-only db) ---------- */
+  var R_DB = null, stateTimer = null, writeChain = Promise.resolve(), syncState = "local";
+  function hasRuntime() { return !!(window.claude && typeof window.claude.use === "function"); }
+  function setSync(state, code) {
+    syncState = state;
+    var chip = document.getElementById("syncChip");
+    if (!chip) return;
+    var text = { loading: "Syncing…", ok: "Synced to your claude.ai account", off: "Sync off: this device only", error: "Sync problem" + (code ? " (" + code + ")" : "") + ": saving on this device" }[state];
+    chip.textContent = text || ""; chip.hidden = !text;
+  }
+  function remoteQueue(fn) {
+    writeChain = writeChain.then(fn).then(function () { if (syncState !== "ok") setSync("ok"); }, function (e) { setSync("error", e && e.code); });
+    return writeChain;
+  }
+  function remoteStateSoon() {
+    if (!R_DB) return;
+    clearTimeout(stateTimer);
+    stateTimer = setTimeout(function () {
+      var body = { updatedAt: new Date().toISOString() };
+      STATE_KEYS.forEach(function (k) { body[k] = S[k]; });
+      remoteQueue(function () { return R_DB.doc("mscw/state").set(JSON.parse(JSON.stringify(body))); });
+    }, 800);
+  }
+  function remotePriceSet(p) { if (R_DB) remoteQueue(function () { return R_DB.collection("prices").doc(p.id).set(JSON.parse(JSON.stringify(p))); }); }
+  function remotePriceDel(id) { if (R_DB) remoteQueue(function () { return R_DB.collection("prices").doc(id).delete(); }); }
+  function initSync() {
+    if (!hasRuntime()) return;
+    setSync("loading");
+    window.claude.use("db").then(function (db) {
+      if (!db) { setSync("off"); return; }
+      var remotePrices = [];
+      function page(last, guard) {
+        var col = db.collection("prices");
+        var q = last ? col.where("ts", ">", last).orderBy("ts").limit(1000) : col.orderBy("ts").limit(1000);
+        return q.get().then(function (snap) {
+          snap.docs.forEach(function (d) { remotePrices.push(JSON.parse(JSON.stringify(d.data()))); });
+          if (snap.size === 1000 && guard < 25) return page(snap.docs[snap.docs.length - 1].data().ts, guard + 1);
+        });
+      }
+      return db.doc("mscw/state").get().then(function (st) {
+        var rs = st.exists ? st.data() : {};
+        return page("", 0).then(function () {
+          var localIds = {}, remoteIds = {};
+          S.prices.forEach(function (p) { localIds[p.id] = 1; });
+          remotePrices.forEach(function (p) { remoteIds[p.id] = 1; if (!localIds[p.id]) S.prices.push(p); });
+          var toPush = S.prices.filter(function (p) { return !remoteIds[p.id]; });
+          ["checks", "notes", "reviewAck"].forEach(function (k) {
+            var r = rs[k]; if (r && typeof r === "object") for (var x in r) if (!(x in S[k])) S[k][x] = r[x];
+          });
+          if (rs.weekly && typeof rs.weekly === "object") for (var wk in rs.weekly) {
+            S.weekly[wk] = S.weekly[wk] || {};
+            for (var id in rs.weekly[wk]) if (!(id in S.weekly[wk])) S.weekly[wk][id] = rs.weekly[wk][id];
+          }
+          if (rs.levels && typeof rs.levels === "object") for (var c in rs.levels) S.levels[c] = Math.max(parseInt(S.levels[c], 10) || 1, parseInt(rs.levels[c], 10) || 1);
+          if (rs.lastVisit && (!S.lastVisit || rs.lastVisit > S.lastVisit)) S.lastVisit = rs.lastVisit;
+          if (rs.routeChar && load("routeChar", null) == null) S.routeChar = rs.routeChar;
+          ["prices", "checks", "notes", "reviewAck", "weekly", "levels", "lastVisit", "routeChar"].forEach(function (k) { save(k, S[k]); });
+          R_DB = db;
+          toPush.forEach(remotePriceSet);
+          var differs = STATE_KEYS.some(function (k) {
+            return JSON.stringify(rs[k] === undefined ? null : rs[k]) !== JSON.stringify(S[k] === undefined ? null : S[k]);
+          });
+          if (differs) remoteStateSoon();
+          setSync("ok");
+          renderAll();
+        });
+      });
+    }).catch(function (e) { setSync("error", e && e.code); });
+  }
 
   /* ---------- helpers ---------- */
   function esc(s) {
@@ -321,9 +395,13 @@
       return '<span class="chip"><b>' + label + "</b> in " + days + "d " + hrs + "h · " + fmtDate(d.toISOString(), true) + "</span>";
     }
     $("#chips").innerHTML = cd("Founder's Access", fa) + cd("Grand Launch", gl) +
-      '<span class="chip">' + tag("V") + " verified " + tag("B") + " legacy " + tag("?") + " unknown</span>";
+      '<span class="chip">' + tag("V") + " verified " + tag("B") + " legacy " + tag("?") + " unknown</span>" +
+      '<span class="chip" id="syncChip" hidden></span>';
+    setSync(syncState);
     $("#foot").innerHTML = "Plan files: " + D.meta.files.map(esc).join(" · ") +
-      "<br>Your checkmarks, notes and prices stay in this browser (keys prefixed <code>mscw.</code>). Export them from the Price Log tab.";
+      (hasRuntime()
+        ? "<br>This is the claude.ai copy. Checkmarks, notes and prices sync to your account when the sync chip says so; plan data updates when Claude republishes this page."
+        : "<br>Your checkmarks, notes and prices stay in this browser (keys prefixed <code>mscw.</code>). Export them from the Price Log tab.");
   }
 
   /* ---------- tabs ---------- */
@@ -642,8 +720,9 @@
       var name = id === "__other" ? ($("#fOther").value || "").trim() : w.item;
       if (!name) { toast("Type the item name"); return; }
       var when = $("#fWhen").value ? new Date($("#fWhen").value) : new Date();
-      S.prices.push({ id: uid(), itemId: id === "__other" ? "" : id, item: name, ts: when.toISOString(), channel: $("#fCh").value.trim(), kind: $("#fKind").value, price: price, qty: parseInt($("#fQty").value, 10) || 1, note: $("#fNote").value.trim() });
-      persist("prices"); $("#fPrice").value = ""; $("#fNote").value = "";
+      var obs = { id: uid(), itemId: id === "__other" ? "" : id, item: name, ts: when.toISOString(), channel: $("#fCh").value.trim(), kind: $("#fKind").value, price: price, qty: parseInt($("#fQty").value, 10) || 1, note: $("#fNote").value.trim() };
+      S.prices.push(obs);
+      persist("prices"); remotePriceSet(obs); $("#fPrice").value = ""; $("#fNote").value = "";
       if (id !== "__other") pf.sel = id;
       drawWatch(); toast("Price added");
     });
@@ -687,7 +766,7 @@
       b.addEventListener("click", function (ev) {
         ev.stopPropagation();
         var id = b.getAttribute("data-del");
-        S.prices = S.prices.filter(function (p) { return p.id !== id; }); persist("prices"); drawWatch(); toast("Deleted");
+        S.prices = S.prices.filter(function (p) { return p.id !== id; }); persist("prices"); remotePriceDel(id); drawWatch(); toast("Deleted");
       });
     });
   }
@@ -743,15 +822,23 @@
       state: { prices: S.prices, checks: S.checks, notes: S.notes, levels: S.levels, reviewAck: S.reviewAck, weekly: S.weekly, lastVisit: S.lastVisit } };
   }
   function stamp() { return new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-"); }
-  function exportJson() { download("mscw-export-" + stamp() + ".json", JSON.stringify(snapshot(), null, 2), "application/json"); toast("JSON exported"); }
+  function saveFile(name, text, type) {
+    if (!hasRuntime()) { download(name, text, type); toast("Exported " + name); return; }
+    window.claude.use("downloads").then(function (dl) {
+      if (!dl) { toast("Saving files isn't available in this view"); return; }
+      return dl.save({ filename: name, data: text }).then(function () { toast("Saved " + name); }, function (e) {
+        toast(e && e.code === "declined" ? "Save cancelled" : "Couldn't save the file (" + ((e && e.code) || "error") + ")");
+      });
+    });
+  }
+  function exportJson() { saveFile("mscw-export-" + stamp() + ".json", JSON.stringify(snapshot(), null, 2), "application/json"); }
   function csvCell(v) { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
   function exportCsv() {
     var head = ["datetime", "channel", "item", "ask_or_sale", "price", "qty", "note", "item_id"];
     var lines = [head.join(",")].concat(S.prices.map(function (p) {
       return [p.ts, p.channel, p.item, p.kind, p.price, p.qty, p.note, p.itemId].map(csvCell).join(",");
     }));
-    download("mscw-prices-" + stamp() + ".csv", lines.join("\n"), "text/csv");
-    toast("CSV exported");
+    saveFile("mscw-prices-" + stamp() + ".csv", lines.join("\n"), "text/csv");
   }
   function parseCsv(text) {
     var rows = [], row = [], cur = "", q = false;
@@ -778,7 +865,7 @@
       if ((p.id && have[p.id]) || key[k]) return;
       if (!p.id) p.id = uid();
       if (!p.itemId) { var w = D.watchlist.filter(function (x) { return x.item === p.item; })[0]; p.itemId = w ? w.id : ""; }
-      S.prices.push(p); have[p.id] = 1; key[k] = 1; added++;
+      S.prices.push(p); have[p.id] = 1; key[k] = 1; added++; remotePriceSet(p);
     });
     persist("prices");
     return added;
@@ -897,6 +984,7 @@
   }
   renderTabs();
   renderAll();
+  initSync();
   setInterval(renderHeader, 60000);
 })();
 </script>
