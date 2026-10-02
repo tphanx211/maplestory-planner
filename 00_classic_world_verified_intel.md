@@ -70,7 +70,7 @@ Measured against the spec's definitions:
 - Lv 35–70 axes are drop/FM/craft only [V-dm], so expect to spend on the weapon around Lv 40.
 - Short reach and a 4-target cap. **Hunter** (#2 AoE, best range) is the runner-up farmer if melee feels bad in play.
 
-**Expected state on Oct 20** [calc]: about Lv 55–60 at a realistic pace (model pace about Lv 63). **Lv 70 is not reachable in Founder's Access.**
+**Expected state on Oct 20** [calc, `01_early_access_route.md` §0]: **Lv ~51–60 (mid ~55)** and **~2.3M–13.7M net mesos from mob drops (mid ~7.7M)**, before any item sales. The range comes from the unmeasured meso drop chance and real-play pace. **Lv 70 is not reachable in Founder's Access.**
 
 ### 1.2 Launch character: **Assassin, but only if a friend brings AoE; otherwise Hunter**
 
