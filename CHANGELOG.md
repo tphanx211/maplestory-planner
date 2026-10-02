@@ -2,6 +2,12 @@
 
 Newest first. The updater adds an entry for every run that changes content, with source URLs. `data/plan_data.js` → `changelog` mirrors these entries so the dashboard's Updates tab can show them.
 
+## 0.5.0 · 2026-10-02 · Auto-updater and phone copy
+- Scheduled updater: daily 2:30 PM and 9 PM CT, plus one-off runs at 1:30 PM CT on Oct 6 and Oct 21 (`updater/UPDATER_RULES.md`).
+- First supervised run (commit 3e2d90d): no changes; Nexon CMS, Nexon support, meowdb sitemap and YouTube checked.
+- Private claude.ai copy of the dashboard: https://claude.ai/artifact/WGdkJ7HCh93qLxcYKU4Zrk (prices, checkmarks and notes sync to the owner's account there).
+- Sources: https://g.nexonstatic.com/maplestory/cms/v1/news
+
 ## 0.4.0 · 2026-10-02 · Dashboard
 - Added `index.html` and `data/plan_data.js`: Updates, Class Tier Matrix, Route & SP tracker, Farming Targets, Price Log & Watchlist (signals R1–R7, JSON/CSV export and import), Launch Checklist, Dual-Character Routine.
 

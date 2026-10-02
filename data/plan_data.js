@@ -1,8 +1,8 @@
 window.PLAN_DATA = {
   "meta": {
-    "version": "0.4.0",
+    "version": "0.5.0",
     "lastChecked": "2026-10-02T12:16:00-05:00",
-    "lastUpdated": "2026-10-02T04:25:00-05:00",
+    "lastUpdated": "2026-10-02T12:24:00-05:00",
     "timezone": "America/Chicago",
     "foundersAccess": "2026-10-06T11:00:00-07:00",
     "grandLaunch": "2026-10-21T11:00:00-07:00",
@@ -470,6 +470,7 @@ window.PLAN_DATA = {
   },
 
   "changelog": [
+    {"date": "2026-10-02T12:24:00-05:00", "version": "0.5.0", "title": "Auto-updater and phone copy", "items": ["Updater runs daily at 2:30 PM and 9 PM CT, plus one-off runs at 1:30 PM CT on Oct 6 and Oct 21", "First supervised run: no changes (all sources checked)", "Private claude.ai copy of this dashboard; prices and checkmarks sync to your account there"], "sources": ["N1"]},
     {"date": "2026-10-02T04:25:00-05:00", "version": "0.4.0", "title": "Dashboard created", "items": ["Dashboard (index.html) and this data file", "Price log with medians and buy/sell signals; checklist and routine"], "sources": []},
     {"date": "2026-10-02T03:30:00-05:00", "version": "0.3.0", "title": "Market playbook, funding checklists, dual-character ops", "items": ["Relative buy/sell rules R1-R7 anchored to NPC prices", "Assassin and Hunter funding CSVs", "Storage transfer runs and daily schedules"], "sources": ["M-ITEM", "M-SHOPS", "M-Q"]},
     {"date": "2026-10-02T03:00:00-05:00", "version": "0.2.0", "title": "Founder's Access route and launch-day verification", "items": ["Fighter route by bracket with kill and meso math", "Projection: Lv ~51-60 and ~2.3M-13.7M net mesos by Oct 20", "Oct 6 quick card and 37 checks"], "sources": ["M-FIGHTER", "M-GRIND", "M-MESO", "M-DROPS"]},
