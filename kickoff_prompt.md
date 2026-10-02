@@ -6,15 +6,15 @@ This prompt is the agreed spec, so skip any separate brainstorming or spec-writi
 
 Work in `C:\Users\TonyH\maplestory-plan\classic_launch_strategy\`. Run `git init` there when you create it and commit at the end of each phase.
 
-## About me (fill in before sending)
+## About me (filled in Oct 2, 2026)
 
-- Region / server, and my timezone: [FILL]
-- Play time Oct 6–20: [FILL] hrs on weekdays, [FILL] hrs on weekend days. After Oct 21: [FILL]
-- Founder's Package tier (and contents, if known): [FILL]
-- Cash Shop budget for convenience items (storage, shop permits, pets): [FILL, or "none"]
-- Friends joining Oct 21: how many, their planned classes, when they usually play: [FILL]
-- Where I'll view the dashboard: [FILL: second monitor on this PC / phone / tablet]
-- Market risk appetite: [FILL: conservative / balanced / aggressive]
+- Region / server, and my timezone: NA, US Central (CDT, UTC−5)
+- Play time Oct 6–20: 4 hrs on weekdays, 8 hrs on weekend days. After Oct 21: same (4 / 8)
+- Founder's Package tier (and contents, if known): Zakum ($79.99): Founder's Access Oct 6, plus Orange Mushroom and Snail contents, black Mark of the Founder, Manji outfit, two Founder rings, Radiance of the Founder (cosmetic only, per meowdb)
+- Cash Shop budget for convenience items (storage, shop permits, pets): whatever pays off in mesos
+- Friends joining Oct 21: 1–2 friends; classes and play times not decided yet
+- Where I'll view the dashboard: second monitor on this PC; phone later
+- Market risk appetite: balanced
 
 ## What we already know (checked Oct 2, 2026; reconfirm on the official site)
 
