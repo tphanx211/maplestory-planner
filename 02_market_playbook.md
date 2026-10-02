@@ -1,6 +1,8 @@
 # Market Playbook: Founder's Access to Free-to-Play
 
-Version 0.1 · 2026-10-02. Risk profile: **balanced**. Tags and source keys are as in `00_classic_world_verified_intel.md`.
+Version 0.6 · 2026-10-02. Risk profile: **balanced**. Tags and source keys are as in `00_classic_world_verified_intel.md`.
+
+**Changed in 0.6:** the farmer is now an **I/L Wizard** and the launch character an **Assassin** (your decision). What changed here: the farming income figure (§2.2), the merchant role (§2.3: offline Hired Merchant only), the quest Greater scrolls a mage can get (§3, W10), the farmer's own gear buys (§4.1, W27), and the Hunter fallback (§5, retired). Equipment drops are vendored to NPCs at 25–50% of the NPC buy price; scrolls sell to NPCs for 1 meso, so scroll income only exists as player sales [V-dm].
 
 **No prices exist yet, and none are invented here.** Every rule is relative to prices **you observe** (logged in the dashboard's price log in Phase 4, or the template in §8), or to datamined NPC prices [V-dm].
 
@@ -72,7 +74,7 @@ The dashboard computes:
 
 ### 2.2 The one-client constraint
 You can run **one game at a time** [V-off N1], and two Classic clients aren't confirmed (V-16). **Shop time is farming time lost.**
-- At the Lv 35+ farming estimate (~40–290k mesos/h net, `01` §0), a shop session must beat that to be worth staying in.
+- At the I/L farming estimate (~40–60k mesos/h net at Lv 30–38, ~75–100k at Lv 41–50, ~110–130k at Lv 51–60, mid case, `01` §0), a shop session must beat that to be worth staying in.
 - **Shop while you're away from the keyboard**: meals and breaks. That's manual play, not automation.
 - **Batch your selling**: one 20–30 min session per play day. List, adjust prices, close.
 - Leaving the shop open while you're logged in and idle is not botting. Whether Classic has an **idle disconnect** is [?]; test it once.
@@ -84,6 +86,7 @@ You can run **one game at a time** [V-off N1], and two Classic clients aren't co
   - Stock it with your R3 list (premium prices). Overnight buyers are price-takers.
   - **Risk:** COT2 had a bug that stripped equipment stats when collected from a closed merchant [V-off N6]. For the first week, sell **only scrolls, stars and ETCs** through it, not scrolled equipment.
 - **If it isn't sold:** there's no overnight selling. Skip this section. Don't use workarounds.
+- **The farmer as "FM merchant":** your farmer and Assassin share one account, and one account can only have one character logged in at a time [B legacy behaviour; not addressed by Nexon]. So the farmer can't sit in a shop while you play the Assassin. Its merchant role is **the offline Hired Merchant (if sold), or Store Permit sessions while the Assassin is logged off**. A shop on a second account with a second client is a gray area: don't do it without a written OK from Nexon (V-16, V-29).
 
 ---
 
@@ -91,10 +94,10 @@ You can run **one game at a time** [V-off N1], and two Classic clients aren't co
 
 | Item group | Call | Why | Invalidator (what would trigger R5 or a re-think) |
 |---|---|---|---|
-| **Greater (10%) weapon ATT scrolls** (3 per character from Hollow/Blackbull/Alligators) | **Sell during Founder's Access** | Quest supply keeps growing as more characters reach Lv 39–48, and they're worth 0.3 stat per slot in expectation | Quest rewards turn out untradeable (V-21) |
+| **Greater (10%) weapon scrolls** (3 per character from Hollow/Blackbull/Alligators; **class-gated**: your I/L gets Wand/Staff MATK Greater, the Assassin gets Claw ATT Greater) | **Sell the I/L's copies during Founder's Access** (keep one only if you'll gamble a slot on your own wand); the Assassin's Claw Greaters go to its claw | Quest supply keeps growing as more characters reach Lv 39–48, and they're worth 0.3 stat per slot in expectation | Quest rewards turn out untradeable (V-21) |
 | **Intermediate defensive scrolls** (hat, top/bottom DEF, shoes evasion, shield, cape DEF) | **Sell any time; don't hold** | The Tulcus Lesser at 15k caps them | — |
-| **Mokbi, Kumbi** | **Sell the surplus during Founder's Access**; keep a launch-character stash if Assassin | Founder thieves need them while leveling; resale supply grows once founders upgrade | Prices keep rising after Oct 21 (F2P thief demand plus meso growth) → hold the rest |
-| **Ilbi, Hwabi, Steely, Tobi** | **Hold** (or feed to an Assassin) | Boss- or rare-sourced; the whole thief population is the market | Many founders camp the bosses; an Ossyria patch adds sources |
+| **Mokbi, Kumbi** | **Sell the surplus during Founder's Access**; keep 2–3 sets of each for the Assassin | Founder thieves need them while leveling; resale supply grows once founders upgrade | Prices keep rising after Oct 21 (F2P thief demand plus meso growth) → hold the rest |
+| **Ilbi, Hwabi, Steely, Tobi** | **Hold** (or feed to the Assassin) | Boss- or rare-sourced; the whole thief population is the market. Hwabi has no confirmed launch-scope source [V-cbt 0 up/1 down] | Ilbi: many founders camp Mushmom. Steely/Tobi: M7 falls for 2+ weeks while Red Drake / Golem maps are crowded. Any: an Ossyria patch adds sources |
 | **GFA/GFMA 60/10 scrolls and GFA'd gloves** | **Hold, then sell before the grade-9 cap event** | Unbuyable until citizenship grade 9 (Lv 52) | Contribution is cumulative and fast (V-9) → sell earlier; Nexon moves GFA Lesser to a lower grade |
 | **Overall stat scrolls (Intermediate/Greater) and stat-scrolled Sauna Robes** | **Hold, then sell before the grade-7 cap event** | 10-slot all-class base, one per character | Same as GFA; robes turn out untradeable |
 | **Earring stat and Cape stat Intermediate/Greater; Gloves Crit; Earring Crit Damage** | **Hold** | No NPC source until Arcforge Lv 8–10 crafters scale up | Arcforge becomes common |
@@ -114,9 +117,9 @@ You can run **one game at a time** [V-off N1], and two Classic clients aren't co
 |---|---|
 | **Observe first.** Log asks for every watchlist item (§8) at least twice a day. No R2/R3 trades until n ≥ 5 | — |
 | **Floor arbitrage** whenever you see it | R1 |
-| **Sell:** surplus early equips (Battle Axe, Pan Lid, Lv 15–30 weapons) to founders, but never above the NPC ceiling for NPC-sold gear. Also the first Claw ATT Intermediate and Intermediate defensive scrolls | R3, R6 |
-| **Keep:** Work Gloves (your GFA base), quest ETCs you'll need (`01` §12), and every star | — |
-| **Don't buy** speculative stock yet. Your mesos go to the Blue Axe (26k) and Lessers first (progression reserve) | §1.4 |
+| **Sell:** surplus early equips (Lv 15–30 weapons and armor) to founders, but never above the NPC ceiling for NPC-sold gear, and vendor them when nobody pays more than the NPC (`01` §12). Also Intermediate defensive scrolls. **Keep** Claw ATT Intermediate for the Assassin | R3, R6 |
+| **Keep:** Work Gloves (the farmer's GFMA base; a second pair for the Assassin's GFA), quest ETCs you'll need (`01` §12), and every star | — |
+| **Don't buy** speculative stock yet. Your mesos go to the **Mithril Wand (22,000 at Flora)** and Wand MATK Lessers (25,000 at El Moth) first (progression reserve) | §1.4 |
 | **Watch:** does the founder population keep growing? (Packages are sold until **Oct 14** [V-off N10].) Do trade tax and gates exist? (V-11) | — |
 
 ### 4.2 Oct 11–19: founders Lv 30–60, peak founder demand
@@ -128,9 +131,9 @@ You can run **one game at a time** [V-off N1], and two Classic clients aren't co
 
 | Do | Rule |
 |---|---|
-| **Sell Greater weapon scrolls** as soon as you get them, except one for your own 2H axe if you choose to gamble | R3; take ≥ 1.2 × M7 immediately |
+| **Sell the I/L's Wand/Staff MATK Greater scrolls** as soon as you get them, except one if you choose to gamble on your own wand | R3; take ≥ 1.2 × M7 immediately |
 | **Sell quest materials into the Lv 44–48 wall**: Mushmom Spore, Medicine With Weird Vibes, Drake Skull, Dragon Skin, Sap of Ancient Tree, Stone Golem Rubble, Jr. Necki Skin, Malady's Frog | §6 rules |
-| **Sell Mokbi/Kumbi surplus.** If the launch character will be an Assassin, keep **2–3 sets of each** | R3 |
+| **Sell Mokbi/Kumbi surplus.** Keep **2–3 sets of each** for the Assassin | R3 |
 | **Hold:** Ilbi/Hwabi/Steely/Tobi, GFA scrolls and GFA'd gloves, Overall stat scrolls, Earring/Cape stat scrolls, Chaos | §3 |
 | **Value-buy** hold items only below 0.60 × M3, within the 35% hold bucket | R2, §1.4 |
 | **Watch:** players advertising citizenship grade 7+, which is the cap-event warning (R4). Also any Nexon notice about trade rules, maintenance, or rollbacks | — |
@@ -164,10 +167,10 @@ You can run **one game at a time** [V-off N1], and two Classic clients aren't co
 ---
 
 ## 5. Launch-character funding (cross-reference)
-- `03_assassin_funding_checklist.csv` is the default.
-- `03_hunter_funding_checklist.csv` is the fallback.
+- `03_assassin_funding_checklist.csv` is the plan.
+- `03_hunter_funding_checklist.csv` is archived (0.5 fallback, no longer used).
 
-The farmer supplies stars and scrolls **internally first**, then market-buys at R2. Internal transfers go through shared storage (`04`).
+The farmer supplies stars and scrolls **internally first**, then market-buys at R2. Internal transfers go through shared storage (`04`). What an I/L farmer can and can't supply: Mokbi (Jr. Wraith), Claw ATT Intermediate (Zombie Mushroom), Kumbi (Lupin), Wolbi (Fire Boar), Steely (Red Drake, ice weak) and Ilbi (Mushmom, with the Cold Beam boss variant) — yes. Claw ATT Greater (class-gated quest reward) and Hwabi (no confirmed source) — no; buy those at R2.
 
 ---
 
@@ -220,7 +223,7 @@ Log columns: `datetime, channel, item, ask_or_sale, price, qty, note`.
 | W07 | Gloves ATT Intermediate (GFA60) | scroll | 1 | grade 9: 50k Lesser | Hold → R4 |
 | W08 | Gloves ATT Greater (GFA10) | scroll | 1 | — | Hold → R4 |
 | W09 | Claw ATT Intermediate | scroll | 1 | 1.5 × 50k Lesser | Sell or keep for the Assassin |
-| W10 | 2H Axe ATT Greater | scroll | 1 | 0.5 × 50k | Sell |
+| W10 | Wand/Staff MATK Greater | scroll | 1 | 0.5 × 25k | Sell (keep one only to gamble on your wand) |
 | W11 | Overall DEX/STR/LUK/INT Intermediate | scroll | 1 | grade 7: 35k Lesser | Hold → R4 |
 | W12 | Earring INT/LUK Intermediate | scroll | 1 | — | Hold |
 | W13 | Any Chaos scroll | scroll | 1 | — | Hold |
@@ -237,4 +240,4 @@ Log columns: `datetime, channel, item, ask_or_sale, price, qty, note`.
 | W24 | Garnet Ore | ore | 40 | — | Buy after Oct 21 |
 | W25 | Black Crystal Ore | ore | 500 | — | Buy after Oct 21 |
 | W26 | Leather | material | — | — | Buy after Oct 21 |
-| W27 | Lv 40–50 2H axes (Sabretooth, The Rising) | equip | — | — | Buy for the Fighter at R2 |
+| W27 | Lv 35–50 wands and staves (Fairy Wand, Cromi, Arc Staff) | equip | — | — | Buy for the I/L at R2 (check the LUK requirement, `01` §7) |

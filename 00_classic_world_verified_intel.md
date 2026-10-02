@@ -1,6 +1,6 @@
 # MapleStory Classic World: Verified Intel (Phase 1)
 
-Version 0.1 · last checked 2026-10-02 · Founder's Access opens **Tue Oct 6, 11:00 AM PDT (1:00 PM CDT)**; Grand Launch **Wed Oct 21, 11:00 AM PDT (1:00 PM CDT)** [V-off N1].
+Version 0.6 · last checked 2026-10-02 · **Farmer: I/L Wizard; launch character: Assassin (your decision, 0.6)** · Founder's Access opens **Tue Oct 6, 11:00 AM PDT (1:00 PM CDT)**; Grand Launch **Wed Oct 21, 11:00 AM PDT (1:00 PM CDT)** [V-off N1].
 
 ## How to read this file
 
@@ -25,7 +25,7 @@ Source keys (N1, M-DPS, …) resolve to URLs and dates in §8. `updater/sources.
 |---|---|---|---|---|
 | A1 | Level cap 70 | **Unconfirmed** | Nexon has published no launch cap [V-off N1, N3]. COT1 stopped at 50; COT2 opened 3rd job at 70 and gave testers a Lv 100 test boost [V-off N4]. meowdb's EXP-table page (Sep 18) says "Current Launch Cap: Level 50"; its newer pages (Sep 29–30) say "not published" [V-cbt M-EXP, M-REL]. Confirmed: **3rd job (Lv 70) is not at launch** [V-off N3], so 2nd job is the ceiling. | Farming at cap, citizenship grade 9 (needs Lv 52), route 51–70 |
 | A2 | Magicians advance at 8; stat dice at creation | **Broken** | All classes take 1st job at **Lv 10 with no stat requirement** [V-off N7; V-dm M-Q1017]. **No dice**: every stat starts at 4 plus 9 free points [V-cbt W-CC]. | Route 1–10, AP plans |
-| A3 | I/L is the best farmer (Thunderbolt) | **Broken** | I/L only mobs well from ~Lv 45–50, Thunder Bolt is weak per target (Basic Atk 70), costs 40 MP/cast, and there's no Spell Booster before 3rd job. Elemental weakness is only **1.25×** (legacy 1.5×) [V-dm M-SKILL, M-DMG]. See §2. | Farming pick |
+| A3 | I/L is the best farmer (Thunderbolt) | **Unproven** (0.6) | Thunder Bolt is usable from Lv 30 (no prerequisite), and meowdb's model has I/L ahead from Lv ~45–50 if casts hit most of 6 mobs. Against it: weak per target (Basic Atk 70), 40 MP per cast, no Spell Booster before 3rd job, spells can miss, and weakness is only **1.25×** (legacy 1.5×) [V-dm M-SKILL; model M-DMG, M-ACC]. Your pick; see §1.1. | Farming pick |
 | A4 | Pirates may be in scope | **Broken** | **No Pirates**, Cygnus or Aran. Only 4 Explorer classes, 10 2nd jobs [V-off N3 class split; V-dm M-CLASS]. | Census |
 | A5 | Meso Up, Meso Guard, Rush, Flash Jump are legacy 3rd-job previews | **Changed** | **Rush is now a 2nd-job skill for all three warriors**, cooldown 1 s [V-dm; V-off N5]. **Power Guard and Hyper Body moved to 3rd job** (not at launch) [V-dm M-CLASS]. **Meso Up doesn't exist** in Classic's Hermit list. Flash Jump, Meso Guard, Pickpocket and Avenger are 3rd job (not at launch) [V-dm]. | Class census |
 | A6 | GFA 60%/10%, Claw ATT 60%/10%, DEX/LUK scrolls | **Changed** | New tiers: **Lesser 100% (+1)**, Intermediate 60% (+2), Greater 10% (+3), Chaos 10% (+4, **50% destroy**). **NPCs sell Lesser scrolls**: weapon Lessers 25k–50k to anyone; GFA Lesser 50k only at citizenship grade 9. **No** Gloves DEX, Helmet DEX/INT, Top/Bottom stat, Shoes DEX, or 30%/70% scrolls [V-dm M-ITEM]. | Market playbook, funding CSV |
@@ -49,54 +49,51 @@ New systems that legacy didn't have (all [V-dm] unless noted):
 
 ## 1. Recommendations
 
-### 1.1 Farming character: **Fighter (2H Axe)**
+**Changed in 0.6:** you chose an **Ice/Lightning Wizard** as the farmer and an **Assassin** as the launch character (Oct 2). The 0.5 analysis picked a Fighter, and the Oct 2 review's blind re-pick also landed on the Fighter for mesos by Oct 21. This section now states the case for your pick, what it costs, and what has to go right. The 0.5 text is in git history (commit 94f4082).
 
-Measured against the spec's definitions:
+### 1.1 Farming character: **Ice/Lightning Wizard** (your decision)
 
-**Priority 1: most mesos plus resale value by Oct 21, counting leveling time.**
-- **Fighter farms earliest.** Its 1st-job Slash Blast already hits 4 targets: 130%, 150 px, no cooldown, maxed around Lv 25 [V-dm M-SKILL]. No other class has multi-target damage before 2nd job except the Archer's melee-range Power Knockback. Efficient 2nd-job farming starts around **Lv 35, after ~21–30 h** [calc, warrior notes], leaving **~46–55 of 76 h** for efficient farming. Hunter, I/L and F/P only become efficient around Lv 45–50, after 27–60 h.
-- **Lowest upkeep per unit of damage.** Damage/MP is #1 of all classes (Fighter 264.5; Page 236.3; Spearman 224.2; Crossbowman 174.2; Hunter 166.5; Assassin 160.0; Bandit 147.6; I/L 114.5; F/P 95.2; Cleric 88.2) [V-cbt M-TIER model].
-- **Mesos appear to scale with mob level**: ~2× mob level per kill in 13 single COT2 reports [V-cbt M-MESO, low confidence]. Mesos per HP are best on dense low-HP mobs (Jr. Wraith: ~67 mesos for 982 HP). AoE classes win that trade.
-- **Resale value**: farming maps decide drops, not class. A Fighter can farm Jr. Wraith (Mokbi stars), Lupin (Kumbi) and Zombie Mushroom (Claw ATT Intermediate), and can solo Mushmom (Lv 40, 34,440 HP; Ilbi stars) and Zombie Mushmom (Lv 50, 53,640 HP; Ilbi/Hwabi). Fighter is #2 in single-target DPS [V-dm/V-cbt M-DROPS, M-DPS].
-- **Highest durability** of the damage classes (2H physical EHP ≈4,010; ≈6,500 with 1H + shield) means fewer deaths. Death costs up to 10% of the EXP bar [V-cbt W-DEATH].
+**Why it can work (your 4th reason holds in the model):**
+- **Lv 48–65 is where I/L leads.** meowdb's Training Advisor gives I/L 14,023 / 19,318 / 24,777 EXP/min at Lv 50 / 60 / 70 against the Fighter's 7,883 / 10,557 / 11,089 [model, M-IL guide 2026-10-02]. Two caveats: the I/L rows assume every Thunder Bolt hits all 6 mobs, and the Fighter rows are single-target Power Strike, so the real gap is smaller. More kills also mean more equipment and scroll drop rolls.
+- **Thunder Bolt works from Lv 30.** It has no prerequisite (6 targets at every skill level, Basic Atk 40 → 70, MP 20 → 40) [V-dm]. The 0.5 claim "no AoE before Lv 41" was only meowdb's default SP order.
+- **Magic DEF favours I/L on the densest maps.** Jr. Wraith, Wraith and Curse Eye have **0 M.DEF** (30 P.DEF) [V-dm].
+- **Durability:** physical EHP ~5,140 and magic EHP ~5,300, higher than the Fighter's ~4,010 [model M-TIER], paid for in MP through Magic Guard.
+- **Mobility 5.0** (best) vs Fighter 3.0 on meowdb's tier list [model]; Teleport is cheap only from skill Lv ~10.
 
-**Priority 2: solo mesos/hour after Oct 21 and at the cap.**
-- **#1 AoE DPS at Lv 70** (9,235/s with Slash Blast plus FA Axe on 3 targets) and **#2 single-target** (4,390/s) [V-cbt M-DPS model: stationary 0-DEF target, all hits land].
-- Rage (+40 Attack Power) and Axe Bleed are self-sufficient. There's no ammo cost.
-- Rush (1 s cooldown) gives some mobility [V-off N5].
+**What it costs (Founder's Access, priority 1)** [calc, `01` §0; review T5/T6/T11]:
+- **Slower start and higher upkeep.** Lv 10–30 is single-target Energy Bolt. Thunder Bolt costs 40 MP per cast at max; at 40–65% uptime that's ~70–115k mesos/h of MP before regen and MP Eater [calc: 3,600 ÷ 0.81 s × 40 MP × uptime × 1 meso/MP]. Damage per MP at the AoE cap: I/L 155.6 vs Fighter 556.3 [model M-DPS].
+- **Projected Oct 20:** I/L **~Lv 47 / 51 / 57** and **~1.4M / 3.9M / 8.0M** net coin mesos (low / mid / high), against the Fighter baseline's ~Lv 52.5 / 57 / 62 and ~2.1M / 6.7M / 12.2M on the same corrected inputs. Equipment vendoring adds about the same per kill to either class (unknown drop rate; `01` §0.1).
+- **Spells can miss.** Magician ACC = floor((1.2·INT + 2·Lv + 0.6·LUK)/5.1 + 20), with the same hit roll as physical attacks [model M-ACC]. A pure-INT I/L reaches Wraith's 101 ACC only around Lv 48–50.
+- **Wands need LUK** (Mithril 20, Fairy 30, Arc Staff and Cromi 40) [V-dm, M-IL guide].
+- **Thunder Bolt hits about one platform** (340×140 px, ground-cast only; no mid-jump casting) [V-dm; M-JUMP guide], so vertical maps don't add targets. Its best maps are the same contested Ant Tunnels and subway lines.
 
-**Risks to this call:**
-- Mesos per kill are unmeasured [?]. If high-level single mobs drop far more than ~2× level, **Bandit** (#1 single-target, MGI 5.7) closes the gap.
-- Lv 35–70 axes are drop/FM/craft only [V-dm], so expect to spend on the weapon around Lv 40.
-- Short reach and a 4-target cap. **Hunter** (#2 AoE, best range) is the runner-up farmer if melee feels bad in play.
+**What has to go right** (each is a day-1 check in `05`):
+- **≥2 targets per Thunder Bolt** on your maps (V-40), or switch to meowdb's Cold Beam-first order.
+- **Cheap MP:** buy only Orange (50 mesos / 50 MP) or Lemon; pet auto-pot if it pays (V-7).
+- **Low-congestion maps:** Dark Cave, Ant Tunnel IV, Sleepy Dungeon IV, Tree Dungeon Forest Up North VI, Burnt Land IV (`01` §3–6).
+- **Level cap ≥ 60** (V-10). If the cap is 50, the Lv 48–65 advantage mostly disappears.
 
-**Expected state on Oct 20** [calc, `01_early_access_route.md` §0]: **Lv ~51–60 (mid ~55)** and **~2.3M–13.7M net mesos from mob drops (mid ~7.7M)**, before any item sales. The range comes from the unmeasured meso drop chance and real-play pace. **Lv 70 is not reachable in Founder's Access.**
+**Expected state on Oct 20** [calc, `01` §0.1]: **Lv ~47–57 (mid ~51)** and **~1.4M–8.0M net coin mesos (mid ~3.9M)**, before item sales and equipment vendoring. Lv 70 is not reachable in Founder's Access.
 
-### 1.2 Launch character: **Assassin, but only if a friend brings AoE; otherwise Hunter**
+### 1.2 Launch character: **Assassin** (your decision)
 
-Measured against "best fit for group play alongside my friends' classes, with funding needs the farmer can cover":
+**For it:**
+- **Kerning citizenship for both characters.** Wolbi (grade 3), and the storage discount at Mr. Hong works for both.
+- **Ammo from the farmer's maps.** Mokbi from Jr. Wraith (+12 votes), Claw ATT Intermediate from Zombie Mushroom (+7/−1), Kumbi from Lupin (+6), Steely from Red Drake (ice weak; +10/−1), Ilbi from Mushmom (+9) [V-cbt M-DROPS]. Hwabi has **no confirmed launch-scope source** (Zombie Mushmom: 0 up / 1 down).
+- **Funding is its biggest lever** (+71.9% DPS from realistic to max-scrolled gear) [model M-DPS]. It's ranged (400 px), and Haste is a party buff.
 
-**For the Assassin:**
-- **Farmer synergy.** The Fighter's natural farming maps drop the Assassin's ammo: Jr. Wraith gives Mokbi, Lupin and Fire Boar give Kumbi, Dark Stone Golem gives Tobi, Mushmom and Zombie Mushmom give Ilbi and Hwabi [V-cbt M-DROPS; B MSEA lists]. That supply is internal and costs no market purchases.
-- **Funding is the Assassin's biggest lever.** It gains +71.9% DPS from realistic to max-scrolled gear, the most of any class [V-cbt M-DPS].
-- It's ranged and safe (400 px with Keen Eyes).
-- It's #3 in single-target damage.
-- **Haste** is a party buff: +30 Speed and +10 Jump for 300 s.
+**Against it:**
+- **No multi-target attack until Avenger (3rd job, no date)** [V-dm].
+- **Both characters burn MP potions.** Lucky Seven costs 16 MP per cast (~29k mesos/h), and the I/L adds 18–40k/h.
+- **A mage farmer can't make Claw ATT Greater.** The quest Greater scrolls (Hollow, Blackbull, Alligators) are class-gated pick-ones, and a Magician gets Wand/Staff MATK [V-dm M-Q]. Claw Greater comes from the Assassin's own quests.
 
-**Against the Assassin:**
-- **No multi-target attack at all until Avenger, which is 3rd job with no date** [V-dm]. In a 2–3 person leveling party, that hurts unless a friend clears mobs.
-- Heavy MP use (Lucky Seven costs 16 MP per cast; about 29k–48k mesos/h of potions). Star recharge is cheap at about 1k–4k/h [calc, thief notes].
-- Claw scrolls cost twice as much as dagger scrolls (50k Lesser).
-- Wolbi needs about 1–2 weeks of Kerning citizenship dailies.
-
-**Rule:** if at least one friend plays Fighter, Hunter, I/L or F/P, take **Assassin**. If both friends pick single-target classes, take **Hunter** instead: #2 AoE, a 60% stun, cheap to fund, and good next to a melee friend. If the friends want a support, a **Cleric** (Heal, Bless +20 ACC/EVA) adds the most to a physical group but has the lowest damage in the game.
-
-**Action:** get your friends' class picks before Oct 21. This call is the one most likely to change.
+**Tripwire (keep it):** if both friends pick single-target classes (Bandit, Assassin, Cleric), revisit before Oct 21. Get their picks this week.
 
 ### 1.3 What would change these calls
-- **Meso drops per kill** (measure in the first hour): if mesos don't scale with mob level, AoE's advantage shrinks.
-- **Level cap 50 instead of 70**: Fighter still leads (it's efficient early), but Lv 51–70 route sections and grade-9 citizenship (Lv 52) disappear.
-- **Launch patch values** differ from the COT2 datamine (Nexon called the Aug 11 mobility changes "an experiment" [V-off N5]).
+- **Thunder Bolt targets per cast** (V-40): under ~2 on your maps → Cold Beam-first order; under ~4 at 65% uptime → the Fighter stays ahead even after Lv 48 [model, review T6].
+- **Meso drops per kill** (V-1) and **equipment drops per 1,000 kills** (V-39).
+- **Level cap 50 instead of 70** (V-10): the I/L's post-launch advantage shrinks to Lv 48–50.
+- **Launch values** differ from the COT2 datamine (Nexon said the Aug 11 skills "may undergo further adjustments" [V-off N5]).
 - **Friends' classes** (§1.2).
 
 ---
@@ -119,7 +116,7 @@ Measured against "best fit for group play alongside my friends' classes, with fu
 | Assassin | Lv 37–47 | 20–40 | **none** | 4,266 (#3) | — (no AoE) | 160.0 | 3,850 | High-Med | 6 | 5 | 4.4 |
 
 † Party scores are my judgement from the skill kits: Fighter 7, Page 6 and Spearman 3 came from the warrior notes, Hunter 5 and Crossbowman 4 from the bowman notes, the rest are mine.
-Hours columns are [calc] from meowdb's modeled EXP/min with a 1.5–2.5× real-play factor. They are estimates, not measurements.
+Hours columns are [calc] from meowdb's modeled EXP/min with a 1.5–2.5× real-play factor. They are estimates, not measurements. **0.6 note:** the I/L row reflects meowdb's Cold Beam-first SP order; with Thunder Bolt first, the review's model puts I/L at 50k mesos/h net from about Lv 37 (`01` §8). The Lv 70 DPS figures are meowdb's model [model M-DPS], not test reports.
 
 ### 2.2 Meso Generation Index (MGI): method
 
@@ -260,7 +257,9 @@ All values [V-dm], cross-checked against maplestory.io `MCW/CBT2`; legacy values
 - Bless: party +20 ACC and +20 EVA. Invincible cuts touch damage by 30%.
 
 **I/L:**
-- **Thunder Bolt**: 6 targets, Basic Atk 70, 40 MP, 25% stun.
+- **Thunder Bolt**: 6 targets at every level; Basic Atk 40 → 70 and MP 20 → 40 from skill Lv 1 to 30; stun 10% → 25%; hit box 300×100 px to skill Lv 15, **340×140 px from 16** (±70 px vertically, so about one platform); ground-cast only; no prerequisite [V-dm].
+- **Spells can miss.** Magician ACC = floor((1.2·INT + 2·Lv + 0.6·LUK)/5.1 + 20); spells use the same hit check as physical attacks, and a miss still spends the MP [model M-ACC; M-DMG guide].
+- **Magic damage:** MAX = Basic Atk/100 × (INT/2 + wand M.ATK + buffs) × (1 + INT/100); LUK adds no damage; then × 100/(M.DEF + 100) [model M-DMG]. Wands need LUK: Mithril 20, Fairy 30, Arc Staff and Cromi 40 [V-dm].
 - **Cold Beam**: 170 (legacy 100). The skill text says "frozen"; meowdb reads it as a slow [?].
 
 **F/P:**
@@ -269,17 +268,17 @@ All values [V-dm], cross-checked against maplestory.io `MCW/CBT2`; legacy values
 
 **Shared 2nd job:**
 - MP Eater: 50% chance to absorb 50% of the mob's MP, at most once per 5 s.
-- Teleport: 15 MP, no cooldown, unchanged by the mobility patch.
+- Teleport: **55 MP / 110 px at skill Lv 1**, −2 MP and +2 px per level, **15 MP / 150 px at Lv 20**; ground-only; unchanged by the mobility patch [V-dm].
 - Meditation: party +25 M.ATK.
 - 3rd-job previews (not at launch): I/L Thunder Spear; F/P Explosion and Poison Mist; Priest Doom and Mystic Door. Holy Symbol is reworked into self-resurrection. **There is no Chain Lightning in Classic.**
 
 **Wands:** Flora (Ellinia) sells wands up to Mithril (Lv 30, 22,000). The Wizard Wand is El Nath only, so not at launch. Fairy Wand and Cromi are crafted (Arcforge). Wand Lesser scrolls cost 25k each.
 
-**Upkeep:** **about 40k–90k mesos/h** [calc, magician notes]. Elixir and Mana Elixir now have a **30 s cooldown** [V-dm].
+**Upkeep (0.6):** gross MP at 40–65% casting uptime with Thunder Bolt 30 is 3,600 ÷ 0.81 s × 40 MP × uptime ≈ **71k–115k MP/h**, i.e. mesos at 1 meso/MP (Orange or Lemon) [calc]. After Improved MP Recovery (1% Max MP per 10 s, +20% potion MP at 15) and MP Eater, the review's model puts the potion bill at **12–15k/h** on Energy Bolt (Lv 30–35), **30–40k/h** with Thunder Bolt (Lv 36–45) and **18–63k/h** at Lv 50–60 [model, `01` §0]. Elixir and Mana Elixir now have a **30 s cooldown** [V-dm].
 
 | | Pros | Cons | Solo | Funding | MGI reasoning |
 |---|---|---|---|---|---|
-| **I/L** | 6 targets plus stun, Slow, best mage damage/MP | Weak per-target Thunder Bolt, no AoE before Lv 41, 40 MP per cast, single-target rank #9 | 7 | Medium | Late efficiency, high upkeep |
+| **I/L** | 6 targets plus stun from Lv 30, Slow, 0 M.DEF on subway undead, best mobility | Weak per-target Thunder Bolt, 20–40 MP per cast, spells can miss, wands need LUK, single-target rank #9 | 7 | Medium | Late efficiency, high upkeep; **your farmer (0.6)** |
 | **F/P** | Best mage single target (Fire Arrow plus burn), 4-target Poison Breath | Many high-level Victoria mobs resist fire or poison (Drakes, Golems, Malady) | 7 | Medium | Map-dependent |
 | **Cleric** | Highest EHP, Heal and Bless (best support), cheapest mage upkeep | **Lowest DPS in the game**, Holy Arrow caps at 3 | 5 | Low-Med | Support, not a farmer |
 
@@ -330,10 +329,10 @@ All values [V-dm], cross-checked against maplestory.io `MCW/CBT2`; legacy values
 |---|---|---|
 | EXP / drop / meso rates | **No multiplier stated.** EXP table matches pre-BB GMS for Lv 1–49; Lv 50+ is a legacy reference. EXP to reach Lv 30 is 548,637; Lv 50 is 6,851,591; Lv 70 is 31,545,355. 78% of the EXP to 70 is in levels 50–69, which are unverified | [V-dm/cbt M-EXP]; [?] rates |
 | Mob EXP | Looks set by level alone (every Lv 34 mob gives 70 EXP), so low-HP mobs are EXP-efficient. Many HPs changed vs v83: Jr. Wraith −18%, Wraith −16%, Stone Golem +28%, Tauromacis −38%. Bosses re-levelled: Mushmom 60→40, Zombie Mushmom 65→50 | [V-dm M-MOB] vs [B L-v83] |
-| **Mesos per kill** | **No datamine.** 13 single community reports from COT2, all self-reporting a 100% drop chance, cluster at **~2× mob level**: Green Mushroom (Lv 14) 25–30, Jr. Wraith (34) 61–74, Lupin (37) 68–81, Zombie Lupin (41) 74–92, Rotten Mushroom (56) 100–120, Sporewood (59) 110–130, Mushmom 1,800–2,200, Zombie Mushmom 2,250–2,750 | [V-cbt M-MESO], low confidence |
+| **Mesos per kill** | **No datamine.** 22 community reports on 20 monsters (full ID scan, 2026-10-02), all self-reporting a 100% drop chance (likely a form default); regular-mob midpoints sit at 1.86–2.17×, median **~2.0× mob level**, with 3 of 19 outside 1.7–2.3× (Stump, Dark Axe Stump, Blue Mushroom): Green Mushroom (Lv 14) 25–30, Jr. Wraith (34) 61–74, Lupin (37) 68–81, Zombie Lupin (41) 74–92, Rotten Mushroom (56) 100–120, Sporewood (59) 110–130, Mushmom 1,800–2,200, Zombie Mushmom 2,250–2,750 | [V-cbt M-MESO], low confidence |
 | Item drop rates | **Not published or datamined.** meowdb's "MSEA reference drops" are legacy MapleSEA tables. Community-confirmed drops have votes but no rates | [?] |
 | Pets | Cash Shop only (Brown Kitty, Pink Bunny, Husky and Snail were sold in COT2). Paid pet skills: **Auto HP Potion, Auto MP Potion** (threshold you set), **Auto Move** ("pick up nearby items and mesos without you having to move"). Plain pets pick up loot per a COT1 hands-on. Lifespan and launch prices [?]. Pet food 35 mesos | [V-dm]; [V-cbt C1] |
-| NPC potions | Red 50 (100 HP), Orange 150, White 350, Blue 220 (200 MP), Lemon 150 (150 MP, best MP per meso), Meat 80 (160 HP), Pure Water 1,120 (800 MP), Unagi 1,000. **Elixir 3,000 at citizenship grade 10 only, restores 35% with a 30 s cooldown.** Power and Mana Elixirs are not NPC-sold. NPC sell-back is ~10% | [V-dm M-SHOPS] |
+| NPC potions | Red 50 (100 HP), Orange Potion 150 (HP), White 350, Blue 220 (200 MP), Lemon 150 (150 MP), **Orange 50 (50 MP)**: Orange and Lemon are the cheapest MP at 1 meso per MP. Meat 80 (160 HP), Pure Water 1,120 (800 MP), Unagi 1,000. **Elixir 3,000 at citizenship grade 10 only, restores 35% with a 30 s cooldown.** Power and Mana Elixirs are not NPC-sold. **NPC sell-back: potions and food ~10% of the buy price; equipment 21–50% (median 33%); stars, buffs and return scrolls 50%; scrolls 1 meso** | [V-dm M-SHOPS, M-ITEM] |
 | Job advancement | 10 / 30 / 70, no stat requirements, Magicians included | [V-off N7; V-dm] |
 | Stats | No dice: 4/4/4/4 plus 9 free points. 5 AP per level, all placed by hand. 3 SP per level (+1 at 1st job). **Fixed HP/MP per level** (Warrior +28/+12; Bowman and Thief +22/+17; Magician +16/+22). No HP washing. INT gives no MP | [V-cbt W-CC, M-HPMP] |
 | AP/SP reset | Cash Shop. **AP Reset resets ALL stats** (including HP/MP); SP Reset resets all non-beginner skills. Prices [?] | [V-dm] |
@@ -428,7 +427,7 @@ All values [V-dm], cross-checked against maplestory.io `MCW/CBT2`; legacy values
 | GFA Intermediate 60% | — | Cursed Dolls 150; Jane Final (25%) | Mushmom (Lv 40, in scope); others out of scope |
 | GFA Greater 10% | — | Jane Final (25%) | Tortie (Lv 46, Florina) |
 | Claw ATT Lesser | El Moth 50k | — | — |
-| Claw ATT Intermediate | — | Jane and the Mushroom (Lv 20, 1 of 14 weapon scrolls) | Green Mushroom, Zombie Mushmom [V-cbt], Jr. Balrog; **Zombie Mushroom (community, 6 votes) [V-cbt]** |
+| Claw ATT Intermediate | — | Jane and the Mushroom (Lv 20, 1 of 14 weapon scrolls) | **Zombie Mushroom (7 up / 1 down) [V-cbt]**, Green Mushroom (3 up) [V-cbt]; Zombie Mushmom and Jr. Balrog are MSEA reference only [B] |
 | Claw ATT Greater | — | Hollow, Blackbull, Alligators (pick one) | Copper Drake (Lv 45) |
 | Overall DEX/LUK | Flint/Ben 35k, grade 7 | — | DEX Intermediate: Mano, Mushmom; DEX Greater: Red Snail |
 
@@ -443,7 +442,7 @@ All values [V-dm], cross-checked against maplestory.io `MCW/CBT2`; legacy values
 | Tobi | 23 | no | 1,000 | 0.7 | 2,500 | Stone Golem [V-cbt], **Dark Stone Golem** (only in-scope MSEA source) |
 | Steely | 25 | no | 1,000 | 0.8 | 10,000 | **Red Drake** [V-cbt, 9 votes]; no MSEA source listed |
 | Ilbi | 27 | no | 800 | 0.9 | 20,000 | **Mushmom** [V-cbt, 9 votes], Zombie Mushmom [V-cbt] |
-| Hwabi | 29 | no | 800 | 1.0 | 25,000 | **Zombie Mushmom** [V-cbt] |
+| Hwabi | 29 | no | 800 | 1.0 | 25,000 | Zombie Mushmom: **0 up / 1 down vote; no confirmed launch-scope source** [V-cbt; B MSEA] |
 
 - **No star crafting recipe exists** [V-dm].
 - Demand signal: the five most-viewed items on meowdb during COT2 were all stars (Ilbi, Steely, Tobi, Kumbi, Hwabi) [V-cbt M-REPORT].
@@ -488,10 +487,12 @@ Quest mesos are small. **Farming is the meso source.**
 | Dark Stone Golem | 58 | 5,428 | 197 | — | Holy weak; fire and poison resist | Sleepy Dungeon V (19) | Tobi (1) |
 | Red Drake | 60 | 5,184 | 213 | — | Ice weak | Dangerous Valley II (17) | **Steely (9)** |
 | Mushmom (boss) | 40 | 34,440 | 376 | 1,800–2,200 | — | Someone Else's House (1–1.5 h respawn) | **Ilbi (9)**, GFA Intermediate (1), catalysts |
-| Zombie Mushmom (boss) | 50 | 53,640 | 568 | 2,250–2,750 | — | Grave of Mushmom (1–1.5 h) | Ilbi, **Hwabi**, Claw ATT Intermediate, catalysts |
+| Zombie Mushmom (boss) | 50 | 53,640 | 568 | 2,250–2,750 | Holy weak, undead | Grave of Mushmom (1–1.5 h) | Ilbi, **Hwabi**, Claw ATT Intermediate, catalysts |
 | Rotten Mushmom (boss, new) | 60 | 86,400 | 852 | — | Holy and fire weak, undead | Someone Else's Grave (FH, 1–1.5 h) | catalysts, Overall INT Intermediate |
 
-**Meso-rate sketch** [calc; illustration only, not a forecast]: a Lv 50+ Fighter clearing Line 2 Area 1 (about 62 Jr. Wraiths alive at 75% solo capacity) at an assumed 1,500–3,000 kills/h × 67 mesos × drop chance (reported 100%, unverified; assume 60–100%):
+**Magic DEF for the I/L (0.6)** [V-dm, meowdb and maplestory.io MCW/CBT2]: Horny Mushroom 0, Zombie Mushroom 15, Evil Eye 20, Fire Boar 0, Curse Eye 0, Jr. Wraith 0, Lupin 30, Lorang 30, Zombie Lupin 30, Wraith 0, Clang 15, Drake 15, Copper Drake 15, Cold Eye 30, Malady 50, Dark Stone Golem 30, Red Drake 15, Mushmom 15, Zombie Mushmom 20. Lightning weak: Bubbling, Iron Hog, Lorang, Aqumander, Echopus, Clang. Ice weak: Fire Boar, Copper Drake, Duskmander, Red Drake. Ice resist: Cold Eye, Raffle, Rafflesia, Drake, Croco, Malady. The I/L route and map ranking are in `01`.
+
+**Meso-rate sketch (0.5, Fighter; kept for comparison)** [calc; illustration only, not a forecast]: a Lv 50+ Fighter clearing Line 2 Area 1 (about 62 Jr. Wraiths alive at 75% solo capacity) at an assumed 1,500–3,000 kills/h × 67 mesos × drop chance (reported 100%, unverified; assume 60–100%):
 - gross ≈ **60k–200k mesos/h**;
 - minus MP ≈ 4–12 mesos/kill (6k–36k/h);
 - plus Mokbi and ore drops.

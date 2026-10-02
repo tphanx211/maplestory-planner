@@ -2,6 +2,16 @@
 
 Newest first. The updater adds an entry for every run that changes content, with source URLs. `data/plan_data.js` → `changelog` mirrors these entries so the dashboard's Updates tab can show them.
 
+## 0.6.0 · 2026-10-02 · Farmer switched to I/L Wizard; Assassin launch character
+- **Your decision:** I/L Wizard farmer and Assassin launch character. The Hunter fallback is retired; `03_hunter_funding_checklist.csv` stays as an archive.
+- `01_early_access_route.md` rewritten for I/L: maps chosen by magic DEF, accuracy and congestion; AP plan (INT, LUK only for wands); SP plan with Thunder Bolt first and MP Eater 1 at Lv 30; accuracy table; bosses; Kerning citizenship.
+- New `calc/il_projection.py` (fixes the one-level EXP offset): Lv ~47/51/57 and ~1.4M/3.9M/8.0M net coin mesos by Oct 20 (low/mid/high). Equipment drops shown as a sensitivity (drop rate unknown). The Fighter scripts stay as the comparison baseline.
+- Facts the switch depends on, corrected in `00`: spells can miss; Teleport costs 55 MP at skill Lv 1; Thunder Bolt works from Lv 30 and scales by skill level; NPC sell-back is 21-50% for equipment and 1 meso for scrolls; Hwabi has no confirmed launch-scope source; the package must be opened within 30 days of claiming.
+- `02`, `03_assassin_funding_checklist.csv`, `04`, `05`: farmer-specific lines updated; merchant role limited to the offline Hired Merchant or Store Permit sessions (one account = one character online); new checks V-38 to V-41.
+- Dashboard: characters now come from `data/plan_data.js` (`meta.characters`); saved Fighter/Hunter levels are archived on first load (schema 2); magic DEF column; the projection table moved into the data.
+- Review: `../review/REVIEW_2026-10-02.md` (review findings outside the switch were not applied).
+- Sources: https://meowdb.com/msclassic/guides/il-wizard-class-guide, https://meowdb.com/msclassic/formulas, https://meowdb.com/msclassic/guides/attacks-you-can-use-mid-jump, https://meowdb.com/msclassic/api/items?type=Equip, https://support-maplestory.nexon.com/hc/en-us/articles/53268989017620-Founder-s-Packages-Frequently-Asked-Questions
+
 ## 0.5.0 · 2026-10-02 · Auto-updater and phone copy
 - Scheduled updater: daily 2:30 PM and 9 PM CT, plus one-off runs at 1:30 PM CT on Oct 6 and Oct 21 (`updater/UPDATER_RULES.md`).
 - First supervised run (commit 3e2d90d): no changes; Nexon CMS, Nexon support, meowdb sitemap and YouTube checked.

@@ -225,17 +225,35 @@
     try { window.localStorage.setItem(NS + key, JSON.stringify(value)); }
     catch (e) { mem[NS + key] = value; }
   }
+  /* Characters come from the data (meta.characters), so a class swap needs no code change. */
+  var CHARS = (D.meta.characters && D.meta.characters.length) ? D.meta.characters : [{ key: "farmer", label: "Farmer", role: "farmer" }];
+  var FARMER = CHARS.filter(function (c) { return c.role === "farmer"; })[0] || CHARS[0];
+  function charKey(k) { return D.spPlan[k] ? k : CHARS[0].key; }
+  function charLabel(k) { var c = CHARS.filter(function (x) { return x.key === k; })[0]; return c ? (c.short || c.label) : k; }
+  /* Schema 2 (v0.6.0): the farmer switched from Fighter to I/L Wizard. A new class is a new character,
+     so old Fighter/Hunter levels are archived, not carried over. Also applied to synced and imported state. */
+  var SCHEMA = 2;
+  function migrateLevels(lv, noFill) {
+    var out = {};
+    if (lv && typeof lv === "object") for (var k in lv) {
+      if (k === "fighter" || k === "hunter") out[k + "Archived"] = lv[k]; else out[k] = lv[k];
+    }
+    if (!noFill) CHARS.forEach(function (c) { if (out[c.key] == null) out[c.key] = 1; });
+    return out;
+  }
+  function migrateRouteChar(rc) { return (rc && D.spPlan[rc]) ? rc : CHARS[0].key; }
   var S = {
     prices: load("prices", []),
     checks: load("checks", {}),
     notes: load("notes", {}),
-    levels: load("levels", { fighter: 1, assassin: 1, hunter: 1 }),
-    routeChar: load("routeChar", "fighter"),
+    levels: migrateLevels(load("levels", {})),
+    routeChar: migrateRouteChar(load("routeChar", null)),
     reviewAck: load("reviewAck", {}),
     lastVisit: load("lastVisit", null),
     weekly: load("weekly", {}),
     tab: load("tab", "updates")
   };
+  if (load("schema", 1) < SCHEMA) { save("levels", S.levels); save("routeChar", S.routeChar); save("schema", SCHEMA); }
   var STATE_KEYS = ["checks", "notes", "levels", "reviewAck", "weekly", "lastVisit", "routeChar"];
   function persist(k) {
     save(k, S[k]);
@@ -295,9 +313,10 @@
             S.weekly[wk] = S.weekly[wk] || {};
             for (var id in rs.weekly[wk]) if (!(id in S.weekly[wk])) S.weekly[wk][id] = rs.weekly[wk][id];
           }
-          if (rs.levels && typeof rs.levels === "object") for (var c in rs.levels) S.levels[c] = Math.max(parseInt(S.levels[c], 10) || 1, parseInt(rs.levels[c], 10) || 1);
+          if (rs.levels && typeof rs.levels === "object") { var rl = migrateLevels(rs.levels, true); for (var c in rl) S.levels[c] = Math.max(parseInt(S.levels[c], 10) || 1, parseInt(rl[c], 10) || 1); }
           if (rs.lastVisit && (!S.lastVisit || rs.lastVisit > S.lastVisit)) S.lastVisit = rs.lastVisit;
-          if (rs.routeChar && load("routeChar", null) == null) S.routeChar = rs.routeChar;
+          if (rs.routeChar && load("routeChar", null) == null) S.routeChar = migrateRouteChar(rs.routeChar);
+          S.routeChar = migrateRouteChar(S.routeChar);
           ["prices", "checks", "notes", "reviewAck", "weekly", "levels", "lastVisit", "routeChar"].forEach(function (k) { save(k, S[k]); });
           R_DB = db;
           toPush.forEach(remotePriceSet);
@@ -386,7 +405,7 @@
   /* ---------- header ---------- */
   function renderHeader() {
     $("#subline").innerHTML = "Data v" + esc(D.meta.version) + " · last checked " + esc(fmtDate(D.meta.lastChecked, true)) +
-      " · Farmer: <b>" + esc(D.meta.farmingCharacter) + "</b>";
+      " · Farmer: <b>" + esc(FARMER.short || FARMER.label) + "</b>";
     var fa = new Date(D.meta.foundersAccess), gl = new Date(D.meta.grandLaunch);
     function cd(label, d) {
       var ms = d - Date.now();
@@ -546,25 +565,25 @@
   function li(s) { return "<li>" + esc(s) + "</li>"; }
 
   /* ---------- Route & SP ---------- */
-  var DAYPLAN = [["Oct 6", 4, 12, 14, 15], ["Oct 7", 8, 21, 21, 22], ["Oct 8", 12, 24, 24, 27], ["Oct 9", 16, 27, 27, 31], ["Oct 10", 24, 32, 32, 36], ["Oct 11", 32, 35, 37, 42], ["Oct 12", 36, 37, 39, 44], ["Oct 13", 40, 39, 41, 46], ["Oct 14", 44, 41, 43, 47], ["Oct 15", 48, 42, 45, 49], ["Oct 16", 52, 44, 47, 51], ["Oct 17", 60, 46, 49, 54], ["Oct 18", 68, 49, 53, 57], ["Oct 19", 72, 50, 54, 59], ["Oct 20", 76, 51, 56, 60]];
   function renderRoute() {
     var el = $("#tab-route");
-    var ch = S.routeChar;
+    var ch = charKey(S.routeChar);
+    var isFarmer = ch === FARMER.key;
     var lv = Math.max(1, Math.min(70, parseInt(S.levels[ch], 10) || 1));
     var plan = D.spPlan[ch];
     var bracket = D.route.filter(function (b) { return lv >= b.minLv && lv <= b.maxLv; })[0] || D.route[D.route.length - 1];
     if (lv === 10) bracket = D.route[1];
     var html = '<div class="panel"><div class="row" style="justify-content:space-between">' +
       '<div class="seg" role="group" aria-label="Character">' +
-      [["fighter", "Fighter (farmer)"], ["assassin", "Assassin"], ["hunter", "Hunter"]].map(function (o) {
-        return '<button data-char="' + o[0] + '" aria-pressed="' + (ch === o[0]) + '">' + o[1] + "</button>";
+      CHARS.map(function (o) {
+        return '<button data-char="' + esc(o.key) + '" aria-pressed="' + (ch === o.key) + '">' + esc(o.label) + "</button>";
       }).join("") + "</div>" +
       '<div class="levelbox"><button class="btn" id="lvDown" aria-label="Level down">−</button><input id="lvIn" type="number" min="1" max="70" value="' + lv + '" aria-label="Your level"><button class="btn" id="lvUp" aria-label="Level up">+</button></div></div>' +
       '<p class="note">Enter your current level. It is saved per character in this browser.</p></div>';
 
-    html += '<h2>Now: Lv ' + bracket.minLv + "–" + bracket.maxLv + " · " + esc(bracket.title) + " " + tag(bracket.tier, bracket.source) + "</h2>";
+    html += '<h2>Now: Lv ' + bracket.minLv + "–" + bracket.maxLv + " · " + esc(isFarmer ? bracket.title : charLabel(ch)) + " " + tag(bracket.tier, bracket.source) + "</h2>";
     html += '<div class="panel"><div><b>Goal:</b> ' + esc(bracket.goal) + '</div><div class="meta" style="color:var(--muted);font-size:12px;margin-top:4px">Bracket time: ' + esc(bracket.hours) + " h · Source: " + esc(bracket.source) + "</div>" +
-      (ch !== "fighter" ? '<div style="margin-top:8px"><span class="badge role">Launch character</span> ' + esc(bracket.launchNote) + "</div>" : "") + "</div>";
+      (!isFarmer ? '<div style="margin-top:8px"><span class="badge role">Launch character</span> ' + esc(bracket.launchNote) + "</div>" : "") + "</div>";
 
     html += '<div class="grid cards">';
     html += '<div class="card"><h3>Next AP</h3>' + stepList(plan.ap, lv, "ap") + "</div>";
@@ -572,6 +591,7 @@
     html += "</div>";
     if (plan.citizenship) html += '<p class="note">Citizenship: ' + esc(plan.citizenship) + "</p>";
 
+    if (isFarmer) {
     html += "<h2>Maps for this bracket</h2>";
     html += '<div class="table-wrap"><table><thead><tr><th>Map</th><th>Mobs (Lv/HP/EXP)</th><th class="num">Spawns</th><th>Ceiling</th><th>Note</th></tr></thead><tbody>' +
       bracket.maps.map(function (m) {
@@ -579,20 +599,23 @@
       }).join("") + "</tbody></table></div>";
 
     var e = bracket.estimate;
-    html += '<h2>Estimate (Fighter) ' + tag("?", "Mesos per kill and drop chance unmeasured; see V-1") + "</h2>" +
+    html += '<h2>Estimate (' + esc(FARMER.short || FARMER.label) + ') ' + tag("?", "Mesos per kill, drop chance and equipment drop rates unmeasured; see V-1") + "</h2>" +
       '<div class="panel"><dl class="kv"><dt>EXP/h</dt><dd>' + esc(e.expPerHour) + "</dd><dt>Kills/h</dt><dd>" + esc(e.killsPerHour) + "</dd><dt>Mesos/kill</dt><dd>" + esc(e.mesosPerKill) +
-      "</dd><dt>Gross mesos/h</dt><dd>" + esc(e.grossMesosPerHour) + "</dd><dt>Upkeep</dt><dd>" + esc(e.upkeep) + "</dd><dt>Math</dt><dd>" + esc(e.math) + "</dd></dl></div>";
+      "</dd><dt>Gross mesos/h</dt><dd>" + esc(e.grossMesosPerHour) + "</dd>" + (e.dropValue ? "<dt>Equip/scroll drops</dt><dd>" + esc(e.dropValue) + "</dd>" : "") + "<dt>Upkeep</dt><dd>" + esc(e.upkeep) + "</dd><dt>Math</dt><dd>" + esc(e.math) + "</dd></dl></div>";
+    }
 
-    html += "<h2>Quests</h2><div class='panel'>" + bracket.quests.map(function (q) {
+    html += "<h2>Quests</h2><div class='panel'>" + bracket.quests.filter(function (q) { return !q.only || q.only === ch; }).map(function (q) {
       var state = q.lv <= lv ? '<span class="now">available</span>' : '<span style="color:var(--muted)">Lv ' + q.lv + "</span>";
       return '<div class="check"><div class="body"><b>' + esc(q.name) + "</b> " + (q.flag ? '<span class="badge pri">' + esc(q.flag) + "</span>" : "") +
         '<div class="sub">Lv ' + q.lv + " · " + state + " · " + esc(q.reward) + "</div></div></div>";
     }).join("") + "</div>";
 
-    html += "<h2>Pick up</h2><div class='panel'><ul class='tight'>" + bracket.pickup.map(li).join("") + "</ul></div>";
+    if (isFarmer) html += "<h2>Pick up</h2><div class='panel'><ul class='tight'>" + bracket.pickup.map(li).join("") + "</ul></div>";
+    if (!isFarmer && bracket.launchMaps) html += "<h2>Maps for this character</h2><div class='panel'>" + esc(bracket.launchMaps) + "</div>";
 
-    if (ch === "fighter") {
-      html += '<h2>Founder\'s Access level targets ' + tag("?", "Projection; calc/day_plan.py") + '</h2><p class="note">Low / mid / high scenarios from 01 §0.2. Compare your level each night.</p>' +
+    var DAYPLAN = plan.dayPlan || [];
+    if (DAYPLAN.length) {
+      html += '<h2>Founder\'s Access level targets ' + tag("?", "Projection; calc/il_projection.py") + '</h2><p class="note">Low / mid / high scenarios from 01 §0.2. Compare your level each night.</p>' +
         '<div class="table-wrap"><table><thead><tr><th>Day</th><th class="num">Hours (cum.)</th><th class="num">Low</th><th class="num">Mid</th><th class="num">High</th></tr></thead><tbody>' +
         DAYPLAN.map(function (r) {
           var today = fmtDate(new Date().toISOString()) === r[0];
@@ -628,7 +651,7 @@
   function renderFarming() {
     var el = $("#tab-farming");
     var brackets = ["All", "1-10", "10-20", "21-30", "31-40", "41-50", "51-70"];
-    el.innerHTML = '<p class="note">Warriors have no elemental attacks before 3rd job, so weaknesses matter only for mages. Mesos per kill come from single COT2 community reports; "~2x Lv" is the working estimate where none exist.</p>' +
+    el.innerHTML = '<p class="note">' + esc(D.meta.farmingNote || "") + '</p>' +
       '<div class="filters"><select id="farmB" aria-label="Bracket">' + brackets.map(function (b) { return '<option value="' + b + '">' + (b === "All" ? "All brackets" : "Lv " + b) + "</option>"; }).join("") + "</select>" +
       '<label class="row" style="font-size:13px;color:var(--text-2)"><input type="checkbox" id="farmBoss"> Bosses only</label>' +
       '<input type="search" id="farmQ" placeholder="Search mobs, maps, drops…"></div><div id="farmEst"></div><div id="farmList"></div>';
@@ -641,7 +664,7 @@
   function drawFarm() {
     var est = $("#farmEst");
     var b = D.route.filter(function (r) { return (r.minLv + "-" + r.maxLv) === farm.bracket; })[0];
-    est.innerHTML = b ? '<div class="panel"><b>Lv ' + b.minLv + "–" + b.maxLv + " estimate (Fighter)</b> " + tag("?", "V-1 unmeasured") +
+    est.innerHTML = b ? '<div class="panel"><b>Lv ' + b.minLv + "–" + b.maxLv + " estimate (" + esc(FARMER.short || FARMER.label) + ")</b> " + tag("?", "V-1 unmeasured") +
       '<dl class="kv" style="margin-top:6px"><dt>Kills/h</dt><dd>' + esc(b.estimate.killsPerHour) + "</dd><dt>Mesos/kill</dt><dd>" + esc(b.estimate.mesosPerKill) + "</dd><dt>Gross mesos/h</dt><dd>" + esc(b.estimate.grossMesosPerHour) + "</dd><dt>Upkeep</dt><dd>" + esc(b.estimate.upkeep) + "</dd></dl></div>" : "";
     var list = D.farmingTargets.filter(function (m) {
       if (farm.bracket !== "All" && m.bracket !== farm.bracket) return false;
@@ -651,9 +674,9 @@
     });
     var box = $("#farmList");
     if (!list.length) { box.innerHTML = '<div class="empty">No mobs match.</div>'; return; }
-    box.innerHTML = '<div class="table-wrap"><table><thead><tr><th>Mob</th><th class="num">Lv</th><th class="num">HP</th><th class="num">EXP</th><th class="num">P.DEF</th><th>Weak / resist</th><th>Best maps (spawns)</th><th>Mesos/kill</th><th>Drops worth it</th></tr></thead><tbody>' +
+    box.innerHTML = '<div class="table-wrap"><table><thead><tr><th>Mob</th><th class="num">Lv</th><th class="num">HP</th><th class="num">EXP</th><th class="num">M.DEF</th><th>Weak / resist</th><th>Best maps (spawns)</th><th>Mesos/kill</th><th>Drops worth it</th></tr></thead><tbody>' +
       list.map(function (m) {
-        return "<tr><td><b>" + esc(m.mob) + "</b> " + tag(m.tier, m.source) + (m.undead ? ' <span class="badge pri">undead</span>' : "") + '</td><td class="num">' + m.lv + '</td><td class="num">' + fmtInt(m.hp) + '</td><td class="num">' + fmtInt(m.exp) + '</td><td class="num">' + m.pdef +
+        return "<tr><td><b>" + esc(m.mob) + "</b> " + tag(m.tier, m.source) + (m.undead ? ' <span class="badge pri">undead</span>' : "") + '</td><td class="num">' + m.lv + '</td><td class="num">' + fmtInt(m.hp) + '</td><td class="num">' + fmtInt(m.exp) + '</td><td class="num">' + (m.mdef == null ? "?" : m.mdef) +
           "</td><td>" + esc(m.weak) + "</td><td>" + esc(m.maps) + "</td><td>" + esc(m.mesos) + "</td><td>" + esc(m.drops) + "</td></tr>";
       }).join("") + "</tbody></table></div>";
   }
@@ -878,7 +901,7 @@
         var obj = JSON.parse(rd.result), st = obj.state || obj;
         var n = mergePrices(st.prices || []);
         ["checks", "notes", "reviewAck", "weekly"].forEach(function (k) { if (st[k]) { for (var x in st[k]) S[k][x] = st[k][x]; persist(k); } });
-        if (st.levels) { for (var c in st.levels) S.levels[c] = st.levels[c]; persist("levels"); }
+        if (st.levels) { var ml = migrateLevels(st.levels, true); for (var c in ml) S.levels[c] = ml[c]; persist("levels"); }
         renderAll(); toast("Imported " + n + " new prices and saved state");
       } catch (e) { toast("Couldn't read that JSON file"); }
       input.value = "";
@@ -958,12 +981,12 @@
       return '<div class="table-wrap"><table><thead><tr><th>Block</th><th>Character</th><th>What</th></tr></thead><tbody>' +
         rows.map(function (x) { return "<tr><td>" + esc(x.time) + "</td><td>" + esc(x["char"]) + "</td><td>" + esc(x.what) + "</td></tr>"; }).join("") + "</tbody></table></div>";
     }
-    el.innerHTML = '<p class="note">One client at a time. Put the "with friends" block wherever your friends play and the Fighter blocks around it. Limit yourself to 2–3 character switches per session. Source: 04_dual_character_ops.md (plan, not fact).</p>' +
+    el.innerHTML = '<p class="note">One client at a time. Put the "with friends" block wherever your friends play and the farmer blocks around it. Limit yourself to 2–3 character switches per session. Source: 04_dual_character_ops.md (plan, not fact).</p>' +
       "<h2>Weekday (4 h)</h2>" + table(r.weekday) +
       "<h2>Weekend day (8 h)</h2>" + table(r.weekend) +
       '<h2>Overnight</h2><div class="panel">' + esc(r.overnight) + "</div>" +
       '<h2>Transfer run (about 3 min)</h2><div class="panel"><ol class="tight">' +
-      "<li>On the Fighter, go to Henesys storage (Mr. Lee) for the citizenship discount.</li><li>Deposit stars and scrolls for this week, then hold-inventory overflow, then quest ETC stock. Stack items first.</li><li>Deposit the launch character's weekly meso allowance.</li><li>Switch characters; withdraw at the nearest storage.</li></ol>" +
+      (r.transfer || []).map(li).join("") + "</ol>" +
       '<div style="color:var(--muted);font-size:12px">Deposit fee 100 mesos per item ' + tag("V", "M-ITEM (COT2 datamine)") + " · withdrawal and meso fees " + tag("?", "V-5") + "</div></div>" +
       '<h2>This week (' + wk + ')</h2><div class="panel">' + r.weekly.map(function (x) {
         var on = !!wkChecks[x.id];
