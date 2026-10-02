@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classic Launch Plan</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0d1016;
+    --bg-2: #121722;
+    --panel: #171d2a;
+    --panel-2: #1d2433;
+    --line: #2a3346;
+    --text: #ecebe6;
+    --text-2: #b9bcc6;
+    --muted: #8a90a0;
+    --accent: #f39c34;
+    --accent-2: #ffcf7a;
+    --blue: #3987e5;
+    --good: #0ca30c;
+    --warning: #fab219;
+    --serious: #ec835a;
+    --critical: #d03b3b;
+    --radius: 10px;
+    --gutter: 16px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: radial-gradient(1200px 600px at 20% -10%, #1c2640 0%, var(--bg) 55%) fixed, var(--bg);
+    color: var(--text);
+    font: 15px/1.45 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a { color: var(--accent-2); }
+  header.top {
+    padding: 14px var(--gutter) 10px;
+    display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(243,156,52,0.08), transparent);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand .leaf { width: 30px; height: 30px; flex: none; }
+  .brand h1 { font-size: 18px; margin: 0; letter-spacing: .3px; }
+  .brand .sub { color: var(--muted); font-size: 12px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; font-size: 12px; color: var(--text-2); white-space: nowrap; }
+  .chip b { color: var(--text); }
+  nav.tabs {
+    display: flex; gap: 4px; overflow-x: auto; padding: 8px var(--gutter) 0;
+    border-bottom: 1px solid var(--line); scrollbar-width: thin; position: sticky; top: 0; z-index: 5;
+    background: rgba(13,16,22,0.94); backdrop-filter: blur(6px);
+  }
+  nav.tabs button {
+    flex: none; background: transparent; color: var(--text-2); border: 1px solid transparent; border-bottom: none;
+    padding: 8px 12px; border-radius: 8px 8px 0 0; font: inherit; font-size: 14px; cursor: pointer;
+  }
+  nav.tabs button[aria-selected="true"] { background: var(--panel); color: var(--text); border-color: var(--line); box-shadow: inset 0 2px 0 var(--accent); }
+  nav.tabs button:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  main { padding: 16px var(--gutter) 40px; max-width: 1200px; margin: 0 auto; }
+  section.tab { display: none; }
+  section.tab.active { display: block; }
+  h2 { font-size: 17px; margin: 18px 0 8px; }
+  h2:first-child { margin-top: 0; }
+  h3 { font-size: 15px; margin: 0 0 6px; }
+  p.note { color: var(--muted); font-size: 13px; margin: 4px 0 10px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px; }
+  .grid { display: grid; gap: 12px; }
+  .grid.tiles { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+  .grid.cards { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+  .tile .k { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
+  .tile .v { font-size: 22px; font-weight: 600; margin-top: 2px; }
+  .tile .s { color: var(--text-2); font-size: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+  input, select, textarea {
+    background: var(--bg-2); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
+    padding: 7px 9px; font: inherit; font-size: 14px; max-width: 100%;
+  }
+  input[type="search"] { min-width: 180px; flex: 1 1 200px; }
+  button.btn {
+    background: var(--panel-2); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
+    padding: 7px 12px; font: inherit; font-size: 14px; cursor: pointer;
+  }
+  button.btn:hover { border-color: var(--accent); }
+  button.btn.primary { background: var(--accent); color: #1a1206; border-color: var(--accent); font-weight: 600; }
+  button.btn.small { padding: 3px 8px; font-size: 12px; }
+  .tag { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 18px; padding: 0 5px; border-radius: 4px; font-size: 11px; font-weight: 700; vertical-align: 1px; cursor: help; }
+  .tag.t-V { background: var(--good); color: #fff; }
+  .tag.t-B { background: var(--warning); color: #241800; }
+  .tag.t-Q { background: var(--serious); color: #2a0f04; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; border: 1px solid transparent; }
+  .badge.buy { background: rgba(12,163,12,.18); color: #7fe07f; border-color: rgba(12,163,12,.6); }
+  .badge.arb { background: var(--good); color: #fff; }
+  .badge.sell { background: rgba(57,135,229,.18); color: #9cc6f7; border-color: rgba(57,135,229,.6); }
+  .badge.ceil { background: rgba(208,59,59,.2); color: #f5a3a3; border-color: rgba(208,59,59,.7); }
+  .badge.nodata { background: transparent; color: var(--muted); border-color: var(--line); }
+  .badge.range { background: transparent; color: var(--text-2); border-color: var(--line); }
+  .badge.pri { background: var(--panel-2); color: var(--text-2); border-color: var(--line); font-weight: 500; }
+  .badge.role { background: rgba(243,156,52,.15); color: var(--accent-2); border-color: rgba(243,156,52,.5); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .4px; background: var(--panel-2); position: sticky; top: 0; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.clickable { cursor: pointer; }
+  tr.clickable:hover td { background: rgba(255,255,255,.03); }
+  tr.sel td { background: rgba(243,156,52,.08); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+  .card .hd { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .card .hd .name { font-weight: 700; font-size: 16px; }
+  .card .meta { color: var(--muted); font-size: 12px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 10px; margin: 10px 0; }
+  .stats div { font-size: 12px; color: var(--muted); }
+  .stats div b { display: block; color: var(--text); font-size: 14px; font-weight: 600; }
+  .mgi { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .mgi .bar { flex: 1; height: 8px; background: var(--bg-2); border-radius: 4px; overflow: hidden; }
+  .mgi .bar span { display: block; height: 100%; background: var(--blue); border-radius: 0 4px 4px 0; }
+  .mgi .val { font-weight: 700; font-variant-numeric: tabular-nums; }
+  ul.tight { margin: 4px 0 8px; padding-left: 18px; }
+  ul.tight li { margin: 2px 0; }
+  details summary { cursor: pointer; color: var(--text-2); font-size: 13px; }
+  .pc { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pc h4 { margin: 6px 0 2px; font-size: 12px; color: var(--muted); text-transform: uppercase; }
+  .pros li::marker { color: var(--good); }
+  .cons li::marker { color: var(--critical); }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 13.5px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; }
+  .levelbox { display: flex; align-items: center; gap: 6px; }
+  .levelbox input { width: 76px; text-align: center; font-size: 18px; font-weight: 700; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { background: var(--bg-2); color: var(--text-2); border: none; padding: 7px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: #1a1206; font-weight: 600; }
+  .now { color: var(--accent-2); font-weight: 600; }
+  .done { color: var(--muted); text-decoration: line-through; }
+  .check { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .check:last-child { border-bottom: none; }
+  .check input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+  .check .body { flex: 1; min-width: 0; }
+  .check .sub { color: var(--muted); font-size: 12px; margin-top: 3px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .check .result { margin-top: 6px; width: 100%; font-size: 13px; }
+  .progress { height: 6px; background: var(--bg-2); border-radius: 3px; overflow: hidden; margin: 4px 0 8px; }
+  .progress span { display: block; height: 100%; background: var(--accent); }
+  .new { color: var(--accent-2); font-size: 11px; font-weight: 700; margin-left: 6px; }
+  .empty { color: var(--muted); font-style: italic; padding: 8px 0; }
+  form.add { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; align-items: end; }
+  form.add label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); }
+  form.add label.wide { grid-column: span 2; }
+  .spark { width: 100%; height: 90px; display: block; }
+  .spark .ln { fill: none; stroke: var(--blue); stroke-width: 2; }
+  .spark .pt { fill: var(--blue); stroke: var(--panel); stroke-width: 2; }
+  .spark .ref { stroke: var(--line); stroke-dasharray: 3 3; }
+  .spark .lbl { fill: var(--muted); font-size: 10px; }
+  .tooltip { position: fixed; pointer-events: none; background: #0b0e14; border: 1px solid var(--line); color: var(--text); font-size: 12px; padding: 5px 8px; border-radius: 6px; z-index: 50; display: none; white-space: nowrap; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12px; color: var(--text-2); }
+  .toast { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--panel-2); border: 1px solid var(--accent); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 13px; z-index: 60; display: none; }
+  footer { color: var(--muted); font-size: 12px; padding: 0 var(--gutter) 24px; text-align: center; }
+  @media (max-width: 640px) {
+    body { font-size: 14px; }
+    .brand h1 { font-size: 16px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .pc { grid-template-columns: 1fr; }
+    .grid.cards { grid-template-columns: 1fr; }
+    form.add label.wide { grid-column: span 1; }
+    .kv { grid-template-columns: 1fr; }
+    .kv dt { margin-top: 4px; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg class="leaf" viewBox="0 0 32 32" aria-hidden="true"><path fill="#f39c34" d="M16 2l2.6 6.2 5.4-3-1.3 6.5 6.3-.6-3.6 5.2 4.6 3.2-6.5 1.5 1.9 6.1-5.6-3.4L16 30l-1.8-6.3-5.6 3.4 1.9-6.1L4 19.5l4.6-3.2L5 11.1l6.3.6L10 5.2l5.4 3z"/><path stroke="#1a1206" stroke-width="1.6" d="M16 30V12"/></svg>
+    <div>
+      <h1>Classic World Launch Plan</h1>
+      <div class="sub" id="subline"></div>
+    </div>
+  </div>
+  <div class="chips" id="chips"></div>
+</header>
+<nav class="tabs" role="tablist" id="tabs"></nav>
+<main>
+  <section class="tab" id="tab-updates" role="tabpanel"></section>
+  <section class="tab" id="tab-classes" role="tabpanel"></section>
+  <section class="tab" id="tab-route" role="tabpanel"></section>
+  <section class="tab" id="tab-farming" role="tabpanel"></section>
+  <section class="tab" id="tab-prices" role="tabpanel"></section>
+  <section class="tab" id="tab-checklist" role="tabpanel"></section>
+  <section class="tab" id="tab-routine" role="tabpanel"></section>
+</main>
+<footer id="foot"></footer>
+<div class="tooltip" id="tip"></div>
+<div class="toast" id="toast"></div>
+<input type="file" id="fileJson" accept=".json,application/json" hidden>
+<input type="file" id="fileCsv" accept=".csv,text/csv" hidden>
+
+<script src="data/plan_data.js"></script>
+<script>
+(function () {
+  "use strict";
+  var D = window.PLAN_DATA;
+  if (!D) {
+    document.querySelector("main").innerHTML = '<div class="panel">Could not load <code>data/plan_data.js</code>. Keep it in the <code>data</code> folder next to this file.</div>';
+    return;
+  }
+  var NS = "mscw.";
+  var TZ = D.meta.timezone || "America/Chicago";
+
+  /* ---------- storage (namespaced, never throws) ---------- */
+  var mem = {};
+  function load(key, fallback) {
+    try {
+      var raw = window.localStorage.getItem(NS + key);
+      if (raw == null) return fallback;
+      return JSON.parse(raw);
+    } catch (e) { return (NS + key) in mem ? mem[NS + key] : fallback; }
+  }
+  function save(key, value) {
+    try { window.localStorage.setItem(NS + key, JSON.stringify(value)); }
+    catch (e) { mem[NS + key] = value; }
+  }
+  var S = {
+    prices: load("prices", []),
+    checks: load("checks", {}),
+    notes: load("notes", {}),
+    levels: load("levels", { fighter: 1, assassin: 1, hunter: 1 }),
+    routeChar: load("routeChar", "fighter"),
+    reviewAck: load("reviewAck", {}),
+    lastVisit: load("lastVisit", null),
+    weekly: load("weekly", {}),
+    tab: load("tab", "updates")
+  };
+  function persist(k) { save(k, S[k]); }
+
+  /* ---------- helpers ---------- */
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function fmtInt(n) { return n == null || isNaN(n) ? "—" : Math.round(n).toLocaleString("en-US"); }
+  function fmtDate(iso, withTime) {
+    if (!iso) return "—";
+    var d = new Date(iso);
+    if (isNaN(d)) return esc(iso);
+    var o = { timeZone: TZ, month: "short", day: "numeric" };
+    if (withTime) { o.hour = "numeric"; o.minute = "2-digit"; }
+    return d.toLocaleString("en-US", o) + (withTime ? " CT" : "");
+  }
+  function relTime(iso) {
+    var d = new Date(iso); if (isNaN(d)) return "";
+    var s = Math.round((Date.now() - d.getTime()) / 1000);
+    var a = Math.abs(s), v, u;
+    if (a < 3600) { v = Math.round(a / 60); u = "min"; }
+    else if (a < 172800) { v = Math.round(a / 3600); u = "h"; }
+    else { v = Math.round(a / 86400); u = "d"; }
+    return s >= 0 ? v + " " + u + " ago" : "in " + v + " " + u;
+  }
+  var tierText = D.meta.tierLegend || {};
+  function tag(t, src) {
+    var key = t === "?" ? "Q" : (t === "B" ? "B" : "V");
+    var label = t === "?" ? "?" : t;
+    var title = (tierText[t] || "") + (src ? " — Source: " + src : "");
+    return '<span class="tag t-' + key + '" title="' + esc(title) + '">' + esc(label) + "</span>";
+  }
+  function sourceName(id) {
+    for (var i = 0; i < D.sources.length; i++) if (D.sources[i].id === id) return D.sources[i];
+    return null;
+  }
+  var toastTimer;
+  function toast(msg) {
+    var t = $("#toast"); t.textContent = msg; t.style.display = "block";
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.style.display = "none"; }, 2400);
+  }
+  var tip = $("#tip");
+  function showTip(e, text) {
+    tip.textContent = text; tip.style.display = "block";
+    var x = Math.min(e.clientX + 12, window.innerWidth - tip.offsetWidth - 8);
+    tip.style.left = x + "px"; tip.style.top = (e.clientY + 14) + "px";
+  }
+  function hideTip() { tip.style.display = "none"; }
+  function median(arr) {
+    if (!arr.length) return null;
+    var a = arr.slice().sort(function (x, y) { return x - y; });
+    var m = Math.floor(a.length / 2);
+    return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
+  }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+  function isoWeek(d) {
+    var t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    var day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day);
+    var y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
+    var wk = Math.ceil(((t - y0) / 86400000 + 1) / 7);
+    return t.getUTCFullYear() + "-W" + (wk < 10 ? "0" : "") + wk;
+  }
+  function download(name, text, type) {
+    var blob = new Blob([text], { type: type });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 500);
+  }
+
+  /* ---------- header ---------- */
+  function renderHeader() {
+    $("#subline").innerHTML = "Data v" + esc(D.meta.version) + " · last checked " + esc(fmtDate(D.meta.lastChecked, true)) +
+      " · Farmer: <b>" + esc(D.meta.farmingCharacter) + "</b>";
+    var fa = new Date(D.meta.foundersAccess), gl = new Date(D.meta.grandLaunch);
+    function cd(label, d) {
+      var ms = d - Date.now();
+      if (ms <= 0) return '<span class="chip"><b>' + label + "</b> live since " + fmtDate(d.toISOString()) + "</span>";
+      var days = Math.floor(ms / 86400000), hrs = Math.floor((ms % 86400000) / 3600000);
+      return '<span class="chip"><b>' + label + "</b> in " + days + "d " + hrs + "h · " + fmtDate(d.toISOString(), true) + "</span>";
+    }
+    $("#chips").innerHTML = cd("Founder's Access", fa) + cd("Grand Launch", gl) +
+      '<span class="chip">' + tag("V") + " verified " + tag("B") + " legacy " + tag("?") + " unknown</span>";
+    $("#foot").innerHTML = "Plan files: " + D.meta.files.map(esc).join(" · ") +
+      "<br>Your checkmarks, notes and prices stay in this browser (keys prefixed <code>mscw.</code>). Export them from the Price Log tab.";
+  }
+
+  /* ---------- tabs ---------- */
+  var TABS = [
+    ["updates", "Updates"], ["classes", "Class Tier Matrix"], ["route", "Route & SP"],
+    ["farming", "Farming Targets"], ["prices", "Price Log & Watchlist"], ["checklist", "Launch Checklist"], ["routine", "Dual-Character Routine"]
+  ];
+  function renderTabs() {
+    $("#tabs").innerHTML = TABS.map(function (t) {
+      return '<button role="tab" id="btn-' + t[0] + '" aria-controls="tab-' + t[0] + '" data-tab="' + t[0] + '">' + esc(t[1]) + "</button>";
+    }).join("");
+    $all("#tabs button").forEach(function (b) {
+      b.addEventListener("click", function () { selectTab(b.getAttribute("data-tab")); });
+    });
+    var fromHash = (location.hash || "").replace("#", "");
+    selectTab(TABS.some(function (t) { return t[0] === fromHash; }) ? fromHash : S.tab);
+    window.addEventListener("hashchange", function () {
+      var h = (location.hash || "").replace("#", "");
+      if (TABS.some(function (t) { return t[0] === h; })) selectTab(h);
+    });
+  }
+  function selectTab(id) {
+    if (!TABS.some(function (t) { return t[0] === id; })) id = "updates";
+    S.tab = id; persist("tab");
+    try { if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id); } catch (e) { /* file:// may block this */ }
+    $all("#tabs button").forEach(function (b) { b.setAttribute("aria-selected", b.getAttribute("data-tab") === id ? "true" : "false"); });
+    $all("section.tab").forEach(function (s) { s.classList.toggle("active", s.id === "tab-" + id); });
+  }
+
+  /* ---------- Updates ---------- */
+  function renderUpdates() {
+    var el = $("#tab-updates");
+    var last = S.lastVisit ? new Date(S.lastVisit) : null;
+    var fresh = D.changelog.filter(function (c) { return !last || new Date(c.date) > last; });
+    var pending = D.reviewQueue.filter(function (r) { return r.status === "pending"; });
+    var unacked = pending.filter(function (r) { return !S.reviewAck[r.id]; });
+    var checkedCount = D.checklist.filter(function (c) { return S.checks[c.id]; }).length;
+    var html = '<div class="grid tiles">' +
+      tile("Last check", relTime(D.meta.lastChecked) || "—", fmtDate(D.meta.lastChecked, true)) +
+      tile("Data version", "v" + D.meta.version, "updated " + fmtDate(D.meta.lastUpdated, true)) +
+      tile("Waiting on you", String(unacked.length), pending.length + " decision" + (pending.length === 1 ? "" : "s") + " in the review queue") +
+      tile("Launch checklist", checkedCount + " / " + D.checklist.length, "items checked") +
+      "</div>";
+
+    html += '<h2>What changed since your last visit</h2>';
+    html += '<p class="note">' + (last ? "Last marked seen " + esc(fmtDate(last.toISOString(), true)) + "." : "First visit: everything is new.") +
+      ' <button class="btn small" id="markSeen">Mark all as seen</button></p>';
+    if (!fresh.length) html += '<div class="panel empty">Nothing new since your last visit.</div>';
+    fresh.forEach(function (c) {
+      html += '<div class="panel"><div class="row" style="justify-content:space-between"><h3>' + esc(c.title) + '<span class="new">NEW</span></h3>' +
+        '<span class="meta" style="color:var(--muted);font-size:12px">v' + esc(c.version) + " · " + esc(fmtDate(c.date, true)) + "</span></div>" +
+        '<ul class="tight">' + c.items.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul>" +
+        (c.sources && c.sources.length ? '<div class="meta" style="color:var(--muted);font-size:12px">Sources: ' + c.sources.map(srcLink).join(", ") + "</div>" : "") +
+        "</div>";
+    });
+
+    html += '<h2>Waiting on your decision</h2><p class="note">This page can\'t change the plan files. Tell Claude your decision; acknowledging only hides the reminder in this browser.</p>';
+    if (!pending.length) html += '<div class="panel empty">No pending decisions.</div>';
+    pending.forEach(function (r) {
+      var ack = S.reviewAck[r.id];
+      html += '<div class="panel"><div class="row" style="justify-content:space-between"><h3>' + esc(r.id) + " · " + esc(r.title) + "</h3>" +
+        '<button class="btn small" data-ack="' + esc(r.id) + '">' + (ack ? "Acknowledged ✓" : "Acknowledge") + "</button></div>" +
+        "<div>" + esc(r.summary) + "</div>" +
+        '<dl class="kv" style="margin-top:8px"><dt>Proposed change</dt><dd>' + esc(r.proposedChange) + "</dd><dt>Source</dt><dd>" + esc(r.source) + "</dd><dt>Queued</dt><dd>" + esc(r.date) + "</dd></dl></div>";
+    });
+
+    html += '<h2>Open questions</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Question</th><th>Why it matters</th><th>Check</th></tr></thead><tbody>' +
+      D.openQuestions.map(function (q) {
+        return "<tr><td>" + esc(q.id) + "</td><td>" + tag(q.tier) + " " + esc(q.text) + "</td><td>" + esc(q.impact) + "</td><td>" + esc(q.check) + "</td></tr>";
+      }).join("") + "</tbody></table></div>";
+    el.innerHTML = html;
+    $("#markSeen").addEventListener("click", function () { S.lastVisit = new Date().toISOString(); persist("lastVisit"); renderUpdates(); toast("Marked as seen"); });
+    $all("[data-ack]", el).forEach(function (b) {
+      b.addEventListener("click", function () {
+        var id = b.getAttribute("data-ack");
+        if (S.reviewAck[id]) delete S.reviewAck[id]; else S.reviewAck[id] = new Date().toISOString();
+        persist("reviewAck"); renderUpdates();
+      });
+    });
+  }
+  function tile(k, v, s) { return '<div class="tile"><div class="k">' + esc(k) + '</div><div class="v">' + esc(v) + '</div><div class="s">' + esc(s) + "</div></div>"; }
+  function srcLink(id) {
+    var s = sourceName(id);
+    return s ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.id) + "</a>" : esc(id);
+  }
+
+  /* ---------- Class Tier Matrix ---------- */
+  var cls = { branch: "All", tier: "All", sort: "mgi", q: "" };
+  function mgiTier(m) { return m >= 6 ? "A" : (m >= 5 ? "B" : "C"); }
+  function renderClasses() {
+    var el = $("#tab-classes");
+    var branches = ["All", "Warrior", "Thief", "Bowman", "Magician"];
+    el.innerHTML = '<p class="note">Meso Generation Index (MGI, 1–10) = 0.20·A time-to-efficiency + 0.20·B mobbing + 0.25·C kill speed + 0.15·D upkeep + 0.10·E funding + 0.10·F meso skills. Lv 70 DPS comes from meowdb\'s model (stationary 0-DEF target, every hit lands). Pirates are not in Classic.</p>' +
+      '<div class="filters">' +
+      '<select id="clsBranch" aria-label="Branch">' + branches.map(function (b) { return "<option>" + b + "</option>"; }).join("") + "</select>" +
+      '<select id="clsTier" aria-label="MGI tier"><option value="All">All MGI tiers</option><option value="A">Tier A (MGI ≥ 6.0)</option><option value="B">Tier B (5.0–5.9)</option><option value="C">Tier C (&lt; 5.0)</option></select>' +
+      '<select id="clsSort" aria-label="Sort"><option value="mgi">Sort: MGI</option><option value="st">Sort: single-target DPS</option><option value="aoe">Sort: AoE DPS</option><option value="party">Sort: party value</option></select>' +
+      '<input type="search" id="clsQ" placeholder="Search skills, pros, cons…">' +
+      "</div><div class='grid cards' id='clsCards'></div>";
+    $("#clsBranch").value = cls.branch; $("#clsTier").value = cls.tier; $("#clsSort").value = cls.sort; $("#clsQ").value = cls.q;
+    ["clsBranch", "clsTier", "clsSort"].forEach(function (id) {
+      $("#" + id).addEventListener("change", function () { cls.branch = $("#clsBranch").value; cls.tier = $("#clsTier").value; cls.sort = $("#clsSort").value; drawClassCards(); });
+    });
+    $("#clsQ").addEventListener("input", function () { cls.q = this.value.toLowerCase(); drawClassCards(); });
+    drawClassCards();
+  }
+  function drawClassCards() {
+    var list = D.classes.filter(function (c) {
+      if (cls.branch !== "All" && c.branch !== cls.branch) return false;
+      if (cls.tier !== "All" && mgiTier(c.mgi) !== cls.tier) return false;
+      if (cls.q) {
+        var hay = [c.name, c.branch, c.role, c.multiTarget].concat(c.pros, c.cons, c.changes).join(" ").toLowerCase();
+        if (hay.indexOf(cls.q) < 0) return false;
+      }
+      return true;
+    });
+    var key = { mgi: "mgi", st: "stDps", aoe: "aoeDps", party: "party" }[cls.sort];
+    list.sort(function (a, b) { return (b[key] || 0) - (a[key] || 0); });
+    var box = $("#clsCards");
+    if (!list.length) { box.innerHTML = '<div class="empty">No classes match these filters.</div>'; return; }
+    box.innerHTML = list.map(function (c) {
+      var parts = c.mgiParts;
+      return '<article class="card"><div class="hd"><div><span class="name">' + esc(c.name) + '</span> <span class="meta">' + esc(c.branch) + " · Tier " + mgiTier(c.mgi) + "</span></div>" + tag(c.tier, c.source) + "</div>" +
+        (c.role ? '<div style="margin-top:4px"><span class="badge role">' + esc(c.role) + "</span></div>" : "") +
+        '<div class="mgi" title="A ' + parts.A + " · B " + parts.B + " · C " + parts.C + " · D " + parts.D + " · E " + parts.E + " · F " + parts.F + '"><span class="meta" style="color:var(--muted);font-size:12px">MGI</span><div class="bar"><span style="width:' + (c.mgi * 10) + '%"></span></div><span class="val">' + c.mgi.toFixed(1) + "</span></div>" +
+        '<div class="stats">' +
+        "<div>Efficient from<b>" + esc(c.efficientFrom) + "</b></div>" +
+        "<div>Single target<b>" + fmtInt(c.stDps) + " (#" + c.stRank + ")</b></div>" +
+        "<div>AoE<b>" + (c.aoeDps ? fmtInt(c.aoeDps) + " (#" + c.aoeRank + ")" : "none") + "</b></div>" +
+        "<div>Multi-target<b>" + esc(c.multiTarget) + "</b></div>" +
+        "<div>Damage/MP<b>" + esc(c.dmgPerMp) + "</b></div>" +
+        "<div>Phys. EHP<b>" + esc(c.ehp) + "</b></div>" +
+        "<div>Funding<b>" + esc(c.funding) + "</b></div>" +
+        "<div>Solo<b>" + c.solo + "/10</b></div>" +
+        "<div>Party<b>" + c.party + "/10</b></div>" +
+        "</div>" +
+        '<div class="pc"><div><h4>Pros</h4><ul class="tight pros">' + c.pros.map(li).join("") + '</ul></div><div><h4>Cons</h4><ul class="tight cons">' + c.cons.map(li).join("") + "</ul></div></div>" +
+        "<details><summary>Changes vs legacy " + tag(c.tier, c.source) + "</summary><ul class='tight'>" + c.changes.map(li).join("") + "</ul><div class='meta' style='color:var(--muted);font-size:12px'>Source: " + esc(c.source) + "</div></details>" +
+        "</article>";
+    }).join("");
+  }
+  function li(s) { return "<li>" + esc(s) + "</li>"; }
+
+  /* ---------- Route & SP ---------- */
+  var DAYPLAN = [["Oct 6", 4, 12, 14, 15], ["Oct 7", 8, 21, 21, 22], ["Oct 8", 12, 24, 24, 27], ["Oct 9", 16, 27, 27, 31], ["Oct 10", 24, 32, 32, 36], ["Oct 11", 32, 35, 37, 42], ["Oct 12", 36, 37, 39, 44], ["Oct 13", 40, 39, 41, 46], ["Oct 14", 44, 41, 43, 47], ["Oct 15", 48, 42, 45, 49], ["Oct 16", 52, 44, 47, 51], ["Oct 17", 60, 46, 49, 54], ["Oct 18", 68, 49, 53, 57], ["Oct 19", 72, 50, 54, 59], ["Oct 20", 76, 51, 56, 60]];
+  function renderRoute() {
+    var el = $("#tab-route");
+    var ch = S.routeChar;
+    var lv = Math.max(1, Math.min(70, parseInt(S.levels[ch], 10) || 1));
+    var plan = D.spPlan[ch];
+    var bracket = D.route.filter(function (b) { return lv >= b.minLv && lv <= b.maxLv; })[0] || D.route[D.route.length - 1];
+    if (lv === 10) bracket = D.route[1];
+    var html = '<div class="panel"><div class="row" style="justify-content:space-between">' +
+      '<div class="seg" role="group" aria-label="Character">' +
+      [["fighter", "Fighter (farmer)"], ["assassin", "Assassin"], ["hunter", "Hunter"]].map(function (o) {
+        return '<button data-char="' + o[0] + '" aria-pressed="' + (ch === o[0]) + '">' + o[1] + "</button>";
+      }).join("") + "</div>" +
+      '<div class="levelbox"><button class="btn" id="lvDown" aria-label="Level down">−</button><input id="lvIn" type="number" min="1" max="70" value="' + lv + '" aria-label="Your level"><button class="btn" id="lvUp" aria-label="Level up">+</button></div></div>' +
+      '<p class="note">Enter your current level. It is saved per character in this browser.</p></div>';
+
+    html += '<h2>Now: Lv ' + bracket.minLv + "–" + bracket.maxLv + " · " + esc(bracket.title) + " " + tag(bracket.tier, bracket.source) + "</h2>";
+    html += '<div class="panel"><div><b>Goal:</b> ' + esc(bracket.goal) + '</div><div class="meta" style="color:var(--muted);font-size:12px;margin-top:4px">Bracket time: ' + esc(bracket.hours) + " h · Source: " + esc(bracket.source) + "</div>" +
+      (ch !== "fighter" ? '<div style="margin-top:8px"><span class="badge role">Launch character</span> ' + esc(bracket.launchNote) + "</div>" : "") + "</div>";
+
+    html += '<div class="grid cards">';
+    html += '<div class="card"><h3>Next AP</h3>' + stepList(plan.ap, lv, "ap") + "</div>";
+    html += '<div class="card"><h3>Next SP</h3>' + stepList(plan.sp, lv, "sp") + "</div>";
+    html += "</div>";
+    if (plan.citizenship) html += '<p class="note">Citizenship: ' + esc(plan.citizenship) + "</p>";
+
+    html += "<h2>Maps for this bracket</h2>";
+    html += '<div class="table-wrap"><table><thead><tr><th>Map</th><th>Mobs (Lv/HP/EXP)</th><th class="num">Spawns</th><th>Ceiling</th><th>Note</th></tr></thead><tbody>' +
+      bracket.maps.map(function (m) {
+        return "<tr><td><b>" + esc(m.name) + '</b><div class="meta" style="color:var(--muted);font-size:12px">' + esc(m.mapId) + " · " + esc(m.how) + "</div></td><td>" + esc(m.mobs) + '</td><td class="num">' + esc(m.spawns) + "</td><td>" + esc(m.ceiling) + "</td><td>" + esc(m.note) + "</td></tr>";
+      }).join("") + "</tbody></table></div>";
+
+    var e = bracket.estimate;
+    html += '<h2>Estimate (Fighter) ' + tag("?", "Mesos per kill and drop chance unmeasured; see V-1") + "</h2>" +
+      '<div class="panel"><dl class="kv"><dt>EXP/h</dt><dd>' + esc(e.expPerHour) + "</dd><dt>Kills/h</dt><dd>" + esc(e.killsPerHour) + "</dd><dt>Mesos/kill</dt><dd>" + esc(e.mesosPerKill) +
+      "</dd><dt>Gross mesos/h</dt><dd>" + esc(e.grossMesosPerHour) + "</dd><dt>Upkeep</dt><dd>" + esc(e.upkeep) + "</dd><dt>Math</dt><dd>" + esc(e.math) + "</dd></dl></div>";
+
+    html += "<h2>Quests</h2><div class='panel'>" + bracket.quests.map(function (q) {
+      var state = q.lv <= lv ? '<span class="now">available</span>' : '<span style="color:var(--muted)">Lv ' + q.lv + "</span>";
+      return '<div class="check"><div class="body"><b>' + esc(q.name) + "</b> " + (q.flag ? '<span class="badge pri">' + esc(q.flag) + "</span>" : "") +
+        '<div class="sub">Lv ' + q.lv + " · " + state + " · " + esc(q.reward) + "</div></div></div>";
+    }).join("") + "</div>";
+
+    html += "<h2>Pick up</h2><div class='panel'><ul class='tight'>" + bracket.pickup.map(li).join("") + "</ul></div>";
+
+    if (ch === "fighter") {
+      html += '<h2>Founder\'s Access level targets ' + tag("?", "Projection; calc/day_plan.py") + '</h2><p class="note">Low / mid / high scenarios from 01 §0.2. Compare your level each night.</p>' +
+        '<div class="table-wrap"><table><thead><tr><th>Day</th><th class="num">Hours (cum.)</th><th class="num">Low</th><th class="num">Mid</th><th class="num">High</th></tr></thead><tbody>' +
+        DAYPLAN.map(function (r) {
+          var today = fmtDate(new Date().toISOString()) === r[0];
+          var cls = today ? ' class="sel"' : "";
+          return "<tr" + cls + "><td>" + r[0] + (today ? ' <span class="new">TODAY</span>' : "") + '</td><td class="num">' + r[1] + '</td><td class="num">' + r[2] + '</td><td class="num">' + r[3] + '</td><td class="num">' + r[4] + "</td></tr>";
+        }).join("") + "</tbody></table></div>";
+    }
+    el.innerHTML = html;
+
+    $all("[data-char]", el).forEach(function (b) {
+      b.addEventListener("click", function () { S.routeChar = b.getAttribute("data-char"); persist("routeChar"); renderRoute(); });
+    });
+    function setLv(v) { S.levels[ch] = Math.max(1, Math.min(70, v || 1)); persist("levels"); renderRoute(); var i = $("#lvIn"); if (i) i.focus(); }
+    $("#lvDown").addEventListener("click", function () { setLv(lv - 1); });
+    $("#lvUp").addEventListener("click", function () { setLv(lv + 1); });
+    $("#lvIn").addEventListener("change", function () { setLv(parseInt(this.value, 10)); });
+  }
+  function stepList(rows, lv, kind) {
+    var idx = -1;
+    for (var i = 0; i < rows.length; i++) { if (lv >= rows[i].from && lv <= rows[i].to) { idx = i; break; } }
+    if (idx < 0) { for (i = 0; i < rows.length; i++) { if (rows[i].from > lv) { idx = i; break; } } }
+    if (idx < 0) idx = rows.length - 1;
+    var out = rows.slice(idx, idx + 3);
+    return '<ul class="tight">' + out.map(function (r, j) {
+      var range = r.from === r.to ? "Lv " + r.from : "Lv " + r.from + "–" + r.to;
+      var what = kind === "ap" ? r.rule + (r.result ? " → " + r.result : "") : r.spend + (r.result ? " → " + r.result : "");
+      return "<li" + (j === 0 ? ' class="now"' : "") + "><b>" + range + ":</b> " + esc(what) + (r.why ? ' <span style="color:var(--muted)">(' + esc(r.why) + ")</span>" : "") + "</li>";
+    }).join("") + "</ul>";
+  }
+
+  /* ---------- Farming Targets ---------- */
+  var farm = { bracket: "All", q: "", bosses: false };
+  function renderFarming() {
+    var el = $("#tab-farming");
+    var brackets = ["All", "1-10", "10-20", "21-30", "31-40", "41-50", "51-70"];
+    el.innerHTML = '<p class="note">Warriors have no elemental attacks before 3rd job, so weaknesses matter only for mages. Mesos per kill come from single COT2 community reports; "~2x Lv" is the working estimate where none exist.</p>' +
+      '<div class="filters"><select id="farmB" aria-label="Bracket">' + brackets.map(function (b) { return '<option value="' + b + '">' + (b === "All" ? "All brackets" : "Lv " + b) + "</option>"; }).join("") + "</select>" +
+      '<label class="row" style="font-size:13px;color:var(--text-2)"><input type="checkbox" id="farmBoss"> Bosses only</label>' +
+      '<input type="search" id="farmQ" placeholder="Search mobs, maps, drops…"></div><div id="farmEst"></div><div id="farmList"></div>';
+    $("#farmB").value = farm.bracket; $("#farmBoss").checked = farm.bosses; $("#farmQ").value = farm.q;
+    $("#farmB").addEventListener("change", function () { farm.bracket = this.value; drawFarm(); });
+    $("#farmBoss").addEventListener("change", function () { farm.bosses = this.checked; drawFarm(); });
+    $("#farmQ").addEventListener("input", function () { farm.q = this.value.toLowerCase(); drawFarm(); });
+    drawFarm();
+  }
+  function drawFarm() {
+    var est = $("#farmEst");
+    var b = D.route.filter(function (r) { return (r.minLv + "-" + r.maxLv) === farm.bracket; })[0];
+    est.innerHTML = b ? '<div class="panel"><b>Lv ' + b.minLv + "–" + b.maxLv + " estimate (Fighter)</b> " + tag("?", "V-1 unmeasured") +
+      '<dl class="kv" style="margin-top:6px"><dt>Kills/h</dt><dd>' + esc(b.estimate.killsPerHour) + "</dd><dt>Mesos/kill</dt><dd>" + esc(b.estimate.mesosPerKill) + "</dd><dt>Gross mesos/h</dt><dd>" + esc(b.estimate.grossMesosPerHour) + "</dd><dt>Upkeep</dt><dd>" + esc(b.estimate.upkeep) + "</dd></dl></div>" : "";
+    var list = D.farmingTargets.filter(function (m) {
+      if (farm.bracket !== "All" && m.bracket !== farm.bracket) return false;
+      if (farm.bosses && m.id.indexOf("b-") !== 0) return false;
+      if (farm.q) { var hay = (m.mob + " " + m.maps + " " + m.drops + " " + m.weak).toLowerCase(); if (hay.indexOf(farm.q) < 0) return false; }
+      return true;
+    });
+    var box = $("#farmList");
+    if (!list.length) { box.innerHTML = '<div class="empty">No mobs match.</div>'; return; }
+    box.innerHTML = '<div class="table-wrap"><table><thead><tr><th>Mob</th><th class="num">Lv</th><th class="num">HP</th><th class="num">EXP</th><th class="num">P.DEF</th><th>Weak / resist</th><th>Best maps (spawns)</th><th>Mesos/kill</th><th>Drops worth it</th></tr></thead><tbody>' +
+      list.map(function (m) {
+        return "<tr><td><b>" + esc(m.mob) + "</b> " + tag(m.tier, m.source) + (m.undead ? ' <span class="badge pri">undead</span>' : "") + '</td><td class="num">' + m.lv + '</td><td class="num">' + fmtInt(m.hp) + '</td><td class="num">' + fmtInt(m.exp) + '</td><td class="num">' + m.pdef +
+          "</td><td>" + esc(m.weak) + "</td><td>" + esc(m.maps) + "</td><td>" + esc(m.mesos) + "</td><td>" + esc(m.drops) + "</td></tr>";
+      }).join("") + "</tbody></table></div>";
+  }
+
+  /* ---------- Price Log & Watchlist ---------- */
+  var R = D.rules;
+  var pf = { q: "", group: "All", sig: "All", sel: null };
+  function obsFor(item) {
+    return S.prices.filter(function (p) { return p.itemId === item.id || (!p.itemId && p.item === item.item); })
+      .sort(function (a, b) { return new Date(a.ts) - new Date(b.ts); });
+  }
+  function statsFor(item) {
+    var obs = obsFor(item), now = Date.now();
+    var in3 = obs.filter(function (p) { return now - new Date(p.ts) <= 3 * 86400000; });
+    var in7 = obs.filter(function (p) { return now - new Date(p.ts) <= 7 * 86400000; });
+    var asks = obs.filter(function (p) { return p.kind !== "sale"; });
+    var last = asks.length ? asks[asks.length - 1] : (obs.length ? obs[obs.length - 1] : null);
+    return {
+      obs: obs, n3: in3.length, n7: in7.length,
+      m3: median(in3.map(function (p) { return p.price; })), m7: median(in7.map(function (p) { return p.price; })), last: last
+    };
+  }
+  function signal(item, st) {
+    var p = st.last ? st.last.price : null;
+    if (p != null && item.npcFloor && p < R.floorArb * item.npcFloor) return { cls: "arb", code: "ARB", text: "Floor arbitrage: BUY (R1)" };
+    if (p != null && item.ceiling && p > item.ceiling) return { cls: "ceil", code: "CEIL", text: "Above ceiling: don't buy (R6/R7)" };
+    if (st.n3 < R.minN) return { cls: "nodata", code: "NODATA", text: "Not enough data (" + st.n3 + "/" + R.minN + " in 3 d)" };
+    var buyThr = (item.hold ? R.buyThin : R.buyLiquid) * st.m3;
+    if (p != null && p <= buyThr) return { cls: "buy", code: "BUY", text: "BUY: ≤ " + (item.hold ? R.buyThin : R.buyLiquid) + "×M3 (R2)" };
+    if (p != null && st.n7 >= R.minN && st.m7 && p >= R.sellTake * st.m7) return { cls: "sell", code: "SELL", text: "SELL zone: ≥ " + R.sellTake + "×M7 (R3)" };
+    return { cls: "range", code: "RANGE", text: "Within normal range" };
+  }
+  function renderPrices() {
+    var el = $("#tab-prices");
+    var groups = ["All"].concat(D.watchlist.map(function (w) { return w.group; }).filter(function (g, i, a) { return a.indexOf(g) === i; }));
+    var nowLocal = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    el.innerHTML =
+      '<div class="panel"><h3>Log an observed price</h3><p class="note">Log the lowest asking price you see (or a sale price), per item as listed; for stars, per set. Nothing here is a real market price until you log it.</p>' +
+      '<form class="add" id="addForm">' +
+      '<label class="wide">Item<select id="fItem">' + D.watchlist.map(function (w) { return '<option value="' + esc(w.id) + '">' + esc(w.id + " · " + w.item) + "</option>"; }).join("") + '<option value="__other">Other (type below)…</option></select></label>' +
+      '<label>Other item name<input id="fOther" placeholder="only for Other"></label>' +
+      '<label>Price (mesos)<input id="fPrice" type="number" min="0" step="1" required></label>' +
+      '<label>Qty<input id="fQty" type="number" min="1" step="1" value="1"></label>' +
+      '<label>Type<select id="fKind"><option value="ask">Ask (listed)</option><option value="sale">Sale (sold)</option></select></label>' +
+      '<label>Channel<input id="fCh" placeholder="e.g. 5"></label>' +
+      '<label>When<input id="fWhen" type="datetime-local" value="' + nowLocal + '"></label>' +
+      '<label class="wide">Note<input id="fNote" placeholder="optional"></label>' +
+      '<button class="btn primary" type="submit">Add price</button></form></div>' +
+      '<div class="filters"><input type="search" id="pQ" placeholder="Search items…">' +
+      '<select id="pG" aria-label="Group">' + groups.map(function (g) { return '<option value="' + g + '">' + (g === "All" ? "All groups" : g) + "</option>"; }).join("") + "</select>" +
+      '<select id="pS" aria-label="Signal"><option value="All">All signals</option><option value="ARB">Floor arbitrage</option><option value="BUY">Buy</option><option value="SELL">Sell zone</option><option value="CEIL">Above ceiling</option><option value="RANGE">Normal range</option><option value="NODATA">Not enough data</option></select>' +
+      '<span style="flex:1"></span><button class="btn small" id="expJson">Export JSON</button><button class="btn small" id="expCsv">Export CSV</button><button class="btn small" id="impJson">Import JSON</button><button class="btn small" id="impCsv">Import CSV</button></div>' +
+      '<div class="legend"><span><span class="badge arb">ARB</span> below 0.9× NPC floor</span><span><span class="badge buy">BUY</span> ≤ 0.70×M3 (0.60 for holds)</span><span><span class="badge sell">SELL</span> ≥ 1.20×M7</span><span><span class="badge ceil">CEIL</span> above NPC/Lesser ceiling</span><span>Signals need ≥ ' + R.minN + ' prices in 3 days.</span></div>' +
+      '<div id="wl" style="margin-top:10px"></div><div id="wlDetail"></div>';
+    $("#pQ").value = pf.q; $("#pG").value = pf.group; $("#pS").value = pf.sig;
+    $("#pQ").addEventListener("input", function () { pf.q = this.value.toLowerCase(); drawWatch(); });
+    $("#pG").addEventListener("change", function () { pf.group = this.value; drawWatch(); });
+    $("#pS").addEventListener("change", function () { pf.sig = this.value; drawWatch(); });
+    $("#addForm").addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var id = $("#fItem").value, price = parseFloat($("#fPrice").value);
+      if (isNaN(price) || price < 0) { toast("Enter a price"); return; }
+      var w = D.watchlist.filter(function (x) { return x.id === id; })[0];
+      var name = id === "__other" ? ($("#fOther").value || "").trim() : w.item;
+      if (!name) { toast("Type the item name"); return; }
+      var when = $("#fWhen").value ? new Date($("#fWhen").value) : new Date();
+      S.prices.push({ id: uid(), itemId: id === "__other" ? "" : id, item: name, ts: when.toISOString(), channel: $("#fCh").value.trim(), kind: $("#fKind").value, price: price, qty: parseInt($("#fQty").value, 10) || 1, note: $("#fNote").value.trim() });
+      persist("prices"); $("#fPrice").value = ""; $("#fNote").value = "";
+      if (id !== "__other") pf.sel = id;
+      drawWatch(); toast("Price added");
+    });
+    $("#expJson").addEventListener("click", exportJson);
+    $("#expCsv").addEventListener("click", exportCsv);
+    $("#impJson").addEventListener("click", function () { $("#fileJson").click(); });
+    $("#impCsv").addEventListener("click", function () { $("#fileCsv").click(); });
+    drawWatch();
+  }
+  function drawWatch() {
+    var rows = D.watchlist.map(function (w) { var st = statsFor(w); return { w: w, st: st, sig: signal(w, st) }; }).filter(function (r) {
+      if (pf.group !== "All" && r.w.group !== pf.group) return false;
+      if (pf.sig !== "All" && r.sig.code !== pf.sig) return false;
+      if (pf.q && (r.w.item + " " + r.w.id + " " + r.w.call).toLowerCase().indexOf(pf.q) < 0) return false;
+      return true;
+    });
+    var others = S.prices.filter(function (p) { return !p.itemId; });
+    var box = $("#wl");
+    box.innerHTML = rows.length ? '<div class="table-wrap"><table><thead><tr><th>Item</th><th>Group</th><th class="num">NPC floor</th><th class="num">Ceiling</th><th class="num">n (3d/7d)</th><th class="num">M3</th><th class="num">M7</th><th class="num">Last</th><th>Signal</th><th>Plan</th></tr></thead><tbody>' +
+      rows.map(function (r) {
+        var w = r.w, st = r.st;
+        return '<tr class="clickable' + (pf.sel === w.id ? " sel" : "") + '" data-item="' + esc(w.id) + '"><td><b>' + esc(w.item) + "</b> " + tag(w.tier, w.source) + '<div class="meta" style="color:var(--muted);font-size:12px">' + esc(w.id) + "</div></td><td>" + esc(w.group) +
+          '</td><td class="num">' + (w.npcFloor ? fmtInt(w.npcFloor) : "—") + '</td><td class="num">' + (w.ceiling ? fmtInt(w.ceiling) : (w.ceilingNote ? '<span title="' + esc(w.ceilingNote) + '">note</span>' : "—")) +
+          '</td><td class="num">' + st.n3 + " / " + st.n7 + '</td><td class="num">' + fmtInt(st.m3) + '</td><td class="num">' + fmtInt(st.m7) + '</td><td class="num">' + (st.last ? fmtInt(st.last.price) : "—") +
+          '</td><td><span class="badge ' + r.sig.cls + '">' + esc(r.sig.code) + '</span><div style="font-size:11px;color:var(--muted)">' + esc(r.sig.text) + "</div></td><td>" + esc(w.call) + "</td></tr>";
+      }).join("") + "</tbody></table></div>" : '<div class="empty">No watchlist items match.</div>';
+    if (others.length) {
+      box.innerHTML += '<h2>Other items you logged</h2><div class="table-wrap"><table><thead><tr><th>When</th><th>Item</th><th class="num">Price</th><th class="num">Qty</th><th>Type</th><th>Ch</th><th></th></tr></thead><tbody>' +
+        others.slice().reverse().map(function (p) {
+          return "<tr><td>" + esc(fmtDate(p.ts, true)) + "</td><td>" + esc(p.item) + '</td><td class="num">' + fmtInt(p.price) + '</td><td class="num">' + esc(p.qty) + "</td><td>" + esc(p.kind) + "</td><td>" + esc(p.channel) + '</td><td><button class="btn small" data-del="' + esc(p.id) + '">Delete</button></td></tr>';
+        }).join("") + "</tbody></table></div>";
+    }
+    $all("tr[data-item]", box).forEach(function (tr) {
+      tr.addEventListener("click", function () { pf.sel = tr.getAttribute("data-item"); drawWatch(); });
+    });
+    bindDeletes(box);
+    drawDetail();
+  }
+  function bindDeletes(root) {
+    $all("[data-del]", root).forEach(function (b) {
+      b.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        var id = b.getAttribute("data-del");
+        S.prices = S.prices.filter(function (p) { return p.id !== id; }); persist("prices"); drawWatch(); toast("Deleted");
+      });
+    });
+  }
+  function drawDetail() {
+    var box = $("#wlDetail");
+    var w = D.watchlist.filter(function (x) { return x.id === pf.sel; })[0];
+    if (!w) { box.innerHTML = '<p class="note">Select an item to see its price history and the buy/sell thresholds.</p>'; return; }
+    var st = statsFor(w);
+    var buyMult = w.hold ? R.buyThin : R.buyLiquid;
+    var html = '<div class="panel"><div class="row" style="justify-content:space-between"><h3>' + esc(w.item) + " " + tag(w.tier, w.source) + "</h3><span style='color:var(--muted);font-size:12px'>" + esc(w.id) + " · " + esc(w.group) + (w.hold ? " · hold item" : "") + "</span></div>" +
+      '<dl class="kv"><dt>Plan</dt><dd>' + esc(w.call) + "</dd>" +
+      "<dt>NPC floor</dt><dd>" + (w.npcFloor ? fmtInt(w.npcFloor) + " (arbitrage below " + fmtInt(R.floorArb * w.npcFloor) + ")" : "—") + "</dd>" +
+      "<dt>Ceiling</dt><dd>" + (w.ceiling ? fmtInt(w.ceiling) : "—") + (w.ceilingNote ? " · " + esc(w.ceilingNote) : "") + "</dd>" +
+      "<dt>Buy at or below</dt><dd>" + (st.n3 >= R.minN ? fmtInt(buyMult * st.m3) + " (" + buyMult + " × M3 " + fmtInt(st.m3) + ")" : "needs " + R.minN + " prices in 3 days") + "</dd>" +
+      "<dt>List at</dt><dd>" + (st.n7 >= R.minN ? fmtInt(R.sellListLow * st.m7) + "–" + fmtInt(R.sellListHigh * st.m7) + "; take offers ≥ " + fmtInt(R.sellTake * st.m7) : "needs " + R.minN + " prices in 7 days") + "</dd>" +
+      "<dt>Stop-loss</dt><dd>M3 below " + R.stopLoss + " × your buy price for 3 days and the thesis invalidator happened (02 §3)</dd></dl>";
+    html += spark(st.obs);
+    html += st.obs.length ? '<div class="table-wrap" style="margin-top:8px"><table><thead><tr><th>When</th><th class="num">Price</th><th class="num">Qty</th><th>Type</th><th>Ch</th><th>Note</th><th></th></tr></thead><tbody>' +
+      st.obs.slice().reverse().map(function (p) {
+        return "<tr><td>" + esc(fmtDate(p.ts, true)) + '</td><td class="num">' + fmtInt(p.price) + '</td><td class="num">' + esc(p.qty) + "</td><td>" + esc(p.kind) + "</td><td>" + esc(p.channel) + "</td><td>" + esc(p.note) + '</td><td><button class="btn small" data-del="' + esc(p.id) + '">Delete</button></td></tr>';
+      }).join("") + "</tbody></table></div>" : '<div class="empty">No prices logged for this item yet.</div>';
+    html += "</div>";
+    box.innerHTML = html;
+    bindDeletes(box);
+    $all(".spark .hit", box).forEach(function (c) {
+      c.addEventListener("mousemove", function (e) { showTip(e, c.getAttribute("data-t")); });
+      c.addEventListener("mouseleave", hideTip);
+    });
+  }
+  function spark(obs) {
+    if (obs.length < 2) return "";
+    var W = 600, H = 90, pad = 8;
+    var xs = obs.map(function (p) { return new Date(p.ts).getTime(); });
+    var ys = obs.map(function (p) { return p.price; });
+    var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+    if (x1 === x0) x1 = x0 + 1; if (y1 === y0) { y1 = y0 + 1; y0 = y0 - 1; }
+    function X(v) { return pad + (v - x0) / (x1 - x0) * (W - 2 * pad); }
+    function Y(v) { return H - pad - (v - y0) / (y1 - y0) * (H - 2 * pad - 12); }
+    var path = obs.map(function (p, i) { return (i ? "L" : "M") + X(xs[i]).toFixed(1) + " " + Y(p.price).toFixed(1); }).join(" ");
+    var pts = obs.map(function (p, i) {
+      var t = fmtDate(p.ts, true) + " · " + fmtInt(p.price) + " (" + p.kind + ")";
+      return '<circle class="pt" cx="' + X(xs[i]).toFixed(1) + '" cy="' + Y(p.price).toFixed(1) + '" r="4"></circle>' +
+        '<circle class="hit" data-t="' + esc(t) + '" cx="' + X(xs[i]).toFixed(1) + '" cy="' + Y(p.price).toFixed(1) + '" r="12" fill="transparent"></circle>';
+    }).join("");
+    return '<svg class="spark" viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="none" role="img" aria-label="Price history">' +
+      '<text class="lbl" x="' + pad + '" y="10">high ' + fmtInt(y1) + " · low " + fmtInt(y0) + "</text>" +
+      '<path class="ln" d="' + path + '" vector-effect="non-scaling-stroke"></path>' + pts + "</svg>";
+  }
+
+  /* ---------- export / import ---------- */
+  function snapshot() {
+    return { app: "mscw-dashboard", exportedAt: new Date().toISOString(), dataVersion: D.meta.version,
+      state: { prices: S.prices, checks: S.checks, notes: S.notes, levels: S.levels, reviewAck: S.reviewAck, weekly: S.weekly, lastVisit: S.lastVisit } };
+  }
+  function stamp() { return new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-"); }
+  function exportJson() { download("mscw-export-" + stamp() + ".json", JSON.stringify(snapshot(), null, 2), "application/json"); toast("JSON exported"); }
+  function csvCell(v) { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  function exportCsv() {
+    var head = ["datetime", "channel", "item", "ask_or_sale", "price", "qty", "note", "item_id"];
+    var lines = [head.join(",")].concat(S.prices.map(function (p) {
+      return [p.ts, p.channel, p.item, p.kind, p.price, p.qty, p.note, p.itemId].map(csvCell).join(",");
+    }));
+    download("mscw-prices-" + stamp() + ".csv", lines.join("\n"), "text/csv");
+    toast("CSV exported");
+  }
+  function parseCsv(text) {
+    var rows = [], row = [], cur = "", q = false;
+    for (var i = 0; i < text.length; i++) {
+      var c = text[i];
+      if (q) {
+        if (c === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; }
+        else cur += c;
+      } else if (c === '"') q = true;
+      else if (c === ",") { row.push(cur); cur = ""; }
+      else if (c === "\n" || c === "\r") { if (c === "\r" && text[i + 1] === "\n") i++; row.push(cur); rows.push(row); row = []; cur = ""; }
+      else cur += c;
+    }
+    if (cur.length || row.length) { row.push(cur); rows.push(row); }
+    return rows.filter(function (r) { return r.length > 1 || (r[0] || "").trim(); });
+  }
+  function mergePrices(list) {
+    var have = {}; S.prices.forEach(function (p) { have[p.id] = 1; });
+    var key = {}; S.prices.forEach(function (p) { key[p.ts + "|" + p.item + "|" + p.price] = 1; });
+    var added = 0;
+    list.forEach(function (p) {
+      if (!p || isNaN(p.price) || !p.item) return;
+      var k = p.ts + "|" + p.item + "|" + p.price;
+      if ((p.id && have[p.id]) || key[k]) return;
+      if (!p.id) p.id = uid();
+      if (!p.itemId) { var w = D.watchlist.filter(function (x) { return x.item === p.item; })[0]; p.itemId = w ? w.id : ""; }
+      S.prices.push(p); have[p.id] = 1; key[k] = 1; added++;
+    });
+    persist("prices");
+    return added;
+  }
+  $("#fileJson").addEventListener("change", function () {
+    var f = this.files[0]; if (!f) return; var input = this;
+    var rd = new FileReader();
+    rd.onload = function () {
+      try {
+        var obj = JSON.parse(rd.result), st = obj.state || obj;
+        var n = mergePrices(st.prices || []);
+        ["checks", "notes", "reviewAck", "weekly"].forEach(function (k) { if (st[k]) { for (var x in st[k]) S[k][x] = st[k][x]; persist(k); } });
+        if (st.levels) { for (var c in st.levels) S.levels[c] = st.levels[c]; persist("levels"); }
+        renderAll(); toast("Imported " + n + " new prices and saved state");
+      } catch (e) { toast("Couldn't read that JSON file"); }
+      input.value = "";
+    };
+    rd.readAsText(f);
+  });
+  $("#fileCsv").addEventListener("change", function () {
+    var f = this.files[0]; if (!f) return; var input = this;
+    var rd = new FileReader();
+    rd.onload = function () {
+      var rows = parseCsv(rd.result); if (!rows.length) { toast("Empty CSV"); return; }
+      var h = rows[0].map(function (x) { return x.trim().toLowerCase(); });
+      function col(r, name) { var i = h.indexOf(name); return i < 0 ? "" : r[i]; }
+      var list = rows.slice(1).map(function (r) {
+        var ts = new Date(col(r, "datetime"));
+        return { ts: isNaN(ts) ? new Date().toISOString() : ts.toISOString(), channel: col(r, "channel"), item: (col(r, "item") || "").trim(), kind: col(r, "ask_or_sale") === "sale" ? "sale" : "ask", price: parseFloat(col(r, "price")), qty: parseInt(col(r, "qty"), 10) || 1, note: col(r, "note"), itemId: col(r, "item_id") };
+      });
+      var n = mergePrices(list); renderAll(); toast("Imported " + n + " new prices");
+      input.value = "";
+    };
+    rd.readAsText(f);
+  });
+
+  /* ---------- Launch Checklist ---------- */
+  var cf = { open: false, pri: "All" };
+  function renderChecklist() {
+    var el = $("#tab-checklist");
+    var groups = []; D.checklist.forEach(function (c) { if (groups.indexOf(c.group) < 0) groups.push(c.group); });
+    var pris = ["All", "H1", "D1", "W1", "L", "Ongoing"];
+    var html = '<p class="note">Checks and results are saved in this browser under stable IDs, so data updates never wipe them. Results you type here go into the JSON export.</p>' +
+      '<div class="filters"><label class="row" style="font-size:13px;color:var(--text-2)"><input type="checkbox" id="cOpen"' + (cf.open ? " checked" : "") + "> Hide checked</label>" +
+      '<select id="cPri" aria-label="Priority">' + pris.map(function (p) { return '<option value="' + p + '">' + (p === "All" ? "All priorities" : p) + "</option>"; }).join("") + "</select>" +
+      '<span style="color:var(--muted);font-size:12px">H1 = first hour · D1 = day 1 · W1 = week 1 · L = by Oct 21</span></div>';
+    groups.forEach(function (g) {
+      var items = D.checklist.filter(function (c) { return c.group === g; });
+      var done = items.filter(function (c) { return S.checks[c.id]; }).length;
+      var vis = items.filter(function (c) { return (!cf.open || !S.checks[c.id]) && (cf.pri === "All" || c.priority === cf.pri); });
+      if (!vis.length) return;
+      html += '<div class="panel"><div class="row" style="justify-content:space-between"><h3>' + esc(g) + '</h3><span style="color:var(--muted);font-size:12px">' + done + " / " + items.length + "</span></div>" +
+        '<div class="progress"><span style="width:' + (items.length ? Math.round(done / items.length * 100) : 0) + '%"></span></div>' +
+        vis.map(function (c) {
+          var on = !!S.checks[c.id];
+          var isVerify = c.group.indexOf("Verify") === 0 || c.tier === "?";
+          return '<div class="check"><input type="checkbox" data-check="' + esc(c.id) + '"' + (on ? " checked" : "") + ' aria-label="' + esc(c.text) + '">' +
+            '<div class="body"><div class="' + (on ? "done" : "") + '">' + tag(c.tier, c.source) + " " + esc(c.text) + "</div>" +
+            '<div class="sub"><span class="badge pri">' + esc(c.priority) + "</span>" + (c.update ? "<span>Update: " + esc(c.update) + "</span>" : "") + (on ? "<span>✓ " + esc(fmtDate(S.checks[c.id], true)) + "</span>" : "") + "</div>" +
+            (isVerify ? '<input class="result" data-note="' + esc(c.id) + '" placeholder="Result (what you found)" value="' + esc(S.notes[c.id] || "") + '">' : "") +
+            "</div></div>";
+        }).join("") + "</div>";
+    });
+    el.innerHTML = html;
+    $("#cOpen").addEventListener("change", function () { cf.open = this.checked; renderChecklist(); });
+    $("#cPri").value = cf.pri;
+    $("#cPri").addEventListener("change", function () { cf.pri = this.value; renderChecklist(); });
+    $all("[data-check]", el).forEach(function (b) {
+      b.addEventListener("change", function () {
+        var id = b.getAttribute("data-check");
+        if (b.checked) S.checks[id] = new Date().toISOString(); else delete S.checks[id];
+        persist("checks"); renderChecklist(); renderUpdates();
+      });
+    });
+    $all("[data-note]", el).forEach(function (inp) {
+      inp.addEventListener("change", function () {
+        var id = inp.getAttribute("data-note"), v = inp.value.trim();
+        if (v) S.notes[id] = v; else delete S.notes[id];
+        persist("notes"); toast("Result saved");
+      });
+    });
+  }
+
+  /* ---------- Dual-Character Routine ---------- */
+  function renderRoutine() {
+    var el = $("#tab-routine"), r = D.routine;
+    var wk = isoWeek(new Date());
+    var wkChecks = S.weekly[wk] || {};
+    function table(rows) {
+      return '<div class="table-wrap"><table><thead><tr><th>Block</th><th>Character</th><th>What</th></tr></thead><tbody>' +
+        rows.map(function (x) { return "<tr><td>" + esc(x.time) + "</td><td>" + esc(x["char"]) + "</td><td>" + esc(x.what) + "</td></tr>"; }).join("") + "</tbody></table></div>";
+    }
+    el.innerHTML = '<p class="note">One client at a time. Put the "with friends" block wherever your friends play and the Fighter blocks around it. Limit yourself to 2–3 character switches per session. Source: 04_dual_character_ops.md (plan, not fact).</p>' +
+      "<h2>Weekday (4 h)</h2>" + table(r.weekday) +
+      "<h2>Weekend day (8 h)</h2>" + table(r.weekend) +
+      '<h2>Overnight</h2><div class="panel">' + esc(r.overnight) + "</div>" +
+      '<h2>Transfer run (about 3 min)</h2><div class="panel"><ol class="tight">' +
+      "<li>On the Fighter, go to Henesys storage (Mr. Lee) for the citizenship discount.</li><li>Deposit stars and scrolls for this week, then hold-inventory overflow, then quest ETC stock. Stack items first.</li><li>Deposit the launch character's weekly meso allowance.</li><li>Switch characters; withdraw at the nearest storage.</li></ol>" +
+      '<div style="color:var(--muted);font-size:12px">Deposit fee 100 mesos per item ' + tag("V", "M-ITEM (COT2 datamine)") + " · withdrawal and meso fees " + tag("?", "V-5") + "</div></div>" +
+      '<h2>This week (' + wk + ')</h2><div class="panel">' + r.weekly.map(function (x) {
+        var on = !!wkChecks[x.id];
+        return '<div class="check"><input type="checkbox" data-wk="' + esc(x.id) + '"' + (on ? " checked" : "") + ' aria-label="' + esc(x.text) + '"><div class="body"><div class="' + (on ? "done" : "") + '">' + esc(x.text) + "</div></div></div>";
+      }).join("") + '<p class="note">Weekly checks reset each ISO week; past weeks stay in your export.</p></div>';
+    $all("[data-wk]", el).forEach(function (b) {
+      b.addEventListener("change", function () {
+        var id = b.getAttribute("data-wk");
+        S.weekly[wk] = S.weekly[wk] || {};
+        if (b.checked) S.weekly[wk][id] = new Date().toISOString(); else delete S.weekly[wk][id];
+        persist("weekly"); renderRoutine();
+      });
+    });
+  }
+
+  function renderAll() {
+    renderHeader(); renderUpdates(); renderClasses(); renderRoute(); renderFarming(); renderPrices(); renderChecklist(); renderRoutine();
+  }
+  renderTabs();
+  renderAll();
+  setInterval(renderHeader, 60000);
+})();
+</script>
+</body>
+</html>
