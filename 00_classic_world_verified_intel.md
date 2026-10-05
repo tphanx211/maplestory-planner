@@ -1,6 +1,6 @@
 # MapleStory Classic World: Verified Intel (Phase 1)
 
-Version 0.6 · last checked 2026-10-02 · **Farmer: I/L Wizard; launch character: Assassin (your decision, 0.6)** · Founder's Access opens **Tue Oct 6, 11:00 AM PDT (1:00 PM CDT)**; Grand Launch **Wed Oct 21, 11:00 AM PDT (1:00 PM CDT)** [V-off N1].
+Version 0.6.1 · last checked 2026-10-05 · **Farmer: I/L Wizard; launch character: Assassin (your decision, 0.6)** · Founder's Access opens **Tue Oct 6, 11:00 AM PDT (1:00 PM CDT)**; Grand Launch **Wed Oct 21, 11:00 AM PDT (1:00 PM CDT)** [V-off N1].
 
 ## How to read this file
 
@@ -23,7 +23,7 @@ Source keys (N1, M-DPS, …) resolve to URLs and dates in §8. `updater/sources.
 
 | # | Spec assumption | Status | What's actually true | Affects |
 |---|---|---|---|---|
-| A1 | Level cap 70 | **Unconfirmed** | Nexon has published no launch cap [V-off N1, N3]. COT1 stopped at 50; COT2 opened 3rd job at 70 and gave testers a Lv 100 test boost [V-off N4]. meowdb's EXP-table page (Sep 18) says "Current Launch Cap: Level 50"; its newer pages (Sep 29–30) say "not published" [V-cbt M-EXP, M-REL]. Confirmed: **3rd job (Lv 70) is not at launch** [V-off N3], so 2nd job is the ceiling. | Farming at cap, citizenship grade 9 (needs Lv 52), route 51–70 |
+| A1 | Level cap 70 | **Changed: cap is Lv 100** | Founder's Access Release Notes: "The maximum character level is Lv. 100" [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03] (was "unconfirmed: 50 or 70?" per COT1/COT2 and meowdb). The same notes list only 1st job (Lv 10) and 2nd job (Lv 30); **3rd job (Lv 70) is not at launch** [V-off N3], so 2nd job is the ceiling. What happens at Lv 70 without 3rd job [?]. Lv 50+ EXP values are still a legacy table [V-dm M-EXP]. | Farming at cap, citizenship grade 9 (needs Lv 52), route 51–70 |
 | A2 | Magicians advance at 8; stat dice at creation | **Broken** | All classes take 1st job at **Lv 10 with no stat requirement** [V-off N7; V-dm M-Q1017]. **No dice**: every stat starts at 4 plus 9 free points [V-cbt W-CC]. | Route 1–10, AP plans |
 | A3 | I/L is the best farmer (Thunderbolt) | **Unproven** (0.6) | Thunder Bolt is usable from Lv 30 (no prerequisite), and meowdb's model has I/L ahead from Lv ~45–50 if casts hit most of 6 mobs. Against it: weak per target (Basic Atk 70), 40 MP per cast, no Spell Booster before 3rd job, spells can miss, and weakness is only **1.25×** (legacy 1.5×) [V-dm M-SKILL; model M-DMG, M-ACC]. Your pick; see §1.1. | Farming pick |
 | A4 | Pirates may be in scope | **Broken** | **No Pirates**, Cygnus or Aran. Only 4 Explorer classes, 10 2nd jobs [V-off N3 class split; V-dm M-CLASS]. | Census |
@@ -33,13 +33,13 @@ Source keys (N1, M-DPS, …) resolve to URLs and dates in §8. `updater/sources.
 | A8 | FM rooms, offline vending (Hired Merchant) | **Partly holds** | FM Entrance with **11 rooms** [V-dm]. **Store Permit** (Cash Shop, 16 items) works **in fields or the FM** and closes if a mob hits you [V-dm]. **Hired Merchant** (offline, FM only, 24 h) **ran in COT2** [V-off N6] but the datamine marks it "not currently sold" → launch availability **[?]**. Both need Cash Shop items. | Market playbook |
 | A9 | Kerning PQ, Jane and Maya quests | **Exist, changed** | KPQ: Lv 21+ with no upper limit, 4 players, **Channel 1 only**, 30 min [V-cbt M-KPQ]. Jane is a **4-step quest line** (scrolls, Elixirs, GFA chance), **not a potion shop** [V-dm]. Maya exists (5 collection quests); "Sparkling Rock" not found [V-dm]. Shumi exists but is **not repeatable** [V-dm, conflicting list view]. | Route, quests |
 | A10 | Tobis, Steelies, Meba, Slain | **Exist, scarce** | All exist [V-dm]. Only Subi (500/set) and Wolbi (1,000/set, citizenship-gated) are NPC-sold; **no star crafting** in 348 recipes. In launch areas, Tobi comes only from Dark Stone Golem; Steely's source is unclear (community reports point to Red Drake) [V-dm; V-cbt M-DROPS]. Claws were cut ~40–50% in W.ATK from COT1 to COT2 [V-dm]. | Funding CSV |
-| A11 | Character count / mules | **New limit** | Both tests: **3 characters per account** [V-off N7, N4]. No slot-expansion item in the datamine. Launch count [?]. Plan: farmer + launch character + 1 mule at most. | Dual-character ops |
+| A11 | Character count / mules | **New limit** | **"Up to 3 characters can be created per account"** for Founder's Access [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03] (same as both tests [V-off N7, N4]). No slot-expansion item in the datamine. Per-world split [?]. Plan: farmer + launch character + 1 mule at most. | Dual-character ops |
 | A12 | Two clients | **Plan on one** | Official: only one of MapleStory / Classic open at a time [V-off N1]. Two **Classic** clients: not addressed [?]. | Daily schedule |
 
 New systems that legacy didn't have (all [V-dm] unless noted):
 - **Citizenship** (Henesys or Kerning, from Lv 12). Grades unlock NPC stock (Wolbi, GFA Lesser, stat scrolls, Elixirs) and storage discounts.
 - **Six crafting professions** (348 recipes).
-- **Forgotten Hollow**: a new Lv 39–60 area with 10 new mobs and the Rotten Mushmom boss.
+- **Forgotten Hollow**: a new Lv 39–60 area with 10 new mobs and the Rotten Mushmom boss. **Not available during Founder's Access** ("the path leading there hasn't been discovered yet") [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03]; opening date [?] (likely Grand Launch).
 - **Pet auto-pot and auto-loot skills** (Cash Shop).
 - **Full AP/SP resets** (Cash Shop).
 - **Crit stats** replace Hands.
@@ -292,15 +292,18 @@ All values [V-dm], cross-checked against maplestory.io `MCW/CBT2`; legacy values
 ### 3.1 Launch scope and dates
 - **Dates:** Founder's Access opens Oct 6 at 11:00 AM PDT; Grand Launch is Oct 21 at 11:00 AM PDT. Founder characters, mesos and items carry over [V-off N1, N3]. Package purchase or upgrade deadline: **Oct 14, 11:59 PM PDT** [V-off N10], so the founder population can still grow until then.
 - **Client:** the Nexon Launcher Classic client is downloadable only on launch day. Steam players should install base MapleStory now [V-off N2].
-- **Areas:** Maple Island and Victoria Island: Henesys, Ellinia, Perion, Kerning, Lith Harbor, Sleepywood with its dungeons, the Kerning subway, Florina Road and beach, Swamp, Monkey Forest, Forest of Evil, Burnt Land and Golem's Temple. Plus **Forgotten Hollow** (Lv 39–60) and KPQ [V-dm M-MAPS].
+- **Areas:** Maple Island and Victoria Island: Henesys, Ellinia, Perion, Kerning, Lith Harbor, Sleepywood with its dungeons, the Kerning subway, Florina Road and beach, Swamp, Monkey Forest, Forest of Evil, Burnt Land and Golem's Temple. Plus **Forgotten Hollow** (Lv 39–60) and KPQ [V-dm M-MAPS]. **Forgotten Hollow is closed during Founder's Access** [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03]. KPQ ("First Time Together") is open from Lv 21 [V-off same post].
+- **Founder's Access bosses:** Mano, Mushmom, Shade, Zombie Mushmom, Jr. Balrog [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03]. Rotten Mushmom (Forgotten Hollow) is not on the list.
+- **Founder's Access features:** Beauty Album; crafting from Lv 10 (crafting NPCs incl. Silas Irons, Mr. Thunder, Francois, Vicious, JM From tha Streetz, Chrishrama); citizenship from Lv 12 in Henesys and Kerning; Classic/Modern (WASD) keybindings; controllers; English and Spanish (Beta) [V-off same post].
+- **Level cap: Lv 100** [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03] (was unconfirmed).
 - **Not at launch:** Orbis, El Nath and 3rd job [V-off N3]; Ludibrium, Aquarium, Leafre, Mu Lung, Nautilus and Zakum are absent from the data. Nexon promised "brand-new content" for Grand Launch without naming it [V-off N3].
-- **Roadmap:** Ossyria and 3rd job will come "gradually", with no dates [V-off N3].
+- **Roadmap:** Ossyria and 3rd job will come "gradually", with no dates [V-off N3]. Inkwell (Oct 2): a more detailed post-launch roadmap at MapleStory Fest in October; 3rd job and regions "may be introduced sequentially"; update pace deliberately slower than main MapleStory; a new boss is in development; the Cash Shop aims to avoid items that directly affect stats or growth (cosmetics and "appropriate convenience items") [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45681 2026-10-02].
 - **Jobs:** 1st job at Lv 10, 2nd at Lv 30 (10 branches), 3rd at Lv 70 (not at launch) [V-off N4, N7].
 
 ### 3.2 Accounts and worlds
 - Classic uses the regular Nexon account. NX is shared with MapleStory; IGNs, Maple Points and MVP are not [V-off N1].
 - **Only one game (MapleStory or Classic) can be open at a time.** Sanctions apply across both [V-off N1, N8].
-- **3 characters per account** in both tests [V-off N7, N4]. Launch count [?]. No character-slot item in the datamine.
+- **3 characters per account** for Founder's Access [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03] (was "launch count [?]"; both tests also had 3 [V-off N7, N4]). No character-slot item in the datamine.
 - The number of worlds is unannounced, and every source says "Classic World", singular [?]. Founders and F2P **likely share the world(s)**: progress "carries into Grand Launch" [V-off]. Explicit "same world" wording appears only on finalboss.io [?].
 - Founder cosmetics move between your own characters through the Cash Inventory (same account, same world) [V-off N10]. Claim from the mailbox by **Nov 30, 2026, 23:59 UTC**, and leave Maple Island before opening.
 
@@ -339,7 +342,7 @@ All values [V-dm], cross-checked against maplestory.io `MCW/CBT2`; legacy values
 | Party EXP | Bonus **+10% for 2, +20% for 3, +30% for 4 or more** (COT2 measurement; COT1 claims were higher). Split formula and level range [?]. Party pickup rights can be set | [V-cbt M-EXP]; [V-cbt W-MSW] |
 | Kerning PQ | **Lv 21+, no upper limit**, party of 4, **Channel 1 only**, 30 min, 5 stages plus a bonus (King Slime). Rewards: Companion's Magic Box, rare Squishy Shoes, one-time "Proof of Companionship" (EXP, 614 mesos, Intermediate earring scroll). Daily limits [?] | [V-cbt M-KPQ] |
 | Other PQs | Ludibrium PQ not at launch; Henesys/Ellinia PQ not found | [?] |
-| Level cap | **Unconfirmed** (see A1). What happens at the cap [?] | [?] |
+| Level cap | **Lv 100** (was unconfirmed; see A1). 3rd job not at launch. What happens at Lv 70 without 3rd job [?] | [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03] |
 | Death | Lose up to 10% of the EXP bar; you can't lose a level; LUK reduces the loss. Safety Charm appears in COT2 notes, but a launch sale is [?] | [V-cbt W-DEATH]; [V-off N6] |
 | Spawns | Global respawn check every 7.56 s. Map capacity is 75% of spawn points solo, +5% per extra player, 100% at 6+ | [V-cbt M-SPAWN] (community model) |
 | Channels and worlds | Unknown | [?] |
@@ -575,7 +578,7 @@ Each one goes on the launch-day checklist in Phase 2 (`05_launch_day_verificatio
 | ID | Question | Why it matters | Where to update |
 |---|---|---|---|
 | Q1 | **Mesos per kill and meso drop chance** (Jr. Wraith, Horny/Zombie Mushroom, Lupin, Fire Boar) | Decides absolute mesos/h and the AoE-vs-single-target ranking | §1.1, §4.6, route |
-| Q2 | **Level cap** (50 or 70?), and does EXP stop at the cap? | Route 51–70; citizenship grade 9 needs Lv 52 | A1, §3.5 |
+| Q2 | ~~Level cap (50 or 70?)~~ **Resolved 2026-10-03: Lv 100** [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621]. Still open: what happens at Lv 70 without 3rd job? | Route 51–70; citizenship grade 9 needs Lv 52 | A1, §3.5 |
 | Q3 | Character slots per account and per world; number of worlds; do F2P players share founders' world? | Bank/mule plan; selling to F2P | §3.2 |
 | Q4 | Starting storage and inventory slots; withdrawal and meso-deposit fees; can untradeable items be stored? | Dual-character ops | §3.3 |
 | Q5 | Cash Shop launch prices: pet and pet skills, Store Permit, **Hired Merchant (sold?)**, slot coupons, AP/SP reset | Cash Shop buy rules; overnight selling | §3.6 |
@@ -587,7 +590,7 @@ Each one goes on the launch-day checklist in Phase 2 (`05_launch_day_verificatio
 | Q11 | KPQ daily limits; is it still Channel 1 only? | Route 21–30 | §3.5 |
 | Q12 | Whether quest-reward scrolls and quest items (Cursed Dolls, Mushmom Spore) are tradeable | Sell list | §4.1, §4.7 |
 | Q13 | Steal's loot pool (Bandit) | Bandit MGI | §2.5 |
-| Q14 | Does El Moth need Forgotten Hollow access? | Early access to weapon Lessers | §4.1 |
+| Q14 | Does El Moth need Forgotten Hollow access? (Hollow is closed during Founder's Access [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03]) | Early access to weapon Lessers | §4.1 |
 | Q15 | How are Leaf Points earned at launch, and are the earning items tradeable? | Meso-to-cash route | §3.6 |
 | Q16 | Natural HP/MP regen; does Improved MP Recovery's +20% apply to food? | Upkeep math | §2 |
 | Q17 | What's the "brand-new content" at Grand Launch? (Maple Fest is Oct 17) | Everything | §3.1 |

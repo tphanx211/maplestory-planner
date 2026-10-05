@@ -1,10 +1,12 @@
 {
   "_about": "Updater memory. Edited only by the updater run (see UPDATER_RULES.md). Times: ISO 8601. Nexon CMS liveDate strings are US Pacific wall-clock despite the trailing Z.",
   "baselineDate": "2026-10-02",
-  "lastRun": "2026-10-02T14:39:58-05:00",
-  "lastRunResult": "no changes",
+  "lastRun": "2026-10-05T15:46:58-05:00",
+  "lastRunResult": "0.6.1: applied CMS 45621 facts (cap Lv 100, 3 slots, Hollow closed in FA) and 45681 roadmap notes; RQ-4, RQ-5 queued",
   "cms": {
     "seen": {
+      "45621": "Founder's Access Release Notes",
+      "45681": "Inkwell on the Future of Global MapleStory and Classic World",
       "45226": "v.271 Known Issues",
       "45521": "Founder's Access Pre-Download Instructions Nexon Launcher and Steam",
       "45385": "MapleStory Classic World FAQ",
@@ -48,10 +50,10 @@
   "zendesk": {
     "classicCategoryCount": 1,
     "articleIds": ["53268989017620"],
-    "watchedUpdatedAt": { "53268989017620": "2026-10-01" }
+    "watchedUpdatedAt": { "53268989017620": "2026-10-04" }
   },
   "meowdb": {
-    "sitemapCheckedThrough": "2026-10-02",
+    "sitemapCheckedThrough": "2026-10-04",
     "changelogSnapshot": "2026-08-04",
     "newsTopSlugs": [
       "maplestory-classic-worlds-release-date",
@@ -63,6 +65,7 @@
   },
   "youtube": {
     "seenTitles": [
+      "True Nostalgia, A New Adventure | Global MapleStory Classic World",
       "The Journey Begins | Global MapleStory Classic World",
       "The Adventure Begins Soon | Global MapleStory Classic World",
       "Kerning City's Dark Lord Awakens | Global MapleStory Classic World",
@@ -71,7 +74,7 @@
     ]
   },
   "osms": { "lastCommitSeen": "2026-09-30" },
-  "pressCheckedOn": "2026-10-02",
+  "pressCheckedOn": "2026-10-05",
   "runs": [
     {
       "at": "2026-10-02T12:16:00-05:00",
@@ -86,6 +89,13 @@
       "fetched": ["nexon_cms_list", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory"],
       "newIds": [],
       "notes": "CMS top 25 all seen, no name edits. Zendesk count 1, article 53268989017620 updated_at still 2026-10-01. meowdb sitemap max lastmod 2026-09-30. YouTube no new Classic titles. Press search skipped (already checked 2026-10-02)."
+    },
+    {
+      "at": "2026-10-05T15:46:58-05:00",
+      "result": "changes applied (0.6.1)",
+      "fetched": ["nexon_cms_list", "nexon_cms_post 45621 (x2)", "nexon_cms_post 45681", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory", "massivelyop_search"],
+      "newIds": ["45621", "45681"],
+      "notes": "Found uncommitted 00/05 edits from an interrupted earlier run (Oct 4) already applying 45621; re-verified verbatim and completed plan_data.js, CHANGELOG, 01, 04, state. Zendesk count 1, article updated_at 2026-10-04 (no new article). meowdb sitemap: founders-access-release-notes and inkwell interview rewrites plus guide updates through 2026-10-04 (official posts already read; not fetched); changelog not changed. YouTube: new trailer 'True Nostalgia, A New Adventure' (lead only, no facts). MassivelyOP: nothing new. No embedded instructions seen."
     }
   ]
 }

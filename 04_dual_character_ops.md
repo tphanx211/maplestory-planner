@@ -12,7 +12,7 @@ Both in Kerning means one storage discount (Mr. Hong) serves both. If citizenshi
 
 ---
 
-## 1. Character slots (tests: 3 per account [V-off N7, N4]; launch [?] V-2)
+## 1. Character slots (up to 3 per account [V-off https://g.nexonstatic.com/maplestory/cms/v1/news/45621 2026-10-03]; was "launch [?]", tests also 3 [V-off N7, N4]; confirm on screen V-2)
 
 | Slot | Character | Role |
 |---|---|---|

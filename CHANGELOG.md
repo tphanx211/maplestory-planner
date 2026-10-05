@@ -2,6 +2,15 @@
 
 Newest first. The updater adds an entry for every run that changes content, with source URLs. `data/plan_data.js` → `changelog` mirrors these entries so the dashboard's Updates tab can show them.
 
+## 0.6.1 · 2026-10-05 · Founder's Access release notes: level cap 100, 3 slots, Hollow closed
+- **Level cap: Lv 100** [V-off] (was "50 or 70?"). 3rd job is still not at launch; what happens at Lv 70 stays open (V-10). Resolves Q2 and V-10.
+- **Up to 3 characters per account** [V-off]. Resolves V-2 (confirm on screen); worlds (V-3) still open.
+- **Forgotten Hollow is closed during Founder's Access.** FA bosses: Mano, Mushmom, Shade, Zombie Mushmom, Jr. Balrog. KPQ open from Lv 21; crafting from Lv 10; citizenship from Lv 12 (Henesys, Kerning).
+- Inkwell interview (Oct 2): detailed post-launch roadmap at MapleStory Fest in October; deliberately slower update pace; 3rd job and regions "may be introduced sequentially"; a new boss in development; Cash Shop to avoid stat or growth items.
+- Review queue: **RQ-4** (cap 100 vs the route and SP plan that stop at 70), **RQ-5** (Hollow closed vs the Lv 39–50 route and the Oct 20 projection). Not applied.
+- Note: the markdown edits in `00` and `05` were made by an earlier interrupted run (Oct 4) and were re-verified against the post in this run.
+- Sources: https://g.nexonstatic.com/maplestory/cms/v1/news/45621 (2026-10-03), https://g.nexonstatic.com/maplestory/cms/v1/news/45681 (2026-10-02)
+
 ## 0.6.0 · 2026-10-02 · Farmer switched to I/L Wizard; Assassin launch character
 - **Your decision:** I/L Wizard farmer and Assassin launch character. The Hunter fallback is retired; `03_hunter_funding_checklist.csv` stays as an archive.
 - `01_early_access_route.md` rewritten for I/L: maps chosen by magic DEF, accuracy and congestion; AP plan (INT, LUK only for wands); SP plan with Thunder Bolt first and MP Eater 1 at Lv 30; accuracy table; bosses; Kerning citizenship.

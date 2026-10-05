@@ -1,8 +1,8 @@
 window.PLAN_DATA = {
   "meta": {
-    "version": "0.6.0",
-    "lastChecked": "2026-10-02T14:39:58-05:00",
-    "lastUpdated": "2026-10-02T15:00:00-05:00",
+    "version": "0.6.1",
+    "lastChecked": "2026-10-05T15:46:58-05:00",
+    "lastUpdated": "2026-10-05T15:46:58-05:00",
     "timezone": "America/Chicago",
     "foundersAccess": "2026-10-06T11:00:00-07:00",
     "grandLaunch": "2026-10-21T11:00:00-07:00",
@@ -228,7 +228,7 @@ window.PLAN_DATA = {
     {"id": "pre-afternoon", "group": "Before Oct 6", "text": "Clear Tue Oct 6 from 1:00 PM CDT (servers open 11:00 AM PDT).", "priority": "H1", "update": "", "tier": "V", "source": "N1"},
     {"id": "pre-ign", "group": "Before Oct 6", "text": "Pick 2-3 IGN options for the I/L Wizard and the Assassin.", "priority": "H1", "update": "", "tier": "V", "source": "N1"},
     {"id": "h0-world", "group": "Hour 0", "text": "Record world count and names; pick the world friends can join on Oct 21 (V-3).", "priority": "H1", "update": "00 3.2", "tier": "?", "source": "N1"},
-    {"id": "h0-slots", "group": "Hour 0", "text": "Count character slots (V-2).", "priority": "H1", "update": "00 3.2; 04", "tier": "?", "source": "N4"},
+    {"id": "h0-slots", "group": "Hour 0", "text": "Confirm character slots on screen: official notes say up to 3 per account (V-2).", "priority": "H1", "update": "00 3.2; 04", "tier": "V", "source": "https://g.nexonstatic.com/maplestory/cms/v1/news/45621 (2026-10-03)"},
     {"id": "h0-create-il", "group": "Hour 0", "text": "Create the I/L farmer (Magician): 4 STR / 4 DEX / 13 INT / 4 LUK; all AP to INT, LUK only to the wand requirement (01 section 7).", "priority": "H1", "update": "", "tier": "V", "source": "M-IL"},
     {"id": "h0-channel", "group": "Hour 0", "text": "Pick a low-population channel; avoid Channel 1 (KPQ).", "priority": "H1", "update": "", "tier": "V", "source": "M-KPQ"},
     {"id": "h1-tally1", "group": "Hour 0-1", "text": "Meso tally #1: 50+ kills of one mob; record kills, kills that dropped mesos, mesos gained, potions used (V-1).", "priority": "H1", "update": "00 1.1; 01 0", "tier": "?", "source": "M-MESO"},
@@ -241,13 +241,13 @@ window.PLAN_DATA = {
     {"id": "h2-tally2", "group": "Hour 1-2", "text": "Meso tally #2 on a Lv 10-20 mob (V-1).", "priority": "H1", "update": "01 0", "tier": "?", "source": "M-MESO"},
     {"id": "h2-citizen-kerning", "group": "Hour 1-2", "text": "At Lv 12: Kerning citizenship with Roxy (Overall INT Lesser at grade 7, Wolbi for the Assassin). Do the first daily; read the weekly donation list and whether contribution resets (V-9).", "priority": "D1", "update": "01 13", "tier": "V", "source": "M-CIT, M-IL"},
     {"id": "v-08", "group": "Verify: day 1", "text": "Hired Merchant usable at launch? Any sales commission? (V-8)", "priority": "D1", "update": "02 2.3", "tier": "?", "source": "N6"},
-    {"id": "v-10", "group": "Verify: day 1", "text": "Level cap (50 or 70?) and what happens at the cap (V-10).", "priority": "D1", "update": "00 A1; 01 6", "tier": "?", "source": "M-REL"},
+    {"id": "v-10", "group": "Verify: day 1", "text": "Level cap is Lv 100 (official; was 50 or 70?). Check in game what happens at Lv 70 without 3rd job (V-10).", "priority": "D1", "update": "00 A1; 01 6", "tier": "V", "source": "https://g.nexonstatic.com/maplestory/cms/v1/news/45621 (2026-10-03)"},
     {"id": "v-38", "group": "Verify: day 1", "text": "Do spells miss? Cast at a mob 3+ levels above you and count MISS per 50 casts (V-38).", "priority": "D1", "update": "00 2.7; 01 7", "tier": "?", "source": "M-ACC"},
     {"id": "v-39", "group": "Verify: day 1", "text": "Equipment drops per 1,000 kills and their NPC sell value on one map (V-39).", "priority": "D1", "update": "01 0.1, 12", "tier": "?", "source": "review T12"},
     {"id": "v-40", "group": "Verify: day 1", "text": "Thunder Bolt targets per cast on your map (average of 50 casts). Under ~2: switch to Cold Beam first (V-40).", "priority": "D1", "update": "01 4, 8", "tier": "?", "source": "M-IL; review T11"},
     {"id": "v-41", "group": "Verify: week 1", "text": "Level-gap EXP penalty for mobs far below you (V-41).", "priority": "W1", "update": "01 0", "tier": "?", "source": "M-EXP"},
     {"id": "v-11", "group": "Verify: day 1", "text": "Trade tax, minimum trade level, account-age gate, meso cap (V-11).", "priority": "D1", "update": "02 1", "tier": "?", "source": "-"},
-    {"id": "v-13", "group": "Verify: day 1", "text": "River axes 16,500/26,000; El Moth Lessers 25k/50k (needs Hollow access?); Tulcus 15k (V-13).", "priority": "D1", "update": "02 1.2; 03", "tier": "V", "source": "M-SHOPS"},
+    {"id": "v-13", "group": "Verify: day 1", "text": "River axes 16,500/26,000; El Moth Lessers 25k/50k (needs Hollow access? Hollow is closed during Founder's Access); Tulcus 15k (V-13).", "priority": "D1", "update": "02 1.2; 03", "tier": "V", "source": "M-SHOPS"},
     {"id": "v-14-il", "group": "Verify: day 1", "text": "Skill tooltips match COT2: Energy Bolt 20 (130, 16 MP), Thunder Bolt 1 (40, 20 MP) and 30 (70, 40 MP), Teleport 1 = 55 MP (V-14).", "priority": "D1", "update": "00 2.7", "tier": "V", "source": "M-SKILL"},
     {"id": "v-15", "group": "Verify: day 1", "text": "Enemy Info: Jr. Wraith Lv 34 / 982 HP / 70 EXP; Wild Boar Lv 25 / 510 / 46 (V-15).", "priority": "D1", "update": "00 4.6; 01", "tier": "V", "source": "M-MOB"},
     {"id": "v-16", "group": "Verify: day 1", "text": "Two Classic clients allowed? Ask support or check the FAQ; don't test it (V-16).", "priority": "D1", "update": "04 5", "tier": "?", "source": "N1"},
@@ -285,6 +285,7 @@ window.PLAN_DATA = {
   },
 
   "changelog": [
+    {"date": "2026-10-05T15:46:58-05:00", "version": "0.6.1", "title": "Founder's Access release notes: level cap 100, 3 slots, Hollow closed", "items": ["Level cap is Lv 100 (was 50 or 70?); 3rd job still not at launch, so what happens at Lv 70 is open (V-10)", "Up to 3 characters per account (V-2)", "Forgotten Hollow is closed during Founder's Access; FA bosses: Mano, Mushmom, Shade, Zombie Mushmom, Jr. Balrog", "KPQ open from Lv 21; crafting from Lv 10; citizenship from Lv 12 (Henesys, Kerning)", "Inkwell (Oct 2): detailed roadmap at MapleStory Fest in October; slower update pace; new boss in development; Cash Shop to avoid stat or growth items", "Review queue: RQ-4 (cap 100 vs route and I/L case), RQ-5 (Hollow closed vs FA route and projection)"], "sources": ["https://g.nexonstatic.com/maplestory/cms/v1/news/45621", "https://g.nexonstatic.com/maplestory/cms/v1/news/45681"]},
     {"date": "2026-10-02T15:00:00-05:00", "version": "0.6.0", "title": "Farmer switched to I/L Wizard; Assassin launch character", "items": ["Your decision: I/L Wizard farmer, Assassin launch character (Hunter fallback retired)", "New I/L route, AP/SP plan (Thunder Bolt first, MP Eater 1 at 30), accuracy table, magic-DEF map picks", "Projection: Lv ~47/51/57 and ~1.4M/3.9M/8.0M coin mesos by Oct 20 (low/mid/high); equipment drops shown as a sensitivity", "Fact fixes the switch depends on: spells can miss; Teleport costs 55 MP at skill Lv 1; Thunder Bolt usable from Lv 30; equip vendor values 3k-9k typical; scrolls sell to NPCs for 1 meso; open the package within 30 days of claiming", "New day-1 checks V-38 to V-41"], "sources": ["https://meowdb.com/msclassic/guides/il-wizard-class-guide", "https://meowdb.com/msclassic/formulas", "https://meowdb.com/msclassic/api/items?type=Equip"]},
     {"date": "2026-10-02T12:24:00-05:00", "version": "0.5.0", "title": "Auto-updater and phone copy", "items": ["Updater runs daily at 2:30 PM and 9 PM CT, plus one-off runs at 1:30 PM CT on Oct 6 and Oct 21", "First supervised run: no changes (all sources checked)", "Private claude.ai copy of this dashboard; prices and checkmarks sync to your account there"], "sources": ["N1"]},
     {"date": "2026-10-02T04:25:00-05:00", "version": "0.4.0", "title": "Dashboard created", "items": ["Dashboard (index.html) and this data file", "Price log with medians and buy/sell signals; checklist and routine"], "sources": []},
@@ -296,13 +297,15 @@ window.PLAN_DATA = {
   "reviewQueue": [
     {"id": "RQ-1", "date": "2026-10-02", "status": "decided", "title": "Choose the launch character", "summary": "You chose the Assassin (Oct 2). Tripwire kept: revisit only if both friends pick single-target classes.", "source": "00 section 1.2", "proposedChange": "Set meta.launchCharacter and keep only one 03_ funding CSV active"},
     {"id": "RQ-2", "date": "2026-10-02", "status": "pending", "title": "Day-1 Cash Shop purchases", "summary": "Pet + Auto Move + Auto HP/MP is the top value for the farmer, if priced under about 1 hour of farming income. Prices are unknown until Oct 6.", "source": "00 section 3.6", "proposedChange": "Buy or skip after you log V-7 prices"},
-    {"id": "RQ-3", "date": "2026-10-02", "status": "pending", "title": "Review findings awaiting your decision", "summary": "The Oct 2 review lists must-fix items outside the I/L switch (updater safety, dashboard import bug, source tags). None were applied.", "source": "review/REVIEW_2026-10-02.md (parent folder)", "proposedChange": "Pick which fixes to apply"}
+    {"id": "RQ-3", "date": "2026-10-02", "status": "pending", "title": "Review findings awaiting your decision", "summary": "The Oct 2 review lists must-fix items outside the I/L switch (updater safety, dashboard import bug, source tags). None were applied.", "source": "review/REVIEW_2026-10-02.md (parent folder)", "proposedChange": "Pick which fixes to apply"},
+    {"id": "RQ-4", "date": "2026-10-05", "status": "pending", "title": "Level cap is Lv 100: extend the plan past 70?", "summary": "Official notes set the cap at Lv 100 (the plan assumed 50 or 70). The I/L post-launch case only needed 60+, so it holds; but the route, SP plan and projections stop at 70, and 3rd job is still absent, so Lv 70-100 would be 2nd-job only.", "source": "https://g.nexonstatic.com/maplestory/cms/v1/news/45621 (2026-10-03)", "proposedChange": "Remove the 'cap 50' contingency lines in 00 and 01, and decide whether to add a Lv 70+ bracket (2nd-job maps and SP after 191 SP) once Lv 70 behaviour is checked in game (V-10)"},
+    {"id": "RQ-5", "date": "2026-10-05", "status": "pending", "title": "Forgotten Hollow closed during Founder's Access", "summary": "The Hollow (Lv 39-60 maps, its quest chains worth 84,249 EXP and 19,573 mesos, the Welcome to the Hollow weapon Greater scroll, Rotten Mushmom) cannot be reached Oct 6-20. The 01 route's Lv 39-50 brackets and the Oct 20 projection count on some of it.", "source": "https://g.nexonstatic.com/maplestory/cms/v1/news/45621 (2026-10-03)", "proposedChange": "Move the Hollow quests and maps in 01 sections for Lv 39-50 to 'from Grand Launch', replace them with Victoria Island alternates, and re-run the Oct 20 level and meso projection without Hollow quest EXP"}
   ],
 
   "openQuestions": [
     {"id": "Q1", "text": "Mesos per kill and meso drop chance", "impact": "Absolute mesos/h; AoE vs single-target ranking", "check": "V-1", "tier": "?"},
-    {"id": "Q2", "text": "Level cap (50 or 70?) and what happens at the cap", "impact": "Route 51-70; citizenship grade 9 needs Lv 52", "check": "V-10", "tier": "?"},
-    {"id": "Q3", "text": "Character slots, worlds, and whether F2P share founders' world", "impact": "Bank/mule plan; selling to F2P", "check": "V-2, V-3", "tier": "?"},
+    {"id": "Q2", "text": "Resolved: level cap is Lv 100 (was 50 or 70?). Still open: what happens at Lv 70 without 3rd job", "impact": "Route 51-70; citizenship grade 9 needs Lv 52", "check": "V-10", "tier": "V", "source": "https://g.nexonstatic.com/maplestory/cms/v1/news/45621 (2026-10-03)"},
+    {"id": "Q3", "text": "Worlds, and whether F2P share founders' world (slots resolved: up to 3 per account, CMS 45621)", "impact": "Bank/mule plan; selling to F2P", "check": "V-2, V-3", "tier": "?"},
     {"id": "Q4", "text": "Storage and inventory start sizes; fees", "impact": "Dual-character ops", "check": "V-4, V-5, V-6", "tier": "?"},
     {"id": "Q5", "text": "Cash Shop launch prices; Hired Merchant sold?", "impact": "Cash Shop buys; overnight selling", "check": "V-7, V-8", "tier": "?"},
     {"id": "Q6", "text": "Trade tax, gates, meso cap", "impact": "Market rules", "check": "V-11", "tier": "?"},
