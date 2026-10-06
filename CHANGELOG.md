@@ -2,6 +2,14 @@
 
 Newest first. The updater adds an entry for every run that changes content, with source URLs. `data/plan_data.js` → `changelog` mirrors these entries so the dashboard's Updates tab can show them.
 
+## 0.6.2 · 2026-10-06 · Founder's Access Cash Shop prices published
+- **Pets: 3,500 NX, 30 days** [V-off]. All pet skills (Auto HP/MP Potion, Auto Move, Expanded Auto Move) come only in the **Pet Booster Essentials Pack, 9,900 NX, once per account** (permanent; includes 30 pet food coupons).
+- **Convenience Essentials Pack, 9,900 NX, once per account:** AP Reset, SP Reset, Selective 5-slot Coupon, Safety Charm ×10, Super Megaphone ×10.
+- **Monthly Essentials, 9,900 NX, 30 days, once per world:** Special Store Permit, Portable Storage, megaphones, transparent gear. **Fall Store Permit 3,000 NX, 90 days, 18 items.**
+- **Not listed:** Hired Merchant, tab/storage coupons, standalone resets or Safety Charms. Gifting needs Lv 12+. Updated `00` §3.5–3.6 and Q5, `05` V-7/V-8, `plan_data.js` Q5.
+- Review queue: **RQ-6** (decide day-1 buys with real prices; supersedes the mesos-based rule), **RQ-7** (no Hired Merchant in FA: overnight-selling plan).
+- Source: https://g.nexonstatic.com/maplestory/cms/v1/news/45819 (2026-10-05)
+
 ## 0.6.1 · 2026-10-05 · Founder's Access release notes: level cap 100, 3 slots, Hollow closed
 - **Level cap: Lv 100** [V-off] (was "50 or 70?"). 3rd job is still not at launch; what happens at Lv 70 stays open (V-10). Resolves Q2 and V-10.
 - **Up to 3 characters per account** [V-off]. Resolves V-2 (confirm on screen); worlds (V-3) still open.
