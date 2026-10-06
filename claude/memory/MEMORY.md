@@ -1,0 +1,4 @@
+- [MapleStory Classic launch plan](maplestory-classic-launch-plan.md) — Founder's Access Oct 6–20, launch Oct 21 2026; spec is kickoff_prompt.md; v0.6.0 farmer = I/L (user's choice), Assassin launch
+- [Personal GitHub account](personal-github-account.md) — this folder uses tphanx211, not work tphan-ambit; gh needs switching
+- [Windows tool gotchas](windows-tool-gotchas.md) — python3 is the Store stub (use python/py); PowerShell curl is an alias; user's PS 5.1 has no `&&`; claude CLI on PATH
+- [Classic plan updater & phone dashboard ops](mscw-updater-ops.md) — scheduled task IDs, parent-cwd runs, allowlist deny caveat, CLI not logged in, artifact URL
