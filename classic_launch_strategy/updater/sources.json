@@ -1,0 +1,320 @@
+{
+  "_about": "Sources for the MapleStory Classic World plan. The updater reads this file each run. 'official' sources can create [V] facts; 'community' sources can only add [?] notes or review-queue leads. Times in Nexon's CMS liveDate are US Pacific wall-clock even though the string ends in 'Z'.",
+  "lastReviewed": "2026-10-02",
+  "detectionOrder": [
+    "nexon_cms_list",
+    "nexon_zendesk_classic",
+    "meowdb_sitemap",
+    "meowdb_changelog",
+    "youtube_maplestory",
+    "osms_datamine_commits",
+    "massivelyop_search"
+  ],
+  "keywordFilter": "Classic|MSCW|Founder|Closed Online Test|COT|Inkwell|Maple Memo|Exploration Report|Ossyria|Victoria Island|Leaf Points",
+  "sources": [
+    {
+      "id": "nexon_cms_list",
+      "name": "Nexon CMS news API (list)",
+      "url": "https://g.nexonstatic.com/maplestory/cms/v1/news",
+      "type": "official",
+      "fetchable": "yes",
+      "covers": "Every Global MapleStory post, Classic World included: announcements, release/patch notes, maintenance (balance changes have appeared inside maintenance posts), known issues, sales, FAQ.",
+      "howToSpotNew": "WebFetch and ask for 'the first 25 items in array order exactly: id, name, category, liveDate (raw string), isMSCW'. New = id not in state.json seenIds. Edited = a seen id whose name changed ([Updated M/D], [Completed], [Sales Closed] prefix) or that jumped back to the top with a new liveDate. Relevant = isMSCW true OR keywordFilter match on name/summary. Never trust the summarizer's item counts or time conversions.",
+      "notes": "Query parameters are ignored. nexon.com news pages are JavaScript shells; cite posts as https://www.nexon.com/maplestory/news/{category}/{id}/{slug}."
+    },
+    {
+      "id": "nexon_cms_post",
+      "name": "Nexon CMS news API (single post)",
+      "url": "https://g.nexonstatic.com/maplestory/cms/v1/news/{id}",
+      "type": "official",
+      "fetchable": "yes",
+      "covers": "Full HTML body of one post.",
+      "howToSpotNew": "Fetched only for ids flagged by nexon_cms_list. No created/updated field exists. Some posts (Inkwell's Notes, Exploration Reports) are images or video only: flag those 'image-only: needs community transcription'.",
+      "watchedIds": {
+        "45385": "Classic World FAQ (2026-09-29)",
+        "45521": "Founder's Access pre-download instructions (2026-09-29)",
+        "44883": "Founder's Package purchase guide (2026-09-02)",
+        "44134": "Founder's Packages now on sale (2026-09-02)",
+        "44359": "Ossyria Exploration Report, image-only (2026-08-21)",
+        "43962": "Aug 11 2026 maintenance with COT2 balance changes",
+        "43808": "COT2 known issues (2026-08-06)",
+        "43432": "COT2 release notes (2026-08-03)",
+        "39217": "COT1 release notes (2026-04-14)",
+        "45230": "Maple Memo: sanctions apply across MapleStory and Classic (2026-09-22)",
+        "44825": "Maple Memo: unauthorized servers (2026-09-11)"
+      }
+    },
+    {
+      "id": "nexon_news_hub",
+      "name": "Nexon news hub (human-facing)",
+      "url": "https://www.nexon.com/maplestory/news",
+      "type": "official",
+      "fetchable": "no (JS shell)",
+      "covers": "Same posts as the CMS API. Use only for citation links and for the user to read.",
+      "howToSpotNew": "Use nexon_cms_list instead."
+    },
+    {
+      "id": "nexon_mscw_home",
+      "name": "Classic World home and Founder's Package page",
+      "url": "https://www.nexon.com/mscw",
+      "type": "official",
+      "fetchable": "no (JS shell); /mscw/pre-launch-sales returns only a headline",
+      "covers": "Landing page and package store.",
+      "howToSpotNew": "Not useful for diffs."
+    },
+    {
+      "id": "nexon_zendesk_classic",
+      "name": "Nexon support center: MapleStory Classic category (Zendesk API)",
+      "url": "https://support-maplestory.nexon.com/api/v2/help_center/en-us/categories/51757893640852/articles.json",
+      "type": "official",
+      "fetchable": "yes (the /hc HTML pages return 403; the API works)",
+      "covers": "Classic help articles. As of 2026-10-02 only the Founder's Packages FAQ (article 53268989017620, updated 2026-10-01).",
+      "howToSpotNew": "Act when 'count' changes or a new article id appears. Use created_at for 'new'; updated_at changes often without content changes."
+    },
+    {
+      "id": "nexon_zendesk_search",
+      "name": "Nexon support center: article search",
+      "url": "https://support-maplestory.nexon.com/api/v2/help_center/articles/search.json?query=classic%20world&sort_by=created_at&sort_order=desc",
+      "type": "official",
+      "fetchable": "yes",
+      "covers": "Any help article mentioning Classic World (noisy).",
+      "howToSpotNew": "New ids at the top."
+    },
+    {
+      "id": "nexon_user_abuse",
+      "name": "Support: What activities constitute User Abuse?",
+      "url": "https://support-maplestory.nexon.com/hc/en-us/articles/204737315-What-activities-constitute-User-Abuse",
+      "type": "official",
+      "fetchable": "API only: /api/v2/help_center/en-us/articles/204737315.json",
+      "covers": "Botting/macro definition, hacking tools, gold trading (RMT), account trading and sharing bans.",
+      "howToSpotNew": "Re-read monthly; updated_at is noisy."
+    },
+    {
+      "id": "nexon_legal_index",
+      "name": "Support: Legal Documents index",
+      "url": "https://support-maplestory.nexon.com/hc/en-us/articles/360045727091-Legal-Documents",
+      "type": "official",
+      "fetchable": "API only: /api/v2/help_center/en-us/articles/360045727091.json",
+      "covers": "Links to Terms of Use, Code of Conduct, Terms of Sale. The ToU page itself (nexon.com/main/en/legal/tou) is a JS shell.",
+      "howToSpotNew": "updated_at (last 2026-07-16)."
+    },
+    {
+      "id": "nexon_code_of_conduct",
+      "name": "Nexon Code of Conduct",
+      "url": "https://playersupport.nexon.com/hc/en-us/articles/206476063-Code-of-Conduct",
+      "type": "official",
+      "fetchable": "API only: https://playersupport.nexon.com/api/v2/help_center/en-us/articles/206476063.json",
+      "covers": "Macros/botting, third-party programs, RMT, exploits (Nexon-wide, not Classic-specific).",
+      "howToSpotNew": "updated_at (last 2026-09-17)."
+    },
+    {
+      "id": "steam_news_216150",
+      "name": "Steam news API for MapleStory (app 216150)",
+      "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=216150&count=20&maxlength=300",
+      "type": "official",
+      "fetchable": "yes",
+      "covers": "A subset of CMS posts mirrored by Nexon, with true Unix UTC timestamps.",
+      "howToSpotNew": "Sort by 'date'. Fallback if g.nexonstatic.com fails."
+    },
+    {
+      "id": "youtube_maplestory",
+      "name": "YouTube @MapleStory (official) Atom feed",
+      "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCcOCpJNG2hR0wohtBVdeshA",
+      "type": "official",
+      "fetchable": "yes (feed only; channel page is not)",
+      "covers": "Trailers and recaps. Classic titles end '| Global MapleStory Classic World'.",
+      "howToSpotNew": "New <entry> with 'Classic World' in the title. Videos are leads; facts need text."
+    },
+    {
+      "id": "nexon_social_unfetchable",
+      "name": "Official X, Facebook, Discord, Reddit",
+      "url": "https://discord.com/invite/maplestory",
+      "type": "official",
+      "fetchable": "no (X 402, Facebook login wall, Discord messages unreadable, reddit.com refused by WebFetch)",
+      "covers": "Announcements are mirrored on the CMS.",
+      "howToSpotNew": "Not usable by the updater."
+    },
+    {
+      "id": "meowdb_news",
+      "name": "meowdb (NiaMeowDB) Classic news",
+      "url": "https://meowdb.com/msclassic/news",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Rewrites of official announcements, usually linking the Nexon post; transcribes image-only posts.",
+      "howToSpotNew": "Index is newest first with 'Mon DD, YYYY' dates; compare the top 5 slugs. No RSS. Rebranding to niadb.com in late Oct/early Nov 2026 (old links redirect).",
+      "reliability": "Medium-high secondary; fast. Not affiliated with Nexon."
+    },
+    {
+      "id": "meowdb_sitemap",
+      "name": "meowdb Classic sitemap",
+      "url": "https://meowdb.com/msclassic/sitemap.xml",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Every news and guide URL with lastmod.",
+      "howToSpotNew": "List /news/, /guides/ and /changelog URLs with lastmod >= last run date (date precision only)."
+    },
+    {
+      "id": "meowdb_changelog",
+      "name": "meowdb game-data changelog",
+      "url": "https://meowdb.com/msclassic/changelog",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Diff between datamined client snapshots (items, spawns, skills, scrolls, quests). Current snapshot header: 2026-08-04 (COT2).",
+      "howToSpotNew": "A new header date means a new client build was datamined (likely around Oct 6). Treat as a lead to re-check skill and item values.",
+      "reliability": "High for raw values; datamine of a test build."
+    },
+    {
+      "id": "meowdb_database",
+      "name": "meowdb Classic database (items, monsters, maps, skills, classes, NPC shops, quests, crafting, Cash Shop)",
+      "url": "https://meowdb.com/msclassic/item-db",
+      "type": "community",
+      "fetchable": "yes (monster 'Mesos per kill' and 'Drops (MS Classic)' are community reports; 'MSEA reference drops' are legacy MapleSEA data, not Classic)",
+      "covers": "COT2 client datamine: skill values, mob level/HP/EXP/DEF/elements, spawns, NPC shop prices, Cash Shop catalog with 100 NX test placeholder prices.",
+      "howToSpotNew": "Watch meowdb_changelog rather than individual pages."
+    },
+    {
+      "id": "meowdb_guides",
+      "name": "meowdb guides (DPS rankings, damage formula, class guides, grind maps, Forgotten Hollow, KPQ, EXP table, spawn engine)",
+      "url": "https://meowdb.com/msclassic/guides",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Models built on datamined values: /guides/class-dps-rankings (2026-09-28), /guides/explaining-the-damage-formula (2026-09-24), /guides/best-grind-maps-every-level (2026-09-23), /guides/exp-table-level-1-to-100 (2026-09-18), /guides/spawn-engine-respawn-and-map-capacity (2026-08-24), /guides/kerning-city-party-quest-kpq-guide (2026-08-12).",
+      "howToSpotNew": "Use meowdb_sitemap lastmod; each guide has an 'Updated YYYY-MM-DD' byline.",
+      "reliability": "Medium. Mixes datamined facts with inference; several are marked drafts."
+    },
+    {
+      "id": "meowdb_server_status",
+      "name": "meowdb server status",
+      "url": "https://meowdb.com/msclassic/server-status",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Polls Nexon maintenance notices.",
+      "howToSpotNew": "Status text."
+    },
+    {
+      "id": "meowdb_free_market",
+      "name": "meowdb community price board",
+      "url": "https://meowdb.com/msclassic/free-market",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Community-reported 14-day medians. Empty as of 2026-10-02.",
+      "howToSpotNew": "Reference only. Never import prices into the plan; the user logs their own observed prices."
+    },
+    {
+      "id": "maplestory_io_mcw",
+      "name": "maplestory.io API: MCW/CBT2 (Classic COT2 client) and GMS/83 (legacy)",
+      "url": "https://maplestory.io/api/MCW/CBT2/job/200/skillbook",
+      "type": "community",
+      "fetchable": "yes (large image payloads can truncate responses)",
+      "covers": "Second independent Classic datamine for skill values; GMS v83 data is the legacy [B] baseline (e.g. https://maplestory.io/api/GMS/83/job/skill/2201004).",
+      "howToSpotNew": "Static; watch for a new MCW version path (e.g. MCW/LIVE).",
+      "reliability": "High for raw values; agreed with meowdb on every magician skill checked."
+    },
+    {
+      "id": "osms_datamine_commits",
+      "name": "OSMS Data Explorer repo commit feed",
+      "url": "https://github.com/ohmi69/osms_datamine_dashboard/commits.atom",
+      "type": "community",
+      "fetchable": "yes (feed; the osmsdataexplorer.com site is a JS app)",
+      "covers": "Raw stat values datamined from the client.",
+      "howToSpotNew": "New commits 'deploy: sync from osms_extractor <timestamp>' may mean new client data. Lead only.",
+      "reliability": "Medium-high for values; single maintainer."
+    },
+    {
+      "id": "mapleclassic_wiki",
+      "name": "MapleClassic Wiki",
+      "url": "https://mapleclassic.wiki/",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Client-data-based wiki (death penalty, character creation, pets, controls).",
+      "howToSpotNew": "https://mapleclassic.wiki/api.php?action=feedrecentchanges&feedformat=atom&days=7&limit=50 (mostly bot edits).",
+      "reliability": "Medium; open-edit, no citations."
+    },
+    {
+      "id": "maplestorywiki_classic",
+      "name": "MapleStory Wiki: Classic World page",
+      "url": "https://maplestorywiki.net/w/Classic_World",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Timeline, QoL list (party pickup rights, Hands removed, archer close-range).",
+      "howToSpotNew": "'Last edited' footer.",
+      "reliability": "Medium; some claims conflict with the datamine (Fire Arrow '3 times')."
+    },
+    {
+      "id": "massivelyop_search",
+      "name": "MassivelyOP (press)",
+      "url": "https://massivelyop.com/tag/classic-world/",
+      "type": "community",
+      "fetchable": "no (HTTP 403 to WebFetch)",
+      "covers": "Press coverage, 1–3 days after Nexon; summarizes image-only posts.",
+      "howToSpotNew": "At most once per day: WebSearch 'MapleStory Classic World' with allowed_domains ['massivelyop.com']. URL slugs contain /YYYY/MM/DD/."
+    },
+    {
+      "id": "gosugamers",
+      "name": "GosuGamers (press)",
+      "url": "https://www.gosugamers.net/entertainment/news/79063-maplestory-classic-world-announces-21-october-release-date",
+      "type": "community",
+      "fetchable": "yes (articles; relative dates only, no RSS)",
+      "covers": "Occasional news.",
+      "howToSpotNew": "WebSearch with allowed_domains ['gosugamers.net'], at most once per day.",
+      "reliability": "Low-medium."
+    },
+    {
+      "id": "mmorpg_cbt_preview",
+      "name": "mmorpg.com COT1 hands-on preview",
+      "url": "https://www.mmorpg.com/previews/maplestory-classic-world-cbt-preview-2000137829",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "First-hand COT1 report (Apr 2026): pacing, pets loot, paid auto-move/auto-pot.",
+      "howToSpotNew": "Static."
+    },
+    {
+      "id": "mmobomb_inkwell_interview",
+      "name": "mmobomb interview with director Inkwell",
+      "url": "https://www.mmobomb.com/an-exclusive-interview-inkwell-about-maplestory-classic-world-his-vision",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Design intent (no HP washing, no Cubes, QoL), Oct 2025.",
+      "howToSpotNew": "Static."
+    },
+    {
+      "id": "legacy_baseline",
+      "name": "Legacy pre-Big Bang GMS baseline sources",
+      "url": "https://en.wikibooks.org/wiki/MapleStory",
+      "type": "community",
+      "fetchable": "partial (wikibooks and ayumilovemaple.wordpress.com work; hidden-street.net, strategywiki, maplestory.fandom.com and web.archive.org were blocked on 2026-10-02)",
+      "covers": "[B] tier only: legacy skill values, formulas, job requirements. Also https://ayumilovemaple.wordpress.com/2009/09/06/maplestory-formula-compilation/.",
+      "howToSpotNew": "Not monitored."
+    },
+    {
+      "id": "finalboss_io",
+      "name": "finalboss.io",
+      "url": "https://finalboss.io/maplestory-classic-world-founder-vs-free-player-day-one-checklist",
+      "type": "community",
+      "fetchable": "yes",
+      "covers": "Strategy checklists (uncited).",
+      "howToSpotNew": "Not monitored. Leads only, never facts.",
+      "reliability": "Low."
+    }
+  ],
+  "doNotUse": [
+    "mmoexp.com (gold seller)",
+    "u4gm.com (gold seller)",
+    "ssegold.com (gold seller)",
+    "ggwtb.com",
+    "digitaltq.com release-date pages (SEO)",
+    "exitlag.com/blog (vendor SEO)",
+    "gummysearch.com (Reddit SEO aggregator)",
+    "reddit.sudovanilla.org (mirror)",
+    "forgottenhollow.com, maplestoryclassicworld.com (unofficial lookalikes)",
+    "spam pages on hijacked domains (highaltitudescience, appcentric, ckcs.net, mambu PDFs, studyabroadfoundation PDFs)",
+    "Private-server sources: MapleLegends, MapleRoyals, MapleSaga, r/mapleservers, Artale and other MapleStory Worlds fan games",
+    "China Classic (Shengqu) rules and economy: a different operator; never apply to Global"
+  ],
+  "toolLimits": [
+    "WebFetch summarizer miscounts long JSON arrays and mislabels times; ask for explicit fields only.",
+    "WebFetch does not follow cross-host redirects (e.g. classic.maplestorywiki.net -> mapleclassic.wiki).",
+    "WebSearch has a per-session budget (hit 200/200 during Phase 1 research). Updater runs should be fetch-first: about 5 fetches and 0–2 searches."
+  ],
+  "postingCadence": "Classic posts so far: weekdays only, 07:55–17:52 PT, clustered Tue/Wed afternoons. Main MapleStory: patch maintenance Wednesday (notice Tue ~11:00 PT), minor maintenance Thursday. Suggested runs: ~12:30 and ~19:00 PT (14:30 and 21:00 CT), plus extra runs after the 11:00 PT opens on Oct 6 and Oct 21."
+}

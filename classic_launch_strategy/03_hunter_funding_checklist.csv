@@ -1,0 +1,21 @@
+Category,Item_Name,Priority_1to5,Drop_Source,Tier,Price_Day1,Price_Day3,Price_Day7,Max_Buy_Rule,Sell_Trigger,Storage_Method
+Ammo,Arrows for Bows (1 meso each),5,NPC: nearly every grocer (2 mesos at the 24 Hr Mobile Store),V-dm,,,,NPC only,Never sell,Hunter Use tab (not needed after Soul Arrow at Lv 34)
+Ammo,"Bronze Arrows for Bows (+1 W.ATK, 2 mesos)",3,"NPC: Raymond, Henesys (citizenship grade 3); Woodcrafting Lv 4",V-dm,,,,NPC only,Never sell,Hunter Use tab
+Ammo,Iron (+2) / Adamantium (+3) Arrows for Bows,2,Woodcrafting Lv 7 / Lv 10 craft,V-dm,,,,Craft cost or <= 0.70 x M3,Sell crafted extras to other Bowmen (R3),Hunter Use tab
+Bow,"War Bow 5,000 / Composite Bow 7,000 / Hunter's Bow 13,500 / Battle Bow 16,500 (Lv 10-25)",2,"NPC: Karl, Henesys",V-dm,,,,NPC only,NPC-sell when replaced,Hunter Equip tab
+Bow,"Ryden (Lv 30, 50 W.ATK)",5,"NPC: Karl, Henesys (26,000)",V-dm,,,,NPC only,Keep until Lv 40,Hunter Equip tab
+Bow,"Vaulter 2000 (Lv 40, 60 W.ATK)",4,Drop or craft,V-dm,,,,<= 0.70 x M3,Sell at R3 when replaced,Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Bow,"Olympus (Lv 50, 70 W.ATK)",5,Woodcrafting craft or market,V-dm,,,,<= 0.70 x M3,Keep to Lv 60,Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Bow,"Asianic Bow (Lv 60, 80 W.ATK)",4,Market (source [?]),V-dm / ?,,,,<= 0.60 x M3,Keep to Lv 70,Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Bow,"Golden Hinkel (Lv 70, 88 W.ATK, +2% crit)",3,MSEA ref: Jr. Balrog,B / ?,,,,<= 0.60 x M3,Endgame bow,Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Scroll,"Bow ATT Lesser (100%, +1)",5,"NPC: El Moth (50,000)",V-dm,,,,NPC only; ceiling for bow scrolls,Don't resell,Buy just before use
+Scroll,"Bow ATT Intermediate (60%, +2)",4,Jane and the Mushroom (1 of 13); Zombie Mushmom (community),V-dm / V-cbt,,,,"<= 1.5 x 50,000 (R6) and <= 0.70 x M3",Use; sell extras at R3,Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Scroll,"Bow ATT Greater (10%, +3)",2,"Quest pick-one: Welcome to the Hollow, Blackbull, Alligators 1",V-dm,,,,"<= 0.5 x 50,000",Sell during Founder's Access unless gambling,Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Scroll,Gloves ATT Intermediate (GFA60) / Greater (GFA10),5,"Cursed Dolls 150 (50%), Jane's Final (25%), Mushmom (1 vote); Lesser at grade 9 (50,000)",V-dm / V-cbt,,,,Fighter's copies first; else <= 0.70 x M3,Use; sell extras before the grade-9 cap event (R4),Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Scroll,Overall DEX Lesser (100%),4,"NPC: Flint, Henesys, 35,000, citizenship grade 7",V-dm,,,,NPC only once grade 7 is reached,Don't resell,Buy just before use
+Scroll,Earring DEX / Cape DEX (Lesser via Arcforge; Intermediate from quests),3,Arcforge Lv 8 / Lv 10; Taking Out the Alligators 2 (cape pick-one),V-dm,,,,Craft cost or <= 0.70 x M3,Use,Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Equip base,Work Gloves (5 slots),5,Andre's Request; Stirge (6 votes); Tailoring Lv 2,V-dm / V-cbt,,,,Clean: <= 0.70 x M3,Keep the best GFA'd pair,Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Equip base,"Dark Brace (bowman gloves, Lv 40)",4,John's Present (Lv 45),V-dm,,,,Quest,Compare with GFA'd Work Gloves,Hunter Equip tab
+Equip base,Sauna Robe (10 slots),4,Returned Secret Book (Lv 32),V-dm,,,,Quest copy,Sell spares to alts (R3),Fighter keeps in shared storage; withdraw on the Hunter (100 mesos/item deposit fee)
+Consumable,"Supreme Sniper Potion (+7 ACC, 15 min, 600)",3,"NPC: Raymond, Henesys",V-dm,,,,NPC only,Never sell,Hunter Use tab
+Consumable,Lemon / Orange (MP),5,NPC: all grocers,V-dm,,,,NPC only,Never sell,Hunter Use tab

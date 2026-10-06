@@ -1,0 +1,116 @@
+{
+  "_about": "Updater memory. Edited only by the updater run (see UPDATER_RULES.md). Times: ISO 8601. Nexon CMS liveDate strings are US Pacific wall-clock despite the trailing Z.",
+  "baselineDate": "2026-10-02",
+  "lastRun": "2026-10-06T13:33:44-05:00",
+  "lastRunResult": "no changes",
+  "cms": {
+    "seen": {
+      "45819": "Founder's Access Cash Shop",
+      "45621": "Founder's Access Release Notes",
+      "45681": "Inkwell on the Future of Global MapleStory and Classic World",
+      "45226": "v.271 Known Issues",
+      "45521": "Founder's Access Pre-Download Instructions Nexon Launcher and Steam",
+      "45385": "MapleStory Classic World FAQ",
+      "45330": "Defend the Omega Sector!",
+      "45259": "Cash Shop Update for September 30",
+      "44949": "Cash Shop Update for September 23",
+      "45230": "Maple Memo: Notice Regarding Account Sanctions Across Global MapleStory and Global MapleStory Classic World",
+      "45318": "[Completed] Scheduled Minor Patch Maintenance - September 17, 2026",
+      "34840": "Mac OS Beta Known Issues and Updates",
+      "44528": "Cash Shop Update for September 16",
+      "45268": "September 2026 Community Contest",
+      "44825": "Maple Memo: Notice Regarding Unauthorized MapleStory Servers",
+      "45261": "[Completed] Unscheduled Channel Maintenance - September 10, 2026",
+      "44291": "Signature Style Collection",
+      "44314": "Philosopher's Book",
+      "44348": "Special Petite Luna Pets",
+      "44414": "[Update Sept 11] Frieren's Spell Collection",
+      "44415": "Adventure with Frieren's Companions",
+      "44597": "[Updated 9/29] v.271 - MapleStory x Frieren: Beyond Journey's End Patch Notes",
+      "44225": "Cash Shop Update for September 9",
+      "44892": "[Completed] Scheduled Game Update - September 9, 2026",
+      "44159": "Auction House Item Claim Reminder Notice",
+      "44134": "Classic World Founder's Packages Now On Sale!",
+      "44705": "v.271 Update Preview",
+      "44883": "Founder's Package Purchase Guide",
+      "44359": "Ossyria Exploration Report",
+      "43962": "[Completed] Scheduled Maintenance - August 11, 2026",
+      "43903": "[Completed] Unscheduled Maintenance - August 10, 2026",
+      "43846": "Hired Merchant fix (COT2)",
+      "43808": "Closed Online Test #2 Known Issues",
+      "43432": "Closed Online Test #2 Release Notes",
+      "42364": "Sign Up for Global MapleStory Classic World Closed Online Test #2",
+      "41040": "Victoria Island Exploration Report",
+      "40325": "Regarding Unauthorized Access to Closed Online Test",
+      "40288": "Inkwell's Note",
+      "40017": "Closed Online Test Content Update",
+      "39942": "Unscheduled Server Maintenance - April 17",
+      "39217": "Closed Online Test Release Notes"
+    }
+  },
+  "zendesk": {
+    "classicCategoryCount": 1,
+    "articleIds": ["53268989017620"],
+    "watchedUpdatedAt": { "53268989017620": "2026-10-06" }
+  },
+  "meowdb": {
+    "sitemapCheckedThrough": "2026-10-06",
+    "changelogSnapshot": "2026-08-04",
+    "newsTopSlugs": [
+      "maplestory-classic-worlds-release-date",
+      "what-is-maplestory-classic-worlds",
+      "founders-package-outfits",
+      "controls-and-settings",
+      "class-dps-rankings"
+    ]
+  },
+  "youtube": {
+    "seenTitles": [
+      "True Nostalgia, A New Adventure | Global MapleStory Classic World",
+      "The Journey Begins | Global MapleStory Classic World",
+      "The Adventure Begins Soon | Global MapleStory Classic World",
+      "Kerning City's Dark Lord Awakens | Global MapleStory Classic World",
+      "Closed Online Test #2 Recap | Global MapleStory Classic World",
+      "Controller & macOS Support Focus Group Test Recap | Global MapleStory Classic World"
+    ]
+  },
+  "osms": { "lastCommitSeen": "2026-09-30" },
+  "pressCheckedOn": "2026-10-06",
+  "runs": [
+    {
+      "at": "2026-10-02T12:16:00-05:00",
+      "result": "no changes",
+      "fetched": ["nexon_cms_list", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory"],
+      "newIds": [],
+      "notes": "Press search skipped (already checked 2026-10-02). meowdb sitemap max lastmod 2026-09-30; changelog unchanged. Zendesk count 1, no new articles. RUN_TIME taken from scheduler lastRunAt (no clock command allowed)."
+    },
+    {
+      "at": "2026-10-02T14:39:58-05:00",
+      "result": "no changes",
+      "fetched": ["nexon_cms_list", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory"],
+      "newIds": [],
+      "notes": "CMS top 25 all seen, no name edits. Zendesk count 1, article 53268989017620 updated_at still 2026-10-01. meowdb sitemap max lastmod 2026-09-30. YouTube no new Classic titles. Press search skipped (already checked 2026-10-02)."
+    },
+    {
+      "at": "2026-10-05T15:46:58-05:00",
+      "result": "changes applied (0.6.1)",
+      "fetched": ["nexon_cms_list", "nexon_cms_post 45621 (x2)", "nexon_cms_post 45681", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory", "massivelyop_search"],
+      "newIds": ["45621", "45681"],
+      "notes": "Found uncommitted 00/05 edits from an interrupted earlier run (Oct 4) already applying 45621; re-verified verbatim and completed plan_data.js, CHANGELOG, 01, 04, state. Zendesk count 1, article updated_at 2026-10-04 (no new article). meowdb sitemap: founders-access-release-notes and inkwell interview rewrites plus guide updates through 2026-10-04 (official posts already read; not fetched); changelog not changed. YouTube: new trailer 'True Nostalgia, A New Adventure' (lead only, no facts). MassivelyOP: nothing new. No embedded instructions seen."
+    },
+    {
+      "at": "2026-10-06T00:41:57-05:00",
+      "result": "changes applied (0.6.2)",
+      "fetched": ["nexon_cms_list", "nexon_cms_post 45819 (x2)", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory (FAILED: HTTP 404)", "massivelyop_search"],
+      "newIds": ["45819"],
+      "notes": "CMS: one new id 45819 (Founder's Access Cash Shop, isMSCW, liveDate 2026-10-05T19:55:07Z PT); 34840 Mac OS post re-dated but name unchanged. Zendesk count 1, article 53268989017620 updated_at still 2026-10-04. meowdb sitemap max lastmod 2026-10-04 (no new items past checkpoint; changelog unchanged). YouTube feed returned 404 this run; retry next run. MassivelyOP: nothing newer than 2026-08-24. No embedded instructions seen."
+    },
+    {
+      "at": "2026-10-06T13:33:44-05:00",
+      "result": "no changes",
+      "fetched": ["nexon_cms_list", "nexon_zendesk_classic", "nexon_zendesk_article 53268989017620", "meowdb_sitemap", "meowdb_news classic-world-founders-access-live", "youtube_maplestory"],
+      "newIds": [],
+      "notes": "Founder's Access open +30 min run. CMS top 25 all seen, no name edits; no launch-notes, known-issues or maintenance post yet (summarizer printed 45949 for seen 44949 'Cash Shop Update for September 23'; treated as typo). Zendesk count 1; FAQ updated_at 2026-10-06T18:33:20Z but edited_at still 2026-09-05 and content matches plan (no content change). meowdb: founders-access-live news (no Nexon links; scope and 7,000 NX AP/SP reset claims already [V] from 45621/45819), guide refreshes 2026-10-05/06 not fetched; changelog not changed. YouTube feed back up; no new Classic titles. Press skipped (checked 2026-10-06). No embedded instructions seen."
+    }
+  ]
+}
