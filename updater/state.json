@@ -1,8 +1,8 @@
 {
   "_about": "Updater memory. Edited only by the updater run (see UPDATER_RULES.md). Times: ISO 8601. Nexon CMS liveDate strings are US Pacific wall-clock despite the trailing Z.",
   "baselineDate": "2026-10-02",
-  "lastRun": "2026-10-06T00:41:57-05:00",
-  "lastRunResult": "0.6.2: applied CMS 45819 Founder's Access Cash Shop prices; RQ-6, RQ-7 queued",
+  "lastRun": "2026-10-06T13:33:44-05:00",
+  "lastRunResult": "no changes",
   "cms": {
     "seen": {
       "45819": "Founder's Access Cash Shop",
@@ -51,10 +51,10 @@
   "zendesk": {
     "classicCategoryCount": 1,
     "articleIds": ["53268989017620"],
-    "watchedUpdatedAt": { "53268989017620": "2026-10-04" }
+    "watchedUpdatedAt": { "53268989017620": "2026-10-06" }
   },
   "meowdb": {
-    "sitemapCheckedThrough": "2026-10-04",
+    "sitemapCheckedThrough": "2026-10-06",
     "changelogSnapshot": "2026-08-04",
     "newsTopSlugs": [
       "maplestory-classic-worlds-release-date",
@@ -104,6 +104,13 @@
       "fetched": ["nexon_cms_list", "nexon_cms_post 45819 (x2)", "nexon_zendesk_classic", "meowdb_sitemap", "youtube_maplestory (FAILED: HTTP 404)", "massivelyop_search"],
       "newIds": ["45819"],
       "notes": "CMS: one new id 45819 (Founder's Access Cash Shop, isMSCW, liveDate 2026-10-05T19:55:07Z PT); 34840 Mac OS post re-dated but name unchanged. Zendesk count 1, article 53268989017620 updated_at still 2026-10-04. meowdb sitemap max lastmod 2026-10-04 (no new items past checkpoint; changelog unchanged). YouTube feed returned 404 this run; retry next run. MassivelyOP: nothing newer than 2026-08-24. No embedded instructions seen."
+    },
+    {
+      "at": "2026-10-06T13:33:44-05:00",
+      "result": "no changes",
+      "fetched": ["nexon_cms_list", "nexon_zendesk_classic", "nexon_zendesk_article 53268989017620", "meowdb_sitemap", "meowdb_news classic-world-founders-access-live", "youtube_maplestory"],
+      "newIds": [],
+      "notes": "Founder's Access open +30 min run. CMS top 25 all seen, no name edits; no launch-notes, known-issues or maintenance post yet (summarizer printed 45949 for seen 44949 'Cash Shop Update for September 23'; treated as typo). Zendesk count 1; FAQ updated_at 2026-10-06T18:33:20Z but edited_at still 2026-09-05 and content matches plan (no content change). meowdb: founders-access-live news (no Nexon links; scope and 7,000 NX AP/SP reset claims already [V] from 45621/45819), guide refreshes 2026-10-05/06 not fetched; changelog not changed. YouTube feed back up; no new Classic titles. Press skipped (checked 2026-10-06). No embedded instructions seen."
     }
   ]
 }
