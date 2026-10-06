@@ -2,6 +2,11 @@
 
 Newest first. The updater adds an entry for every run that changes content, with source URLs. `data/plan_data.js` → `changelog` mirrors these entries so the dashboard's Updates tab can show them.
 
+## 0.6.4 · 2026-10-06 · Full AP and SP build tables with reset routes
+- Dashboard, Route & SP tab: a **Full build** table for each character with one row per level and one column per skill (SP) or stat (AP), showing running totals, points added each level, maxed skills, and the I/L's base accuracy. It jumps to your level; a 1st job / 2nd job / All filter keeps it readable on a phone.
+- **Routes in the same table:** I/L SP: Thunder Bolt first, reset to Cold Beam first (Lv 38), boss variant (no reset), late 1st-job reset (Lv 64). Assassin SP: Critical Throw first, party Haste early. AP: default, and an AP reset once gear covers the wand LUK / claw DEX. Cells that differ from the recommended route are underlined; reset rows are flagged.
+- Level tracker goes to Lv 100 (the official cap). Fixed the Lv 2-13 AP step (INT 73, not 77). `01` §8 lists the reset routes.
+
 ## 0.6.3 · 2026-10-06 · Overnight selling with the client left running; Cash Shop corrections
 - **Your decision:** you can leave the game running overnight. With no Hired Merchant in Founder's Access, overnight selling is a **Store Permit shop on the I/L in an FM room** (field shops close if a monster hits you). `02` §2.3 and `04` Overnight rewritten; RQ-7 decided.
 - New check **V-42**: idle disconnect, and what happens to listed items if the client disconnects. No anti-idle tools.

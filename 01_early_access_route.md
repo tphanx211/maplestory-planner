@@ -300,6 +300,14 @@ Check: ME 20 + TB 30 + Med 20 + TP 20 + CB 30 + Slow 1 = 121 ✓.
 
 **Why not meowdb's order (Cold Beam first)?** Cold Beam first only wins if you can't hold about 2+ mobs per Thunder Bolt. In the review's model the TB-first order reaches Lv 45 after ~35 farming hours (Cold Beam first: ~47) and makes ~1.55M by 30 hours after Lv 30 (CB-first: ~1.23M) [model]. **If V-40 shows fewer than ~2 targets per cast on your maps, switch to meowdb's order: Cold Beam 30 at Lv 31–40, then TB** (SP Reset is a Cash Shop item [?]).
 
+**Level-by-level tables:** the dashboard's Route & SP tab has the full build (every level, every skill and stat, running totals, maxed skills marked) for both characters, with these routes side by side.
+
+**SP and AP reset routes** (one AP Reset and one SP Reset come in the Convenience pack; otherwise 7,000 NX each):
+- **Reset to Cold Beam first, Lv 38:** only if V-40 shows fewer than ~2 mobs per Thunder Bolt. The 25 2nd-job points become MP Eater 1 + Cold Beam 24; Cold Beam maxes at 40, Thunder Bolt at 58.
+- **Late 1st-job reset, Lv 64:** once Cold Beam (~13) replaces Energy Bolt, move Energy Bolt's 20 points into Magic Guard 15 (80% of damage to MP) and Magic Armor 16. Only if the reset returns 1st-job points as 1st-job points [?].
+- **AP reset when gear covers the wand's LUK (example Lv 50):** base LUK back to 4, about +16 INT.
+- Every I/L skill is maxed by Lv 77 (cap is 100), so an SP reset only ever fixes the *order*; it's worth most early.
+
 **Variants:**
 - **Boss variant (Ilbi from Mushmom):** after Med 20 at 48, put the next points into **Cold Beam** instead of Teleport. Thunder Bolt is weak on a single 34,440-HP boss.
 - **Ice-weak farming** (Fire Boar, Copper Drake, Red Drake/Steely): Cold Beam earlier, after Med.

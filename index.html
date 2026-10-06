@@ -22,6 +22,9 @@
     --warning: #fab219;
     --serious: #ec835a;
     --critical: #d03b3b;
+    --max: #7fe07f;
+    --sel-solid: #1e2c44;
+    --reset-solid: #3a321c;
     --radius: 10px;
     --gutter: 16px;
   }
@@ -137,6 +140,39 @@
   .seg button { background: var(--bg-2); color: var(--text-2); border: none; padding: 7px 12px; font: inherit; font-size: 14px; cursor: pointer; }
   .seg button[aria-pressed="true"] { background: var(--accent); color: #1a1206; font-weight: 600; }
   .now { color: var(--accent-2); font-weight: 600; }
+  /* Full build table */
+  .build-head { display: grid; gap: 10px; }
+  .routes { display: flex; flex-wrap: wrap; gap: 6px; }
+  .routes .route { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; background: var(--bg-2); color: var(--text-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 13px; cursor: pointer; text-align: left; }
+  .routes .route span { font-size: 11px; color: var(--muted); }
+  .routes .route.is-reset span { color: var(--warning); }
+  .routes .route[aria-pressed="true"] { border-color: var(--accent); color: var(--text); box-shadow: inset 0 2px 0 var(--accent); }
+  .route-info { font-size: 13px; }
+  .build-legend { align-items: center; }
+  .cell-demo { display: inline-block; min-width: 26px; padding: 1px 5px; border-radius: 4px; text-align: center; font-variant-numeric: tabular-nums; margin-right: 4px; background: var(--bg-2); }
+  .badge.reset-b { background: rgba(250,178,25,.18); color: var(--warning); border-color: rgba(250,178,25,.6); font-size: 10px; padding: 0 6px; }
+  .build-wrap { max-height: 62vh; overflow: auto; }
+  table.build { font-size: 12.5px; width: auto; min-width: 100%; }
+  table.build th, table.build td { padding: 4px 7px; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  table.build th { z-index: 3; text-transform: none; letter-spacing: 0; }
+  table.build th span { display: block; color: var(--text); font-size: 12px; }
+  table.build th small { display: block; font-size: 10px; font-weight: 500; color: var(--muted); }
+  table.build th.main span, table.build td.main { color: var(--accent-2); }
+  table.build .lvc { position: sticky; left: 0; z-index: 2; background: var(--panel-2); text-align: left; font-weight: 600; color: var(--text); }
+  table.build thead .lvc { z-index: 4; }
+  table.build .jb { border-left: 2px solid var(--line); }
+  table.build td.zero { color: var(--muted); opacity: .6; }
+  table.build td.up { background: rgba(243,156,52,.13); color: var(--text); font-weight: 600; }
+  table.build td sup { color: var(--accent-2); font-size: 9.5px; margin-left: 1px; }
+  table.build td.max, .cell-demo.max { color: var(--max); font-weight: 700; }
+  table.build td.alt, .cell-demo.alt { box-shadow: inset 0 -2px 0 var(--blue); }
+  .cell-demo.up { background: rgba(243,156,52,.13); font-weight: 600; }
+  .cell-demo.up sup { color: var(--accent-2); font-size: 9.5px; }
+  table.build tr.reset td { background: rgba(250,178,25,.10); }
+  table.build tr.reset td.lvc { background: var(--reset-solid); }
+  table.build tr.sel td { background: rgba(57,135,229,.16); }
+  table.build tr.sel td.lvc { background: var(--sel-solid); color: var(--accent-2); }
+  table.build .notec { text-align: left; white-space: normal; min-width: 220px; max-width: 300px; color: var(--text-2); font-size: 12px; line-height: 1.3; }
   .done { color: var(--muted); text-decoration: line-through; }
   .check { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--line); }
   .check:last-child { border-bottom: none; }
@@ -569,7 +605,7 @@
     var el = $("#tab-route");
     var ch = charKey(S.routeChar);
     var isFarmer = ch === FARMER.key;
-    var lv = Math.max(1, Math.min(70, parseInt(S.levels[ch], 10) || 1));
+    var lv = Math.max(1, Math.min(MAX_LV, parseInt(S.levels[ch], 10) || 1));
     var plan = D.spPlan[ch];
     var bracket = D.route.filter(function (b) { return lv >= b.minLv && lv <= b.maxLv; })[0] || D.route[D.route.length - 1];
     if (lv === 10) bracket = D.route[1];
@@ -578,7 +614,7 @@
       CHARS.map(function (o) {
         return '<button data-char="' + esc(o.key) + '" aria-pressed="' + (ch === o.key) + '">' + esc(o.label) + "</button>";
       }).join("") + "</div>" +
-      '<div class="levelbox"><button class="btn" id="lvDown" aria-label="Level down">−</button><input id="lvIn" type="number" min="1" max="70" value="' + lv + '" aria-label="Your level"><button class="btn" id="lvUp" aria-label="Level up">+</button></div></div>' +
+      '<div class="levelbox"><button class="btn" id="lvDown" aria-label="Level down">−</button><input id="lvIn" type="number" min="1" max="100" value="' + lv + '" aria-label="Your level"><button class="btn" id="lvUp" aria-label="Level up">+</button></div></div>' +
       '<p class="note">Enter your current level. It is saved per character in this browser.</p></div>';
 
     html += '<h2>Now: Lv ' + bracket.minLv + "–" + bracket.maxLv + " · " + esc(isFarmer ? bracket.title : charLabel(ch)) + " " + tag(bracket.tier, bracket.source) + "</h2>";
@@ -590,6 +626,7 @@
     html += '<div class="card"><h3>Next SP</h3>' + stepList(plan.sp, lv, "sp") + "</div>";
     html += "</div>";
     if (plan.citizenship) html += '<p class="note">Citizenship: ' + esc(plan.citizenship) + "</p>";
+    if (plan.build) html += buildSection(ch, lv, plan.build);
 
     if (isFarmer) {
     html += "<h2>Maps for this bracket</h2>";
@@ -628,10 +665,128 @@
     $all("[data-char]", el).forEach(function (b) {
       b.addEventListener("click", function () { S.routeChar = b.getAttribute("data-char"); persist("routeChar"); renderRoute(); });
     });
-    function setLv(v) { S.levels[ch] = Math.max(1, Math.min(70, v || 1)); persist("levels"); renderRoute(); var i = $("#lvIn"); if (i) i.focus(); }
+    function setLv(v) { S.levels[ch] = Math.max(1, Math.min(MAX_LV, v || 1)); persist("levels"); renderRoute(); var i = $("#lvIn"); if (i) i.focus(); }
     $("#lvDown").addEventListener("click", function () { setLv(lv - 1); });
     $("#lvUp").addEventListener("click", function () { setLv(lv + 1); });
     $("#lvIn").addEventListener("change", function () { setLv(parseInt(this.value, 10)); });
+    $all("[data-bview]", el).forEach(function (b) {
+      b.addEventListener("click", function () { buildUi.view = b.getAttribute("data-bview"); save("buildUi", buildUi); renderRoute(); });
+    });
+    $all("[data-broute]", el).forEach(function (b) {
+      b.addEventListener("click", function () { buildUi.route[ch + "." + buildUi.view] = b.getAttribute("data-broute"); save("buildUi", buildUi); renderRoute(); });
+    });
+    $all("[data-bjob]", el).forEach(function (b) {
+      b.addEventListener("click", function () { buildUi.job = b.getAttribute("data-bjob"); save("buildUi", buildUi); renderRoute(); });
+    });
+    var jump = $("#buildJump");
+    if (jump) jump.addEventListener("click", function () { scrollBuildToLevel(); });
+    scrollBuildToLevel();
+  }
+
+  /* ---------- Full build: every level, every skill/stat, with reset routes ---------- */
+  var MAX_LV = 100;
+  var buildUi = load("buildUi", { view: "sp", route: {} });
+  if (!buildUi || typeof buildUi !== "object") buildUi = { view: "sp", route: {} };
+  if (!buildUi.route) buildUi.route = {};
+  function runTotals(rows) {
+    var tot = {}, out = [];
+    rows.forEach(function (r) {
+      var before = {}; for (var k in tot) before[k] = tot[k];
+      if (r.set) { tot = {}; for (var s in r.set) tot[s] = r.set[s]; }
+      var add = r.add || {};
+      for (var a in add) tot[a] = (tot[a] || 0) + add[a];
+      var now = {}; for (var n in tot) now[n] = tot[n];
+      out.push({ lv: r.lv, add: add, reset: !!r.reset, set: r.set, note: r.note || "", before: before, tot: now });
+    });
+    return out;
+  }
+  function mageAcc(t, lv) { return Math.floor((1.2 * (t.INT || 0) + 2 * lv + 0.6 * (t.LUK || 0)) / 5.1 + 20); }
+  function buildSection(ch, lv, build) {
+    var view = buildUi.view === "ap" ? "ap" : "sp";
+    var part = build[view];
+    if (!part) return "";
+    var routes = part.routes || [];
+    var rid = buildUi.route[ch + "." + view];
+    var route = routes.filter(function (r) { return r.id === rid; })[0] || routes[0];
+    var base = runTotals(routes[0].rows), baseBy = {};
+    base.forEach(function (r) { baseBy[r.lv] = r.tot; });
+    var rows = runTotals(route.rows);
+    var job = view === "sp" ? (buildUi.job && buildUi.job !== "auto" ? buildUi.job : (lv >= 30 ? "2nd" : "1st")) : "all";
+    var cols = view === "sp" ? part.skills.filter(function (s) { return job === "all" || s.job === job; }).map(function (s) { return { key: s.key, name: s.name, max: s.max, job: s.job }; })
+      : part.stats.map(function (s) { return { key: s, name: s, main: s === part.main }; });
+    if (view === "sp" && job !== "all") rows = rows.filter(function (r) {
+      if (r.reset) return true;
+      var ch2 = cols.some(function (c) { return (r.add[c.key] || 0) > 0; });
+      return job === "1st" ? (r.lv <= 30 || ch2) : (r.lv >= 30 || ch2);
+    });
+    var html = '<h2 id="build">Full build: every level</h2>' +
+      '<div class="panel build-head"><div class="row" style="justify-content:space-between">' +
+      '<div class="seg" role="group" aria-label="Build view"><button data-bview="sp" aria-pressed="' + (view === "sp") + '">Skills (SP)</button><button data-bview="ap" aria-pressed="' + (view === "ap") + '">Stats (AP)</button></div>' +
+      (view === "sp" ? '<div class="seg" role="group" aria-label="Skills shown">' + [["1st", "1st job"], ["2nd", "2nd job"], ["all", "All"]].map(function (o) {
+        return '<button data-bjob="' + o[0] + '" aria-pressed="' + (job === o[0]) + '">' + o[1] + "</button>";
+      }).join("") + "</div>" : "") +
+      '<button class="btn small" id="buildJump">Jump to Lv ' + lv + "</button></div>" +
+      '<div class="routes" role="group" aria-label="Route">' + routes.map(function (r) {
+        return '<button class="route' + (r.reset ? " is-reset" : "") + '" data-broute="' + esc(r.id) + '" aria-pressed="' + (r.id === route.id) + '"><b>' + esc(r.name) + "</b><span>" + esc(r.tag) + "</span></button>";
+      }).join("") + "</div>" +
+      '<dl class="kv route-info"><dt>Use when</dt><dd>' + esc(route.when) + "</dd><dt>Why</dt><dd>" + esc(route.why) + "</dd>" +
+      (route.cost ? "<dt>Costs</dt><dd>" + esc(route.cost) + "</dd>" : "") + "</dl>";
+    html += '<div class="legend build-legend"><span><span class="cell-demo up">6<sup>+3</sup></span> added this level</span><span><span class="cell-demo max">20</span> maxed</span>' +
+      (route.id !== routes[0].id ? '<span><span class="cell-demo alt">9</span> differs from ' + esc(routes[0].name) + "</span>" : "") +
+      '<span><span class="badge reset-b">RESET</span> use a reset scroll at this level</span></div></div>';
+
+    html += '<div class="table-wrap build-wrap" id="buildWrap"><table class="build"><thead><tr><th class="lvc">Lv</th>';
+    var firstSecond = true;
+    cols.forEach(function (c) {
+      var jb = view === "sp" && c.job === "2nd" && firstSecond; if (jb) firstSecond = false;
+      html += '<th class="' + (jb ? "jb " : "") + (c.main ? "main" : "") + '" title="' + esc(c.name + (c.max ? " (max " + c.max + ")" : "")) + '"><span>' + esc(c.key) + "</span>" +
+        (view === "sp" ? "<small>" + (c.job === "1st" ? "1st" : "2nd") + (c.max ? " /" + c.max : "") + "</small>" : (c.main ? "<small>main</small>" : "<small>&nbsp;</small>")) + "</th>";
+    });
+    if (part.acc === "mage") html += '<th title="Base accuracy without gear (meowdb formula)"><span>ACC</span><small>base</small></th>';
+    html += '<th class="notec">Note</th></tr></thead><tbody>';
+    var $curDone = false;
+    rows.forEach(function (r) {
+      var cur = r.lv === lv || (lv > rows[rows.length - 1].lv && r === rows[rows.length - 1]) || (lv < rows[0].lv && r === rows[0]);
+      if (cur && $curDone) cur = false;
+      if (cur) $curDone = true;
+      html += '<tr class="' + (r.reset ? "reset " : "") + (cur ? "sel" : "") + '"' + (cur ? ' id="buildCur"' : "") + '><td class="lvc">' + r.lv + (r.reset ? ' <span class="badge reset-b">RESET</span>' : "") + "</td>";
+      var firstS = true;
+      cols.forEach(function (c) {
+        var v = r.tot[c.key] || 0, add = r.add[c.key] || 0, prev = r.before[c.key] || 0;
+        var jb = view === "sp" && c.job === "2nd" && firstS; if (jb) firstS = false;
+        var cls = [];
+        if (jb) cls.push("jb");
+        if (c.main) cls.push("main");
+        if (add > 0 || (r.reset && v !== prev)) cls.push("up");
+        if (c.max && v === c.max) cls.push("max");
+        if (!v && !(r.reset && prev)) cls.push("zero");
+        var b = baseBy[r.lv];
+        if (route.id !== routes[0].id && b && (b[c.key] || 0) !== v) cls.push("alt");
+        var sup = add > 0 ? "<sup>+" + add + "</sup>" : (r.reset && v !== prev ? "<sup>" + (v > prev ? "+" : "−") + Math.abs(v - prev) + "</sup>" : "");
+        html += '<td class="' + cls.join(" ") + '">' + (v ? v : (r.reset && prev ? "0" : "·")) + sup + "</td>";
+      });
+      if (part.acc === "mage") html += "<td>" + mageAcc(r.tot, r.lv) + "</td>";
+      html += '<td class="notec">' + esc(r.note) + "</td></tr>";
+    });
+    html += "</tbody></table></div>";
+    if (view === "sp") {
+      var maxAt = [];
+      cols.forEach(function (c) {
+        if (!c.max) return;
+        for (var i = 0; i < rows.length; i++) if (rows[i].tot[c.key] === c.max) { maxAt.push(c.key + " " + rows[i].lv); break; }
+      });
+      if (maxAt.length) html += '<p class="note"><b>Maxed at:</b> ' + esc(maxAt.join(" · ")) + "</p>";
+      if (part.beginner) html += '<p class="note">' + esc(part.beginner) + (part.unused ? " " + esc(part.unused) : "") + (part.after ? " " + esc(part.after) : "") + "</p>";
+    } else if (part.acc === "mage") {
+      html += '<p class="note">ACC is your base accuracy without gear (meowdb formula, a community model). Gear INT and ACC scrolls add to it; the 100%-hit notes assume you farm mobs at or below your level.</p>';
+    }
+    return html;
+  }
+  function scrollBuildToLevel() {
+    var wrap = $("#buildWrap"), cur = $("#buildCur");
+    if (!wrap || !cur) return;
+    var head = wrap.querySelector("thead");
+    wrap.scrollTop = Math.max(0, cur.offsetTop - (head ? head.offsetHeight : 0) - 4);
   }
   function stepList(rows, lv, kind) {
     var idx = -1;
