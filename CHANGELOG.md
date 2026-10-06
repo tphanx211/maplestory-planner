@@ -2,6 +2,12 @@
 
 Newest first. The updater adds an entry for every run that changes content, with source URLs. `data/plan_data.js` → `changelog` mirrors these entries so the dashboard's Updates tab can show them.
 
+## 0.6.3 · 2026-10-06 · Overnight selling with the client left running; Cash Shop corrections
+- **Your decision:** you can leave the game running overnight. With no Hired Merchant in Founder's Access, overnight selling is a **Store Permit shop on the I/L in an FM room** (field shops close if a monster hits you). `02` §2.3 and `04` Overnight rewritten; RQ-7 decided.
+- New check **V-42**: idle disconnect, and what happens to listed items if the client disconnects. No anti-idle tools.
+- **Correction to 0.6.2:** the Cash Shop post also sells singly: pet skills (Auto HP/MP 2,500, Auto Move and Expanded Auto Move 3,000 NX), AP and SP Reset 7,000 NX each, Storage and Selective 5-slot Coupons 5,000 NX, Safety Charm 800 NX, Regular/Pink Store Permit 1,500/3,000 NX, Water of Life 2,000 NX. `00` §3.5–3.6, Q5, `05` V-7 and RQ-6 corrected.
+- Source: https://g.nexonstatic.com/maplestory/cms/v1/news/45819 (2026-10-05)
+
 ## 0.6.2 · 2026-10-06 · Founder's Access Cash Shop prices published
 - **Pets: 3,500 NX, 30 days** [V-off]. All pet skills (Auto HP/MP Potion, Auto Move, Expanded Auto Move) come only in the **Pet Booster Essentials Pack, 9,900 NX, once per account** (permanent; includes 30 pet food coupons).
 - **Convenience Essentials Pack, 9,900 NX, once per account:** AP Reset, SP Reset, Selective 5-slot Coupon, Safety Charm ×10, Super Megaphone ×10.

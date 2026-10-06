@@ -16,7 +16,7 @@ Both in Kerning means one storage discount (Mr. Hong) serves both. If citizenshi
 
 | Slot | Character | Role |
 |---|---|---|
-| 1 | I/L Wizard | Farmer, bank, merchant (Hired Merchant or Store Permit sessions), boss runs |
+| 1 | I/L Wizard | Farmer, bank, merchant (overnight Store Permit shop with the client left running), boss runs |
 | 2 | Assassin | Levels with friends; funded by slot 1 |
 | 3 | Empty at first | Becomes a **storage mule** only if shared storage (50 slots, or 150 with coupons) runs out. Each mule adds 4 inventory tabs (size [?] V-6) |
 
@@ -102,8 +102,9 @@ Your friends' play times are unknown, so these are templates. Put the **"with fr
 This gives the I/L about 1 h per weekday and 3 h per weekend day (~11 h a week). If your post-launch goal is mainly farming, move hours from the Assassin block, not from the transfer run.
 
 ### Overnight
-- **If the Hired Merchant is sold (V-8):** before logging off, place it with the I/L in an FM room, stocked with `02` R3 listings. It runs 24 h; collect at Fredrick the next day. **This is the farmer's main merchant role.**
-- **If it isn't sold:** nothing runs overnight. Don't use any automation; it's bannable [V-off N9].
+- **No Hired Merchant in the Founder's Access Cash Shop** [V-off CMS 45819]. Instead, leave the client running with the **I/L in a Store Permit shop in an FM room** (18 slots), stocked with `02` R3 listings. **This is the farmer's main merchant role** (`02` §2.3).
+- End each night's play on the I/L: transfer run first, then open the shop and leave it.
+- Check on the first night whether there's an idle disconnect (V-42). Don't use any automation to stay "active"; it's bannable [V-off N9].
 
 ### Two clients or a second account (gray area; don't do it without a written OK)
 - Selling on the I/L **while** playing the Assassin would need a **second account** and a **second client**. Nexon hasn't addressed either for Classic (V-16, V-29). Account sharing is banned [V-off N9].

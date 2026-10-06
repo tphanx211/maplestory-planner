@@ -2,7 +2,7 @@
 
 Version 0.6 · 2026-10-02. Risk profile: **balanced**. Tags and source keys are as in `00_classic_world_verified_intel.md`.
 
-**Changed in 0.6:** the farmer is now an **I/L Wizard** and the launch character an **Assassin** (your decision). What changed here: the farming income figure (§2.2), the merchant role (§2.3: offline Hired Merchant only), the quest Greater scrolls a mage can get (§3, W10), the farmer's own gear buys (§4.1, W27), and the Hunter fallback (§5, retired). Equipment drops are vendored to NPCs at 25–50% of the NPC buy price; scrolls sell to NPCs for 1 meso, so scroll income only exists as player sales [V-dm].
+**Changed in 0.6:** the farmer is now an **I/L Wizard** and the launch character an **Assassin** (your decision). What changed here: the farming income figure (§2.2), the merchant role (§2.3: overnight Store Permit shop with the client left running; there's no Hired Merchant in Founder's Access), the quest Greater scrolls a mage can get (§3, W10), the farmer's own gear buys (§4.1, W27), and the Hunter fallback (§5, retired). Equipment drops are vendored to NPCs at 25–50% of the NPC buy price; scrolls sell to NPCs for 1 meso, so scroll income only exists as player sales [V-dm].
 
 **No prices exist yet, and none are invented here.** Every rule is relative to prices **you observe** (logged in the dashboard's price log in Phase 4, or the template in §8), or to datamined NPC prices [V-dm].
 
@@ -79,14 +79,17 @@ You can run **one game at a time** [V-off N1], and two Classic clients aren't co
 - **Batch your selling**: one 20–30 min session per play day. List, adjust prices, close.
 - Leaving the shop open while you're logged in and idle is not botting. Whether Classic has an **idle disconnect** is [?]; test it once.
 
-### 2.3 Overnight selling: **only if offline vending exists**
-- **If the Hired Merchant is sold at launch (V-8):**
-  - Place it in an FM room before you log off. It's **removed 24 h after setup** [V-dm], so re-place it daily.
-  - Collect unsold items and mesos from **Fredrick** or the mailbox [V-off N6].
-  - Stock it with your R3 list (premium prices). Overnight buyers are price-takers.
-  - **Risk:** COT2 had a bug that stripped equipment stats when collected from a closed merchant [V-off N6]. For the first week, sell **only scrolls, stars and ETCs** through it, not scrolled equipment.
-- **If it isn't sold:** there's no overnight selling. Skip this section. Don't use workarounds.
-- **The farmer as "FM merchant":** your farmer and Assassin share one account, and one account can only have one character logged in at a time [B legacy behaviour; not addressed by Nexon]. So the farmer can't sit in a shop while you play the Assassin. Its merchant role is **the offline Hired Merchant (if sold), or Store Permit sessions while the Assassin is logged off**. A shop on a second account with a second client is a gray area: don't do it without a written OK from Nexon (V-16, V-29).
+### 2.3 Overnight selling: **Store Permit shop with the client left running** (0.6.3)
+The Founder's Access Cash Shop has **no Hired Merchant** [V-off CMS 45819, 2026-10-05], so there's no offline vending. You've said you can leave the game running overnight, so the overnight shop is a **Store Permit shop on the I/L, logged in and idle**:
+- **Where:** an **FM room**, never a field. A Store Permit shop **closes if a monster attacks you** [V-off CMS 45819], and the FM has no monsters.
+- **Permit:** an 18-slot Pink or Fall Store Permit (3,000 NX, 90 days) rather than the 12-slot Regular (1,500 NX).
+- **Prices:** stock it with your R3 listings (1.15–1.30 × M7). Overnight buyers are price-takers, so don't undercut.
+- **Before you log off:** clear the shop of anything you'd want to hold through a price spike, and log the asks you see in the room (the morning comparison needs them).
+- **Morning:** close the shop, log what sold (as `sale` rows in the price log), and restock during your next session.
+- **First night is a test (V-42):** does Classic have an **idle disconnect**, and what happens to listed items and mesos if the client disconnects or a maintenance hits? Note it; if the shop closes after N minutes idle, overnight selling only covers those N minutes.
+- **ToS line:** leaving a shop open while logged in and idle is not botting. **Don't** use anything that keeps the character "active" (auto-clickers, key-repeaters, anti-AFK tools); if there's an idle disconnect, accept it [V-off N9].
+- **One account, one character online** [B legacy behaviour]: the overnight shop runs on the I/L only while you're not playing the Assassin. A shop on a second account with a second client is a gray area: don't do it without a written OK from Nexon (V-16, V-29).
+- If a Hired Merchant is added later (V-8), switch to it: it doesn't need the client running.
 
 ---
 
